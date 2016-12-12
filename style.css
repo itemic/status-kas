@@ -1,0 +1,114 @@
+body {
+	background-color: #474747;
+	color: white;
+	font-size: 24px;
+}
+
+* {
+	font-family: Roboto, sans-serif;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+} 
+/*http://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3/25517025#25517025*/
+/* TIME/CLOCK */
+#time {
+	font-size: 96px;
+	font-weight: 500;
+	line-height: 95%;
+}
+
+#ampm {
+	font-weight: 300;
+	font-size: 24px;
+	color: #BBBBBB;
+}
+
+#cal {
+	font-size:28px;
+	color: #AAAAAA;
+}
+
+.data-header {
+	color: #AAAAAA;
+	font-size: 24px;
+	font-weight: 300;
+}
+
+.small-text {
+
+}
+
+.data {
+	font-size: 48px;
+	color: white;
+	font-weight: 800;
+	line-height: 95%;
+}
+
+.data-air {
+	font-size: 24px;
+}
+
+#n-ticker li {
+	font-size: 32px;
+	font-weight: 300;
+}
+
+.icon {
+	font-size: 96px;
+}
+
+/*AQI */
+/*PM2.5 Color Code*/
+.pm-low {
+	color: #26A65B;
+}
+
+.pm-med {
+	color: #E87E04;
+}
+
+.pm-high {
+	color: #CF000F;
+}
+
+.pm-vhigh {
+	color: #CF000F;
+	font-weight: bold;
+}
+
+/*AQI Color Code*/
+/*Air Quality*/
+.air-good {
+	color: #26A65B;
+}
+
+.air-moderate {
+	color: #E87E04;
+}
+
+.air-unhealthsensitive {
+	color: #F7CA18;
+}
+
+.air-unhealthy {
+	color: #CF000F;
+}
+
+.air-veryunhealthy {
+	color: #663399;
+	font-weight: bold;
+}
+
+.air-hazardous {
+	color: #96281B;
+	font-weight: bold;
+}
+
+/*SOME BOOTSTRAP STUFF*/
+.margin-spacing {
+	margin-top: 25px;
+}
