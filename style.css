@@ -6,6 +6,7 @@ body {
 
 * {
 	font-family: Roboto, sans-serif;
+	/*overflow: hidden;*/
 }
 
 .vertical-align {
@@ -15,7 +16,7 @@ body {
 /*http://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3/25517025#25517025*/
 /* TIME/CLOCK */
 #time {
-	font-size: 96px;
+	font-size: 108px;
 	font-weight: 500;
 	line-height: 95%;
 }
@@ -49,16 +50,17 @@ body {
 }
 
 .data-air {
-	font-size: 24px;
+	font-size: 36px;
 }
 
 #n-ticker li {
 	font-size: 32px;
+	line-height: 80%;
 	font-weight: 300;
 }
 
 .icon {
-	font-size: 96px;
+	font-size: 64px;
 }
 
 /*AQI */
@@ -87,11 +89,11 @@ body {
 }
 
 .air-moderate {
-	color: #E87E04;
+	color: #f1c40f;
 }
 
 .air-unhealthsensitive {
-	color: #F7CA18;
+	color: #F89406;
 }
 
 .air-unhealthy {
@@ -108,7 +110,35 @@ body {
 	font-weight: bold;
 }
 
+/*CALENDAR*/
+.caldate {
+	color: #d3d3d3;
+	font-size: 28px;
+	line-height: 95%;
+	font-weight: 300;
+}
+
+.calevent {
+	font-size: 32px;
+	line-height: 90%;
+}
+
+.today {
+	font-weight: 700;
+}
+
+/*VID*/
+div.canvas > video {
+	display: block;
+	margin: auto;
+}
+
 /*SOME BOOTSTRAP STUFF*/
 .margin-spacing {
-	margin-top: 25px;
+	margin-top: 10px;
 }
+
+.icon-spacing {
+	margin-left: 2px;
+}
+

@@ -1,11 +1,9 @@
 const dayOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+// const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
-window.setUp = function() {
-	myTime
-}
 
-window.myTime = function() {
+function myTime() {
     var today = new Date();
     var hh = today.getHours();
     var mm = today.getMinutes();
@@ -39,15 +37,16 @@ window.myTime = function() {
     }
     // ------ ------ ------ ------ ------ //
 	clock = hh + ":" + mm; // no seconds
-	clock = hh + ":" + mm + ":" + ss;
+	// clock = hh + ":" + mm + ":" + ss;
 
 	var calendar = day +", " + month + " " + date + suffix + ", " + year;
     if (ap) {
+    	// ap = ":"+ss + " " +ap;
     	document.getElementById("ampm").textContent=ap;
     }
     document.getElementById("time").textContent=clock;
     document.getElementById("cal").textContent = calendar;
-    var timeout = setTimeout(myTime, 200);
+
     updateSchedule();
 
     // only actually change the content on the hour
@@ -59,6 +58,7 @@ window.myTime = function() {
 function updateSchedule() {
 	document.getElementById("ms").textContent = new Schedule(schedule).currentBlock("MS");
     document.getElementById("hs").textContent = new Schedule(schedule).currentBlock("HS");
+
 }
 
 function Schedule(schedule) {
@@ -66,7 +66,6 @@ function Schedule(schedule) {
 
 	this.currentBlock = function(division) {
 		var today = new Date();
-
 		// only update schedule once a minute
 
 
@@ -93,12 +92,12 @@ function Schedule(schedule) {
 	}
 }
 
-function testOut() {
-	// var block = schedule["mondayHS"]
-	var sc = new Schedule(schedule);
-	console.log(sc.currentBlock("HS"));
+// function testOut() {
+// 	// var block = schedule["mondayHS"]
+// 	var sc = new Schedule(schedule);
+// 	console.log(sc.currentBlock("HS"));
 
-}
+// }
 
 
 
@@ -255,18 +254,13 @@ function parseTimeString(timeStr) {
 	if (timeStr.length == 4) {
 		var hour = timeStr[0];
 		var min = timeStr.slice(2,4);
-		// console.log(hour);
-		// console.log(min);
 	} else {
 		var hour = timeStr.slice(0,2);
 		var min = timeStr.slice(3, 5);
-		// console.log(hour);
-		// console.log(min);
 	}
 
 	var today = new Date();
 	today.setHours(hour, min, 0, 0);
-	// console.log(today);
 	return today;
 }
 
