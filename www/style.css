@@ -123,6 +123,19 @@ body {
 	line-height: 90%;
 }
 
+/*FOR TWITTER*/
+.twuser {
+	color: #d3d3d3;
+	font-size: 18px;
+	line-height: 95%;
+	font-weight: 300;
+}
+
+.twtweet {
+	font-size: 24px;
+	line-height: 80%;
+}
+
 .today {
 	font-weight: 700;
 }

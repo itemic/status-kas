@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<title>KAS Live</title>
-	<link href="assets/css/bootstrap-theme.css" rel="stylesheet">
+	<link href="../assets/css/bootstrap-theme.css" rel="stylesheet">
 
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 
@@ -15,17 +15,17 @@
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 
 
-	<script src="assets/js/time.js" ></script>
-	<script src="assets/js/weather.js" ></script>
+	<script src="../assets/js/time.js" ></script>
+	<script src="../assets/js/weather.js" ></script>
 	<!-- <script src="assets/js/calendar.js" ></script> -->
-	<script src="assets/js/airquality.js" ></script>
-	<script src="assets/js/mediaplay.js" ></script>
-	<script src="assets/js/jquery.vticker.min.js"></script>
-	<script src="assets/js/unslider-master/src/js/unslider.js"></script>
+	<script src="../assets/js/airquality.js" ></script>
+	<script src="../assets/js/mediaplay.js" ></script>
+	<script src="../assets/js/jquery.vticker.min.js"></script>
+	<script src="../assets/js/unslider-master/src/js/unslider.js"></script>
 
-	<link rel="stylesheet" href="assets/js/unslider-master/dist/css/unslider.css">
-	<link rel="stylesheet" href="assets/css/weather-icons.css">
-	<link rel="stylesheet" href="assets/js/unslider-master/dist/css/unslider-dots.css">
+	<link rel="stylesheet" href="../assets/js/unslider-master/dist/css/unslider.css">
+	<link rel="stylesheet" href="../assets/css/weather-icons.css">
+	<link rel="stylesheet" href="../assets/js/unslider-master/dist/css/unslider-dots.css">
 
 
 	<!-- Latest compiled and minified CSS -->
@@ -39,19 +39,19 @@
 
 	<link rel="stylesheet" type="text/css" href="style.css">
 
-	<script src="assets/js/tabletop-master/src/tabletop.js"></script>
-	<script src="assets/js/underscore.js"></script>
-	<script src="assets/js/jquery.webticker.min.js"></script>
+	<script src="../assets/js/tabletop-master/src/tabletop.js"></script>
+	<script src="../assets/js/underscore.js"></script>
+	<script src="../assets/js/jquery.webticker.min.js"></script>
 	<script src="https://use.fontawesome.com/31f4a97978.js"></script>
 	
 	
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid" style="height: 100%">
 		<div class="row margin-spacing">
 			<div class="col-md-9">
-				<div class="row">
-					<img src="assets/media/kas.png" class="img-responsive center-block" alt="kas logo" style="width:22.5%"/>
+				<div class="row" style="height:5%">
+					<img src="../assets/media/kas.png" class="img-responsive center-block" alt="kas logo" style="width:22.5%"/>
 
 					</div>
 				<div class="row vertical-align">
@@ -94,6 +94,16 @@
 						<span class="data" id="temp"></span><span class="data-header">°C</span><br>
 					</div>
 				</div>
+				<div class="row margin-spacing icon-spacing text-left" >
+					<div class="icon col-md-3">
+						<i class="fa fa-calendar"></i>
+					</div>
+					<div class="col-md-9">
+						<div class="slider" id="calendar-block">
+							CALENDAR
+						</div>
+					</div>
+				</div>
 				<div class="row margin-spacing icon-spacing">
 					<div class="icon col-md-3">
 						<i class="fa fa-twitter" aria-hidden="true"></i>
@@ -105,16 +115,7 @@
 					</div>
 
 				</div>
-				<div class="row margin-spacing icon-spacing text-left" >
-					<div class="icon col-md-3">
-						<i class="fa fa-calendar"></i>
-					</div>
-					<div class="col-md-9">
-						<div class="slider" id="calendar-block">
-							CALENDAR
-						</div>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 
@@ -163,19 +164,7 @@ foreach ($results['statuses'] as $search) {
 	echo substr($tweet_string, 0, -2)."];</script>";
 ?>  
 
-<script>
-// console.log(tweetArray);
-// console.log(userArray);
-// var tweethtml = "<ul class='slider'>"
-// // for (tweet in tweetArray) {
-// // 	tweethtml = tweethtml + "<span style='font-weight: bold; font-size: 16px; line-height: 50%'>@" + userArray[tweet] + "</span><br>" + "<span style='color:white;'>" + tweetArray[tweet] + "</span><br>";
-// // }
-// for (tweet in tweetArray) {
-// 	tweethtml = tweethtml + "<li class='eventitem'>" + tweetArray[tweet] + "<br>@" + userArray[tweet] + "</li>";
-// }
-// tweethtml = tweethtml + "</ul>"
-// $('#twt').html(tweethtml);
-</script>
+
 
 <script>
 	// twitticker
@@ -184,8 +173,8 @@ foreach ($results['statuses'] as $search) {
 	for (tweet in tweetArray) {
 		// alert("this a thingo");
 		twtext += "<li class='eventitem' style='word-wrap: break-word'>";
-		twtext += "<span style='font-size: 16px; line-height=55%; font-weight: bold'>@" + userArray[tweet] + "</span><br>"
-		twtext += tweetArray[tweet];
+		twtext += "<span class='twuser'>@" + userArray[tweet] + "</span><br>"
+		twtext += "<span class='twtweet'>" + tweetArray[tweet] + "</span>";
 		twtext += "</li>";
 	}
 	twtext += "</ul>";
@@ -247,7 +236,7 @@ foreach ($results['statuses'] as $search) {
 
 
 		// echo scandir();
-		$dir = "assets/media/";
+		$dir = "../assets/media/";
 		$files = scandir($dir);
 		// $files = scandir("http://kas.tw/");
 		unset($files[0], $files[1]);
@@ -277,7 +266,7 @@ foreach ($results['statuses'] as $search) {
 		// SECTION FOR WORKING ON CANVAS
 		// http://stackoverflow.com/questions/13807788/web-based-fullscreen-slideshow-with-video-elements (cc-by-sa 3.0)
 
-		var mediaDir = "/assets/media/"
+		var mediaDir = "../assets/media/"
 		var canvas = $('#canvas');
 		var imgsrc = '<img src="$" alt="" class="img-responsive center-block"/>';
 		var imgDuration = 5000; //ms
@@ -310,11 +299,14 @@ foreach ($results['statuses'] as $search) {
 		  	$.each(data, function(index, item) {
 		  		newArray.push(data[index].Announcements)
 		  	})
-		  	array.sort();
-		  	newArray.sort();
-		  	if(_.isEqual(array, newArray)) {
+		  	// array.sort();
+		  	// newArray.sort();
+
+		  	if(_.isEqual(array.slice(0).sort(), newArray.slice(0).sort())) {
+		  		// alert("isEqual")	
 		  	} else {
 		  		array = newArray;
+		  		// alert("isnot")
 		  		callTicker();
 		  	}
 		  }
@@ -322,7 +314,7 @@ foreach ($results['statuses'] as $search) {
 		  function callTicker() {
 		  	var html = ""
 		  	$.each(array, function(index, item) {
-		  		html += "<li> | " + array[index] + "</li>"
+		  		html += "<li> &nbsp;&nbsp;&nbsp;&nbsp; " + array[index] + "</li>"
 		  	})
 		 		// $('#tickers').html("");
 		 		$('#n-ticker').append(html);
@@ -341,7 +333,7 @@ foreach ($results['statuses'] as $search) {
 <script>
 var calendarKey = "kas.kh.edu.tw_iv193c4dfh6prrut4cn5f1k8h4@group.calendar.google.com";
 var APIkey = "AIzaSyAhLZQoSUvAJrXgpqNlilhgcxng1tAuj4o";
-var numOfResults = 15;
+var numOfResults = 10;
 
 var calJson = "https://www.googleapis.com/calendar/v3/calendars/" + calendarKey + "/events?key=" + APIkey + "&timeMin=" + new Date().toISOString() + "&maxResults=" + numOfResults + "&singleEvents=true&orderBy=startTime";
 
@@ -386,9 +378,7 @@ function getCal() {
 
 // getCal();
 </script>
-<script>
 
-</script>
 <script>
 
 
@@ -405,7 +395,8 @@ function getCal() {
 			autoplay: true,
 			infinite: true,
 			arrows: false,
-			nav: false,
+			// nav: false,
+			delay: 4500
 		});
 		}, 500);  // no idea why cant load normally
 
@@ -414,17 +405,17 @@ function getCal() {
 			autoplay: true,
 			infinite: true,
 			arrows: false,
-			nav: false,
-			delay: 4500,
+			// nav: false,
+			delay: 8000,
 			animation: 'fade',
 			animateHeight: true
 		});
 		}, 500);  
-		
-
+		startTicker();
+		updateSchedule();
 		var timeUpdate = setInterval(myTime, 200);
 		var aqiRefresh = setInterval(getAQI, 1000 * 1800); //update every half hour
-		var tickerRefresh = setInterval(init, 1000 * 600); //10 min update interval
+		var tickerRefresh = setInterval(startTicker, 1000 * 60 * 10); //10 min update interval *one minute for testing
 		var weatherRefresh = setInterval(getWeather, 1000 * 1200); //20 min update interval
 		
 		// var calendarRefresh = setInterval(getCal, 1000 * 3600 * 4); // unlikely that this needs to be updated frequently
