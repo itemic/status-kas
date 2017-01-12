@@ -355,6 +355,7 @@ foreach ($results as $search) {
 	$now = gmdate("Y-m-d\TH:i:s\Z");
 	$cal_entries = 10;
 	$cal_link = "https://www.googleapis.com/calendar/v3/calendars/$calendar/events?key=$cal_apikey&timeMin=$now&maxResults=$cal_entries&singleEvents=true&orderBy=startTime";
+	echo $cal_link; //testing
 	$results = json_decode(file_get_contents($cal_link), true);
 
 	$cal_event = "<script> var eventName = [";
@@ -378,6 +379,29 @@ foreach ($results as $search) {
 ?>
 
 <script>
+function addDays(date, days) {
+	var result = new Date(date);
+	result.setDate(result.getDate() + days)
+	return result;
+}
+
+function cmprDate(start, length) {
+	var today = new Date();
+	var end = addDays(start, length);
+
+	today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+	start = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+	end = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+
+	if (start === today) {
+		return true;
+	}
+	if ((start < today) && (today <= end)) {
+		return true;
+	}
+	return false;
+}
+
 function getCal() {
 	var calText = "<ul>"
 	var isBreak = true;
@@ -388,10 +412,16 @@ function getCal() {
 		}
 		var startDate = new Date(eventStart[evt]);
 		var endDate = new Date(eventEnd[evt]);
-		if (startDate.getFullYear() === today.getFullYear() &&
-			startDate.getMonth() === today.getMonth() &&
-			startDate.getDate() === today.getDate()) {
-				calText += "<span class='caldate today'>" + eventStart[evt] + "</span><br>";
+		var deltaDays = (endDate - startDate)/(1000*60*60*24) - 1;
+		var isMultiDayEvent = (deltaDays > 0);
+		var lastDate = addDays(startDate, deltaDays).toLocaleDateString('en-US');
+		// alert(endDate + " " + addDays(startDate, deltaDays));
+		if (cmprDate(startDate, deltaDays	)) {
+			if (isMultiDayEvent) {
+				calText += "<span class='caldate today'>" + startDate.toLocaleDateString('en-US') + " to " + lastDate + "</span><br>";
+			} else {
+				calText += "<span class='caldate today'>" + startDate.toLocaleDateString('en-US') + "</span><br>";				
+			}
 				calText += "<span class='calevent today'>" + eventName[evt] + "</span><br>";
 				if (isBreak) {
 					calText += "<br>";
@@ -401,7 +431,12 @@ function getCal() {
 					isBreak = true;
 				}
 		} else {
-			calText += "<span class='caldate'>" + eventStart[evt] + "</span><br>";
+			if (isMultiDayEvent) {
+				calText += "<span class='caldate'>" + startDate.toLocaleDateString('en-US') + " to " + lastDate + "</span><br>";
+			} else {
+				calText += "<span class='caldate'>" + startDate.toLocaleDateString('en-US') + "</span><br>";
+			}
+			
 			calText += "<span class='calevent'>" + eventName[evt] + "</span><br>";
 			if (isBreak) {
 				calText += "<br>";
