@@ -121,9 +121,8 @@
 
 	</div>
 
-<!-- get ready for twitter -->
-	<script></script>
-	<?php
+
+<?php
 ini_set('display_errors', 1);
 require_once('TwitterAPIExchange.php');
 /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
@@ -139,8 +138,15 @@ $settings = array(
 
 /** Perform a GET request and echo the response **/
 /** Note: Set the GET field BEFORE calling buildOauth(); **/
-$url = 'https://api.twitter.com/1.1/search/tweets.json';
-$getfield = '?q=#KASTW';
+// $url = 'https://api.twitter.com/1.1/search/tweets.json';
+// $getfield = '?q=#KASTW'; (API for tweets only is DIFFERENT)
+$url = 'https://api.twitter.com/1.1/lists/statuses.json';
+
+$slug = "kaohsiung-american-school";
+$owner = "VictorBoulanger";
+$include_rts = "false";
+// $getfield = '?slug=kaohsiung-american-school&owner_screen_name=VictorBoulanger&include_rts=false';
+$getfield = "?slug=$slug&owner_screen_name=$owner&include_rts=$include_rts";
 $requestMethod = 'GET';
 
 $twitter = new TwitterAPIExchange($settings);
@@ -151,15 +157,25 @@ $response = $twitter->setGetfield($getfield)
 // var_dump(json_decode($response));
 
 $results = json_decode($response, true);
-$tweet_string = "<script> var tweetArray =[";
+$hashtags_to_show = ["KAStw", "KAStech"];
+$hashtags_to_show = array_map('strtolower', $hashtags_to_show);
+$tweet_string = "<script>var tweetArray =[";
 $user_string = "<script>var userArray =[";
-foreach ($results['statuses'] as $search) {
-    $tweet = $search['text'];
-    $username = $search['user']['screen_name'];
-    $tweet_string .="'$tweet', ";
-    $user_string .="'$username', ";
+foreach ($results as $search) {
+	$entityhashtags = $search['entities']['hashtags'];
+	foreach ($entityhashtags as $hashtag) {
+		if(in_array(strtolower($hashtag['text']), $hashtags_to_show)) {
+		    $tweet = addslashes($search['text']);
+		    $tweet = preg_replace('~[\r\n]+~', ' ', $tweet);
+		    $username = addslashes($search['user']['screen_name']);
+		    $tweet_string .="'$tweet', ";
+		    $user_string .="'$username', ";
+  			break;
+		}
+	}
 
-}	
+
+}
 	echo substr($user_string, 0, -2)."];</script>";
 	echo substr($tweet_string, 0, -2)."];</script>";
 ?>  
@@ -167,10 +183,10 @@ foreach ($results['statuses'] as $search) {
 
 
 <script>
+
 	// twitticker
-	// alert(tweetArray);
 	var twtext = "<ul>";
-	for (tweet in tweetArray) {
+	for (tweet in userArray) {
 		// alert("this a thingo");
 		twtext += "<li class='eventitem' style='word-wrap: break-word'>";
 		twtext += "<span class='twuser'>@" + userArray[tweet] + "</span><br>"
@@ -346,8 +362,14 @@ function getCal() {
 		dataType: "jsonp",
 		success: function(caldata) {
 			var calText = "<ul>"
+			var isBreak = true; //show two events at once so don't end the <li> yet
 			for (evt in caldata.items) {
-				calText+="<li class='eventitem' style='word-wrap: break-word'>";
+				if (isBreak) {
+					calText+="<li class='eventitem' style='word-wrap: break-word'>";	
+				} else {
+
+				}
+				
 				var eventName = caldata.items[evt].summary;
 				var eventDate = caldata.items[evt].start.date;
 				var evtDate = new Date(eventDate);
@@ -358,14 +380,30 @@ function getCal() {
 					
 					calText += "<span class='caldate today'>" + eventDate + "</span><br>";
 					calText += "<span class='calevent today'>" + eventName + "</span><br>";
-					calText += "</li>";
+					if (isBreak) {
+						calText += "<br>";
+						isBreak = false;
+					} else {
+						calText += "</li>";	
+						isBreak = true;
+					}
+					
 
 				} else {
 					calText += "<span class='caldate'>" + eventDate + "</span><br>";
 					calText += "<span class='calevent'>" + eventName + "</span><br>";
-					calText += "</li>";
+					if (isBreak) {
+						calText += "<br>";
+						isBreak = false;
+					} else {
+						calText += "</li>";	
+						isBreak = true;
+					}
 				}
 				
+			}
+			if (isBreak) {
+				calText += "</li>";
 			}
 			calText += "</ul>"
 			$('#calendar-block').html(calText);
