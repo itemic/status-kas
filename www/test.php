@@ -121,16 +121,19 @@
 
 	</div>
 
+<?php
+require_once('keys.php');	
+?>
 
 <?php
 ini_set('display_errors', 1);
 require_once('TwitterAPIExchange.php');
 /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
 $settings = array(
-    'oauth_access_token' => "757478231159169024-R8wjOyBYCEalHEpOVEFmgchgVLxpekj",
-    'oauth_access_token_secret' => "XoTxDYe5NHxOCUqUKrOsO5vVaB8iexRCJRasEOOUQvxAC",
-    'consumer_key' => "5WGB7905kZtoh2DqjAUwhJoSP",
-    'consumer_secret' => "ygX5KtBGwjRoVNFCfJwGPiNOusWzI8ZFl7YneVl3jXmB6Jxnkf"
+    'oauth_access_token' => $oauth_token,
+    'oauth_access_token_secret' => $oauth_secret,
+    'consumer_key' => $cons_key,
+    'consumer_secret' => $cons_secret
 );
 // will have to hide all these keys somehow in the future
 
@@ -346,81 +349,79 @@ foreach ($results as $search) {
 			});
 
 		 </script>
+
+
+<?php
+	$now = gmdate("Y-m-d\TH:i:s\Z");
+	$cal_entries = 10;
+	$cal_link = "https://www.googleapis.com/calendar/v3/calendars/$calendar/events?key=$cal_apikey&timeMin=$now&maxResults=$cal_entries&singleEvents=true&orderBy=startTime";
+	$results = json_decode(file_get_contents($cal_link), true);
+
+	$cal_event = "<script> var eventName = [";
+	$cal_start = "<script> var eventStart = [";
+	$cal_end = "<script> var eventEnd = [";
+
+	foreach ($results["items"] as $cal_item) {
+		$evt_name = addslashes($cal_item["summary"]);
+		$evt_name = preg_replace('~[\r\n]+~', ' ', $evt_name);
+		$evt_start = $cal_item["start"]["date"];
+		$evt_end = $cal_item["end"]["date"];
+
+		$cal_event .= "'$evt_name',";
+		$cal_start .= "'$evt_start',";
+		$cal_end .= "'$evt_end',";
+	}
+	echo substr($cal_event, 0, -2)."'];</script>";
+	echo substr($cal_start, 0, -2)."'];</script>";
+	echo substr($cal_end, 0, -2)."'];</script>";
+
+?>
+
 <script>
-var calendarKey = "kas.kh.edu.tw_iv193c4dfh6prrut4cn5f1k8h4@group.calendar.google.com";
-var APIkey = "AIzaSyAhLZQoSUvAJrXgpqNlilhgcxng1tAuj4o";
-var numOfResults = 10;
-
-var calJson = "https://www.googleapis.com/calendar/v3/calendars/" + calendarKey + "/events?key=" + APIkey + "&timeMin=" + new Date().toISOString() + "&maxResults=" + numOfResults + "&singleEvents=true&orderBy=startTime";
-
-
-// console.log(calJson);
-
 function getCal() {
-	$.ajax({
-		url: calJson,
-		dataType: "jsonp",
-		success: function(caldata) {
-			var calText = "<ul>"
-			var isBreak = true; //show two events at once so don't end the <li> yet
-			for (evt in caldata.items) {
-				if (isBreak) {
-					calText+="<li class='eventitem' style='word-wrap: break-word'>";	
-				} else {
-
-				}
-				
-				var eventName = caldata.items[evt].summary;
-				var eventDate = caldata.items[evt].start.date;
-				var evtDate = new Date(eventDate);
-				var today = new Date();
-				if (evtDate.getFullYear() === today.getFullYear() &&
-					evtDate.getMonth() === today.getMonth() &&
-					evtDate.getDate() === today.getDate()) {
-					
-					calText += "<span class='caldate today'>" + eventDate + "</span><br>";
-					calText += "<span class='calevent today'>" + eventName + "</span><br>";
-					if (isBreak) {
-						calText += "<br>";
-						isBreak = false;
-					} else {
-						calText += "</li>";	
-						isBreak = true;
-					}
-					
-
-				} else {
-					calText += "<span class='caldate'>" + eventDate + "</span><br>";
-					calText += "<span class='calevent'>" + eventName + "</span><br>";
-					if (isBreak) {
-						calText += "<br>";
-						isBreak = false;
-					} else {
-						calText += "</li>";	
-						isBreak = true;
-					}
-				}
-				
-			}
-			if (isBreak) {
-				calText += "</li>";
-			}
-			calText += "</ul>"
-			$('#calendar-block').html(calText);
-			// alert(calText);
-			// document.getElementById('calendar-block').html=calText;
-
+	var calText = "<ul>"
+	var isBreak = true;
+	var today = new Date();
+	for (evt in eventName) {
+		if (isBreak) {
+			calText+="<li class='eventitem' style='word-wrap: break-word'>"
 		}
-	});
-}
+		var startDate = new Date(eventStart[evt]);
+		var endDate = new Date(eventEnd[evt]);
+		if (startDate.getFullYear() === today.getFullYear() &&
+			startDate.getMonth() === today.getMonth() &&
+			startDate.getDate() === today.getDate()) {
+				calText += "<span class='caldate today'>" + eventStart[evt] + "</span><br>";
+				calText += "<span class='calevent today'>" + eventName[evt] + "</span><br>";
+				if (isBreak) {
+					calText += "<br>";
+					isBreak = false;
+				} else {
+					calText += "</li>";	
+					isBreak = true;
+				}
+		} else {
+			calText += "<span class='caldate'>" + eventStart[evt] + "</span><br>";
+			calText += "<span class='calevent'>" + eventName[evt] + "</span><br>";
+			if (isBreak) {
+				calText += "<br>";
+				isBreak = false;
+			} else {
+				calText += "</li>";	
+				isBreak = true;
+			}
+		}
 
-// getCal();
+	}
+		if (isBreak) {
+			calText += "</li>";
+		}
+		calText += "</ul>"
+		$('#calendar-block').html(calText);
+}
 </script>
 
 <script>
-
-
-	;
 	$(document).ready(function() {
 		myTime();
 		startTicker();
