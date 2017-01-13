@@ -47,7 +47,8 @@
 	
 </head>
 <body>
-	<div class="container-fluid" style="height: 100%">
+
+<div class="container-fluid" style="height: 100%">
 		<div class="row margin-spacing">
 			<div class="col-md-9">
 				<div class="row" style="height:5%">
@@ -120,6 +121,20 @@
 		</div>
 
 	</div>
+<?php
+	// $fullscreen = '<div class="container-fluid" style="height: 100%"><div class="col-md-12 text-center embed-responsive embed-responsive-16by9">
+	// 					<div id="canvas"><!-- VIDEO --></div>
+	// 				</div></div>';
+?>
+
+<?php
+	// if ($fullscreen_mode) {
+	// 	echo $standard;
+	// } else {
+	// 	echo $fullscreen;
+	// }
+?>
+	
 
 	<?php
 	require_once('keys.php');	
@@ -216,29 +231,7 @@
 </script>
 
 <script>
-	// YouTube loading
-	var yttag = document.createElement('script');
-	yttag.src = 'https://www.youtube.com/iframe_api';
-	var firstScriptTag = document.getElementsByTagName('script')[0];
-	firstScriptTag.parentNode.insertBefore(yttag, firstScriptTag);
-		// console.log(document.getElementsByTagName('script')[0]);
-
-		var isYTready=false;
-
-		function onYouTubeIframeAPIReady() {
-			// alert("BANG");
-			isYTready=true;
-		}
-
-		function onPlayerReady(event) {
 			
-		}
-
-		function onPlayerStateChange(event) {
-			if (event.data == 0) {
-				playMedia();
-			}
-		}		
 	</script>
 	<?php
 
@@ -268,6 +261,20 @@
 
 	$valid_extension = array("png", "jpg", "jpeg", "mov", "mp4", "m4v");
 	$mediaplayer_str = "<script> var content = [";
+
+	// Durations
+	$duration_str = "<script>";
+	$duration_str.="var imgDuration=$image_duration;";
+	if ($slides_canvas) {
+		$mediaplayer_str.="'$slides_canvas', ";
+		$total_slide_time = $number_of_slides * $slide_duration;
+		$duration_str.="slidesDuration = $total_slide_time;";
+	} else {
+		$duration_str.="slidesDuration = 0;";
+	}
+	$duration_str.= "</script>";
+	echo $duration_str;
+
 	foreach ($media_objects as $media_file) {
 		$ext = pathinfo($media_file, PATHINFO_EXTENSION);
 		// echo $ext;
@@ -283,7 +290,7 @@
 		if ($yid) {
 			// it's a youtube link
 			$youtube_link = "http://www.youtube.com/embed/$yid";
-			echo $youtube_link;
+			// echo $youtube_link;
 			$mediaplayer_str.="'$youtube_link', ";
 		}
 	}
@@ -295,11 +302,8 @@
 
 		// SECTION FOR WORKING ON CANVAS
 		// http://stackoverflow.com/questions/13807788/web-based-fullscreen-slideshow-with-video-elements (cc-by-sa 3.0)
-		// content.push("http://docs.google.com/presentation/d/1BXimfuzoYSf-9dRwqtAD8f0SH5uJsmnzHe0lGFKW7WM/embed?start=true&loop=false&delayms=3000"); //put this in config
-		var mediaDir = "../assets/media/"
 		var canvas = $('#canvas');
 		var imgsrc = '<img src="$" alt="" class="img-responsive center-block"/>';
-		var imgDuration = 5000; //ms
 		var vidsrc = '<video autoplay class="embed-responsive-item"><source src="$" type="video/mp4"></source></video>';
 		var ytsrc = '<iframe id="yt" src="$"></iframe>'
 		var gssrc = '<iframe src="$"></iframe>'
@@ -511,7 +515,12 @@
 	// 
 	
 </script>
-<script></script>
+
+<!-- <script>
+	$(document).ready(function() {
+		playMedia();
+	})
+</script> -->
 
 </body>
 </html>

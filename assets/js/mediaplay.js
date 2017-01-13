@@ -56,8 +56,28 @@ function playMedia() {
 
 		if (file.includes("docs.google.com")) {
 			//presentation :o
-			setTimeout(function() {playMedia();}, imgDuration);
+			setTimeout(function() {playMedia();}, slidesDuration);
 		}
 	}
 }
 }
+
+
+// YouTube loading
+	var yttag = document.createElement('script');
+	yttag.src = 'https://www.youtube.com/iframe_api';
+	var firstScriptTag = document.getElementsByTagName('script')[0];
+	firstScriptTag.parentNode.insertBefore(yttag, firstScriptTag);
+		// console.log(document.getElementsByTagName('script')[0]);
+
+		var isYTready=false;
+
+		function onYouTubeIframeAPIReady() {
+			isYTready=true;
+		}
+
+		function onPlayerStateChange(event) {
+			if (event.data == 0) {
+				playMedia();
+			}
+		}
