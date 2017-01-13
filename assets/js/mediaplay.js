@@ -76,6 +76,10 @@ function playMedia() {
 			isYTready=true;
 		}
 
+		function onPlayerReady(event) {
+			
+		}
+
 		function onPlayerStateChange(event) {
 			if (event.data == 0) {
 				playMedia();
