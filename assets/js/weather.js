@@ -12,7 +12,7 @@ function getWeather() {
 			var icon = "wi-owm-"+currentWeather;
 			if (currentWeather== 701) {icon = "wi-fog";} //API for "mist isn't best fit I don't think
 			var iconhtml = '<i class="wi ' + icon + '"></i>';
-			console.log(currentWeather);
+			// console.log(currentWeather);
 			// $('#temp').html(currentTemperature);
 			document.getElementById('temp').textContent=currentTemperature;
 			document.getElementById('weathericon').innerHTML=iconhtml;

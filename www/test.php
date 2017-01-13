@@ -51,9 +51,9 @@
 		<div class="row margin-spacing">
 			<div class="col-md-9">
 				<div class="row" style="height:5%">
-					<img src="../assets/media/kas.png" class="img-responsive center-block" alt="kas logo" style="width:22.5%"/>
+					<img src="../assets/pics/topbanner.png" class="img-responsive center-block" alt="kas logo" style="width:55%"/>
 
-					</div>
+				</div>
 				<div class="row vertical-align">
 					<div class="text-center news-ticker" id="n-ticker">COOL NEWS TICKER</div>
 				</div>
@@ -121,71 +121,84 @@
 
 	</div>
 
-<?php
-require_once('keys.php');	
-?>
+	<?php
+	require_once('keys.php');	
+	require_once('config.php');	
+	?>
 
-<?php
-ini_set('display_errors', 1);
-require_once('TwitterAPIExchange.php');
-/** Set access tokens here - see: https://dev.twitter.com/apps/ **/
-$settings = array(
-    'oauth_access_token' => $oauth_token,
-    'oauth_access_token_secret' => $oauth_secret,
-    'consumer_key' => $cons_key,
-    'consumer_secret' => $cons_secret
-);
+	<?php
+	ini_set('display_errors', 1);
+	require_once('TwitterAPIExchange.php');
+	/** Set access tokens here - see: https://dev.twitter.com/apps/ **/
+	$settings = array(
+		'oauth_access_token' => $oauth_token,
+		'oauth_access_token_secret' => $oauth_secret,
+		'consumer_key' => $cons_key,
+		'consumer_secret' => $cons_secret
+		);
 // will have to hide all these keys somehow in the future
 
 // 
 
-/** Perform a GET request and echo the response **/
-/** Note: Set the GET field BEFORE calling buildOauth(); **/
+	/** Perform a GET request and echo the response **/
+	/** Note: Set the GET field BEFORE calling buildOauth(); **/
 // $url = 'https://api.twitter.com/1.1/search/tweets.json';
 // $getfield = '?q=#KASTW'; (API for tweets only is DIFFERENT)
-$url = 'https://api.twitter.com/1.1/lists/statuses.json';
+	$url = 'https://api.twitter.com/1.1/lists/statuses.json';
+	$getfield = "?slug=$twitter_slug&owner_screen_name=$twitter_owner&include_rts=$include_rts";
+	$requestMethod = 'GET';
 
-$slug = "kaohsiung-american-school";
-$owner = "VictorBoulanger";
-$include_rts = "false";
-// $getfield = '?slug=kaohsiung-american-school&owner_screen_name=VictorBoulanger&include_rts=false';
-$getfield = "?slug=$slug&owner_screen_name=$owner&include_rts=$include_rts";
-$requestMethod = 'GET';
-
-$twitter = new TwitterAPIExchange($settings);
-$response = $twitter->setGetfield($getfield)
-    ->buildOauth($url, $requestMethod)
-    ->performRequest();
+	$twitter = new TwitterAPIExchange($settings);
+	$response = $twitter->setGetfield($getfield)
+	->buildOauth($url, $requestMethod)
+	->performRequest();
 
 // var_dump(json_decode($response));
 
-$results = json_decode($response, true);
-$hashtags_to_show = ["KAStw", "KAStech"];
-$hashtags_to_show = array_map('strtolower', $hashtags_to_show);
-$tweet_string = "<script>var tweetArray =[";
-$user_string = "<script>var userArray =[";
-foreach ($results as $search) {
-	$entityhashtags = $search['entities']['hashtags'];
-	foreach ($entityhashtags as $hashtag) {
-		if(in_array(strtolower($hashtag['text']), $hashtags_to_show)) {
-		    $tweet = addslashes($search['text']);
-		    $tweet = preg_replace('~[\r\n]+~', ' ', $tweet);
-		    $username = addslashes($search['user']['screen_name']);
-		    $tweet_string .="'$tweet', ";
-		    $user_string .="'$username', ";
-  			break;
-		}
+	$results = json_decode($response, true);
+
+	if (!$case_sensitive_hashtags) {
+		$display_hashtags = array_map('strtolower', $display_hashtags);
 	}
+	$hashtags_to_show = ["KAStw", "KAStech"];
+	$tweet_string = "<script>var tweetArray =[";
+	$user_string = "<script>var userArray =[";
+	foreach ($results as $search) {
+
+		if ($filter_hashtags) {
+			$entityhashtags = $search['entities']['hashtags'];
+			foreach ($entityhashtags as $hashtag) {
+				$hashtag_query = $hashtag['text'];
+				if (!$case_sensitive_hashtags) {
+					$hashtag_query = strtolower($hashtag_query);
+				}
+				if(in_array($hashtag_query, $display_hashtags)) {
+					$tweet = addslashes($search['text']);
+					$tweet = preg_replace('~[\r\n]+~', ' ', $tweet);
+					$username = addslashes($search['user']['screen_name']);
+					$tweet_string .="'$tweet', ";
+					$user_string .="'$username', ";
+					break;
+				}
+			}
+		} else {
+			$tweet = addslashes($search['text']);
+			$tweet = preg_replace('~[\r\n]+~', ' ', $tweet);
+			$username = addslashes($search['user']['screen_name']);
+			$tweet_string .="'$tweet', ";
+			$user_string .="'$username', ";
+		}
+		
 
 
-}
+	}
 	echo substr($user_string, 0, -2)."];</script>";
 	echo substr($tweet_string, 0, -2)."];</script>";
-?>  
+	?>  
 
 
 
-<script>
+	<script>
 
 	// twitticker
 	var twtext = "<ul>";
@@ -202,12 +215,12 @@ foreach ($results as $search) {
 
 </script>
 
-	<script>
+<script>
 	// YouTube loading
-		var yttag = document.createElement('script');
-		yttag.src = 'https://www.youtube.com/iframe_api';
-		var firstScriptTag = document.getElementsByTagName('script')[0];
-		firstScriptTag.parentNode.insertBefore(yttag, firstScriptTag);
+	var yttag = document.createElement('script');
+	yttag.src = 'https://www.youtube.com/iframe_api';
+	var firstScriptTag = document.getElementsByTagName('script')[0];
+	firstScriptTag.parentNode.insertBefore(yttag, firstScriptTag);
 		// console.log(document.getElementsByTagName('script')[0]);
 
 		var isYTready=false;
@@ -230,73 +243,74 @@ foreach ($results as $search) {
 	<?php
 
 	function youtube_id_from_url($url) {
-            $pattern = 
-                '%^# Match any youtube URL
-                (?:https?://)?  # Optional scheme. Either http or https
-                (?:www\.)?      # Optional www subdomain
-                (?:             # Group host alternatives
-                  youtu\.be/    # Either youtu.be,
-                | youtube\.com  # or youtube.com
-                  (?:           # Group path alternatives
-                    /embed/     # Either /embed/
-                  | /v/         # or /v/
-                  | /watch\?v=  # or /watch\?v=
-                  )             # End path alternatives.
-                )               # End host alternatives.
-                ([\w-]{10,12})  # Allow 10-12 for 11 char youtube id.
-                $%x'
-                ;
-            $result = preg_match($pattern, $url, $matches);
-            if ($result) {
-                return $matches[1];
-            }
-            return false;
-        }
+		$pattern = 
+		'%^# Match any youtube URL
+		(?:https?://)?  # Optional scheme. Either http or https
+		(?:www\.)?      # Optional www subdomain
+		(?:             # Group host alternatives
+		youtu\.be/    # Either youtu.be,
+		| youtube\.com  # or youtube.com
+		(?:           # Group path alternatives
+		/embed/     # Either /embed/
+		| /v/         # or /v/
+		| /watch\?v=  # or /watch\?v=
+		)             # End path alternatives.
+		)               # End host alternatives.
+		([\w-]{10,12})  # Allow 10-12 for 11 char youtube id.
+		$%x'
+		;
+		$result = preg_match($pattern, $url, $matches);
+		if ($result) {
+			return $matches[1];
+		}
+		return false;
+	}
 
 
 		// echo scandir();
-		$dir = "../assets/media/";
-		$files = scandir($dir);
+	$dir = "../assets/media/";
+	$files = scandir($dir);
 		// $files = scandir("http://kas.tw/");
-		unset($files[0], $files[1]);
-		$string= "<script> var content = [";
-		foreach ($files as $items) {
-			$ext = pathinfo($items)['extension'];
+	unset($files[0], $files[1]);
+	$string= "<script> var content = [";
+	foreach ($files as $items) {
+		$ext = pathinfo($items)['extension'];
 			// echo $ext == "txt";
-			if ($ext == "txt") {
+		if ($ext == "txt") {
 				//read it for youtubies
-				$ytfile = file($dir.$items);
-				foreach ($ytfile as $item) {
-					$yid = youtube_id_from_url($item);
-					$ylink=  "http://www.youtube.com/embed/$yid";
-					$string.="'$ylink', ";
-				}
-			} else if ($ext == "png" ||$ext == "jpg" ||$ext == "jpeg" ||$ext == "mov" ||$ext == "mp4" ||$ext == "m4v"){
-				$string.= "'$dir$items', ";	
-			} else {
-
+			$ytfile = file($dir.$items);
+			foreach ($ytfile as $item) {
+				$yid = youtube_id_from_url($item);
+				$ylink=  "http://www.youtube.com/embed/$yid";
+				$string.="'$ylink', ";
 			}
-			
+		} else if ($ext == "png" ||$ext == "jpg" ||$ext == "jpeg" ||$ext == "mov" ||$ext == "mp4" ||$ext == "m4v"){
+			$string.= "'$dir$items', ";	
+		} else {
+
 		}
-		echo substr($string, 0, -2)."];</script>";
+		
+	}
+	echo substr($string, 0, -2)."];</script>";
 	?>
 	<script>
 
 		// SECTION FOR WORKING ON CANVAS
 		// http://stackoverflow.com/questions/13807788/web-based-fullscreen-slideshow-with-video-elements (cc-by-sa 3.0)
-
+		content.push("https://docs.google.com/presentation/d/1BXimfuzoYSf-9dRwqtAD8f0SH5uJsmnzHe0lGFKW7WM/embed?start=true&loop=false&delayms=3000"); //put this in config
 		var mediaDir = "../assets/media/"
 		var canvas = $('#canvas');
 		var imgsrc = '<img src="$" alt="" class="img-responsive center-block"/>';
 		var imgDuration = 5000; //ms
 		var vidsrc = '<video autoplay class="embed-responsive-item"><source src="$" type="video/mp4"></source></video>';
 		var ytsrc = '<iframe id="yt" src="$"></iframe>'
+		var gssrc = '<iframe src="$"></iframe>'
 		var current = -1;
 		var regex = /(?:\.([^.]+))?$/;
 		var imgTypes = ["png", "jpg", "jpeg"];
 		var vidTypes = ["mov", "mp4", "m4v"];
 		var player;
-	
+		
 	</script>
 
 
@@ -340,72 +354,73 @@ foreach ($results as $search) {
 		 		$('#n-ticker').webTicker('update', html, 'swap', true, false)
 		 	}
 
-	 		$('#n-ticker').webTicker({
-				height: '36px',
-				speed: 75,
-				hoverpause: false,
-				duplicate: true,
-				startEmpty: true,
-			});
+		 	$('#n-ticker').webTicker({
+		 		height: '36px',
+		 		speed: 75,
+		 		hoverpause: false,
+		 		duplicate: true,
+		 		startEmpty: true,
+		 	});
 
 		 </script>
 
 
-<?php
-	$now = gmdate("Y-m-d\TH:i:s\Z");
-	$cal_entries = 10;
-	$cal_link = "https://www.googleapis.com/calendar/v3/calendars/$calendar/events?key=$cal_apikey&timeMin=$now&maxResults=$cal_entries&singleEvents=true&orderBy=startTime";
-	echo $cal_link; //testing
-	$results = json_decode(file_get_contents($cal_link), true);
+		 <?php
+		 $now = gmdate("Y-m-d\TH:i:s\Z");
+		 $cal_entries = 10;
+		 $cal_link = "https://www.googleapis.com/calendar/v3/calendars/$calendar/events?key=$cal_apikey&timeMin=$now&maxResults=$cal_entries&singleEvents=true&orderBy=startTime";
+	// echo $cal_link; //testing
+		 $results = json_decode(file_get_contents($cal_link), true);
 
-	$cal_event = "<script> var eventName = [";
-	$cal_start = "<script> var eventStart = [";
-	$cal_end = "<script> var eventEnd = [";
+		 $cal_event = "<script> var eventName = [";
+		 $cal_start = "<script> var eventStart = [";
+		 $cal_end = "<script> var eventEnd = [";
 
-	foreach ($results["items"] as $cal_item) {
-		$evt_name = addslashes($cal_item["summary"]);
-		$evt_name = preg_replace('~[\r\n]+~', ' ', $evt_name);
-		$evt_start = $cal_item["start"]["date"];
-		$evt_end = $cal_item["end"]["date"];
+		 foreach ($results["items"] as $cal_item) {
+		 	$evt_name = addslashes($cal_item["summary"]);
+		 	$evt_name = preg_replace('~[\r\n]+~', ' ', $evt_name);
+		 	$evt_start = $cal_item["start"]["date"];
+		 	$evt_end = $cal_item["end"]["date"];
 
-		$cal_event .= "'$evt_name',";
-		$cal_start .= "'$evt_start',";
-		$cal_end .= "'$evt_end',";
-	}
-	echo substr($cal_event, 0, -2)."'];</script>";
-	echo substr($cal_start, 0, -2)."'];</script>";
-	echo substr($cal_end, 0, -2)."'];</script>";
+		 	$cal_event .= "'$evt_name',";
+		 	$cal_start .= "'$evt_start',";
+		 	$cal_end .= "'$evt_end',";
+		 }
+		 echo substr($cal_event, 0, -2)."'];</script>";
+		 echo substr($cal_start, 0, -2)."'];</script>";
+		 echo substr($cal_end, 0, -2)."'];</script>";
 
-?>
+		 ?>
 
-<script>
-function addDays(date, days) {
-	var result = new Date(date);
-	result.setDate(result.getDate() + days)
-	return result;
-}
+		 <script>
+		 	function addDays(date, days) {
+		 		var result = new Date(date);
+		 		result.setDate(result.getDate() + days)
+		 		return result;
+		 	}
 
-function cmprDate(start, length) {
-	var today = new Date();
-	var end = addDays(start, length);
+		 	function cmprDate(start, length) {
+		 		var today = new Date();
+		 		var end = addDays(start, length);
 
-	today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-	start = new Date(start.getFullYear(), start.getMonth(), start.getDate());
-	end = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+		 		today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+		 		start = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+		 		end = new Date(end.getFullYear(), end.getMonth(), end.getDate());
 
-	if (start === today) {
-		return true;
-	}
-	if ((start < today) && (today <= end)) {
-		return true;
-	}
-	return false;
-}
+		 		if (start === today) {
+		 			return true;
+		 		}
+		 		if ((start < today) && (today <= end)) {
+		 			return true;
+		 		}
+		 		return false;
+		 	}
 
-function getCal() {
+		 	function getCal() {
+	// RIGHT NOW THIS RELIES ON THE FACT THAT CALENDAR EVENTS ARE 'all day' events!	
 	var calText = "<ul>"
 	var isBreak = true;
-	var today = new Date();
+	// var today = new Date();
 	for (evt in eventName) {
 		if (isBreak) {
 			calText+="<li class='eventitem' style='word-wrap: break-word'>"
@@ -416,23 +431,23 @@ function getCal() {
 		var isMultiDayEvent = (deltaDays > 0);
 		var lastDate = addDays(startDate, deltaDays).toLocaleDateString('en-US');
 		// alert(endDate + " " + addDays(startDate, deltaDays));
-		if (cmprDate(startDate, deltaDays	)) {
+		if (cmprDate(startDate, deltaDays)) {
 			if (isMultiDayEvent) {
-				calText += "<span class='caldate today'>" + startDate.toLocaleDateString('en-US') + " to " + lastDate + "</span><br>";
+				calText += "<span class='caldate today'>" + startDate.toLocaleDateString('en-US') + "</span> <span class='caldate today' style='font-size: 75%'>to " + lastDate + "</span><br>";
 			} else {
 				calText += "<span class='caldate today'>" + startDate.toLocaleDateString('en-US') + "</span><br>";				
 			}
-				calText += "<span class='calevent today'>" + eventName[evt] + "</span><br>";
-				if (isBreak) {
-					calText += "<br>";
-					isBreak = false;
-				} else {
-					calText += "</li>";	
-					isBreak = true;
-				}
+			calText += "<span class='calevent today'>" + eventName[evt] + "</span><br>";
+			if (isBreak) {
+				calText += "<br>";
+				isBreak = false;
+			} else {
+				calText += "</li>";	
+				isBreak = true;
+			}
 		} else {
 			if (isMultiDayEvent) {
-				calText += "<span class='caldate'>" + startDate.toLocaleDateString('en-US') + " to " + lastDate + "</span><br>";
+				calText += "<span class='caldate'>" + startDate.toLocaleDateString('en-US') + " </span> <span  class='caldate' style='font-size: 75%'>to " + lastDate + "</span><br>";
 			} else {
 				calText += "<span class='caldate'>" + startDate.toLocaleDateString('en-US') + "</span><br>";
 			}
@@ -448,11 +463,11 @@ function getCal() {
 		}
 
 	}
-		if (isBreak) {
-			calText += "</li>";
-		}
-		calText += "</ul>"
-		$('#calendar-block').html(calText);
+	if (isBreak) {
+		calText += "</li>";
+	}
+	calText += "</ul>"
+	$('#calendar-block').html(calText);
 }
 </script>
 
@@ -465,20 +480,20 @@ function getCal() {
 		playMedia(); //need a way to update
 		getWeather();
 		var q = setTimeout(function(){
-		$("#calendar-block").unslider({
-			autoplay: true,
-			infinite: true,
-			arrows: false,
+			$("#calendar-block").unslider({
+				autoplay: true,
+				infinite: true,
+				arrows: false,
 			// nav: false,
 			delay: 4500
 		});
 		}, 500);  // no idea why cant load normally
 
 		var q = setTimeout(function(){
-		$("#twitter-block").unslider({
-			autoplay: true,
-			infinite: true,
-			arrows: false,
+			$("#twitter-block").unslider({
+				autoplay: true,
+				infinite: true,
+				arrows: false,
 			// nav: false,
 			delay: 8000,
 			animation: 'fade',

@@ -21,6 +21,10 @@ function playMedia() {
 		// alert(file);
 	}
 
+	if (file.includes("docs.google.com")) {
+		source = gssrc.replace('$', file);
+	}
+
 	// alert(file);
 
 	if (null !== source) {
@@ -47,6 +51,11 @@ function playMedia() {
 				});
 			}
 
-			}
+		}
+
+		if (file.includes("docs.google.com")) {
+			//presentation :o
+			setTimeout(function() {playMedia();}, imgDuration);
+		}
 	}
 }
