@@ -1,23 +1,24 @@
 function playMedia() {
-	++current;
-	if (content.length == current) {
-		current = 0;
-	}
+	if (content.length != 0) {
+		++current;
+		if (content.length == current) {
+			current = 0;
+		}
 
-	var source = null;
-	var file = content[current];
-	var extension = regex.exec(file)[1];
-	if (imgTypes.includes(extension)) {
-		source = imgsrc.replace('$', file);
-	}
+		var source = null;
+		var file = content[current];
+		var extension = regex.exec(file)[1];
+		if (imgTypes.includes(extension)) {
+			source = imgsrc.replace('$', file);
+		}
 
-	if (vidTypes.includes(extension)) {
-		source = vidsrc.replace('$', file);
-	}
+		if (vidTypes.includes(extension)) {
+			source = vidsrc.replace('$', file);
+		}
 
-	if (file.includes("youtube.com")) {
-		file = file + "?enablejsapi=1&autoplay=1";
-		source = ytsrc.replace('$', file);
+		if (file.includes("youtube.com")) {
+			file = file + "?enablejsapi=1&autoplay=1";
+			source = ytsrc.replace('$', file);
 		// alert(file);
 	}
 
@@ -58,4 +59,5 @@ function playMedia() {
 			setTimeout(function() {playMedia();}, imgDuration);
 		}
 	}
+}
 }

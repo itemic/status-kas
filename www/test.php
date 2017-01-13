@@ -188,7 +188,7 @@
 			$tweet_string .="'$tweet', ";
 			$user_string .="'$username', ";
 		}
-		
+
 
 
 	}
@@ -266,38 +266,36 @@
 		return false;
 	}
 
+	$valid_extension = array("png", "jpg", "jpeg", "mov", "mp4", "m4v");
+	$mediaplayer_str = "<script> var content = [";
+	foreach ($media_objects as $media_file) {
+		$ext = pathinfo($media_file, PATHINFO_EXTENSION);
+		// echo $ext;
+		if (in_array($ext, $valid_extension)) {
+			// add existence validation
 
-		// echo scandir();
-	$dir = "../assets/media/";
-	$files = scandir($dir);
-		// $files = scandir("http://kas.tw/");
-	unset($files[0], $files[1]);
-	$string= "<script> var content = [";
-	foreach ($files as $items) {
-		$ext = pathinfo($items)['extension'];
-			// echo $ext == "txt";
-		if ($ext == "txt") {
-				//read it for youtubies
-			$ytfile = file($dir.$items);
-			foreach ($ytfile as $item) {
-				$yid = youtube_id_from_url($item);
-				$ylink=  "http://www.youtube.com/embed/$yid";
-				$string.="'$ylink', ";
-			}
-		} else if ($ext == "png" ||$ext == "jpg" ||$ext == "jpeg" ||$ext == "mov" ||$ext == "mp4" ||$ext == "m4v"){
-			$string.= "'$dir$items', ";	
-		} else {
-
+			$media_dir = $file_location.$media_file;
+			// echo $media_dir;
+			$mediaplayer_str.="'$media_dir', ";
 		}
-		
+		$yid = youtube_id_from_url($media_file);
+		// echo $yid;
+		if ($yid) {
+			// it's a youtube link
+			$youtube_link = "http://www.youtube.com/embed/$yid";
+			echo $youtube_link;
+			$mediaplayer_str.="'$youtube_link', ";
+		}
 	}
-	echo substr($string, 0, -2)."];</script>";
+	// $mediaplayer_str = substr($mediaplayer_str, 0, -2);
+	$mediaplayer_str.="];</script>";
+	echo $mediaplayer_str;
 	?>
 	<script>
 
 		// SECTION FOR WORKING ON CANVAS
 		// http://stackoverflow.com/questions/13807788/web-based-fullscreen-slideshow-with-video-elements (cc-by-sa 3.0)
-		content.push("https://docs.google.com/presentation/d/1BXimfuzoYSf-9dRwqtAD8f0SH5uJsmnzHe0lGFKW7WM/embed?start=true&loop=false&delayms=3000"); //put this in config
+		// content.push("http://docs.google.com/presentation/d/1BXimfuzoYSf-9dRwqtAD8f0SH5uJsmnzHe0lGFKW7WM/embed?start=true&loop=false&delayms=3000"); //put this in config
 		var mediaDir = "../assets/media/"
 		var canvas = $('#canvas');
 		var imgsrc = '<img src="$" alt="" class="img-responsive center-block"/>';
@@ -310,7 +308,7 @@
 		var imgTypes = ["png", "jpg", "jpeg"];
 		var vidTypes = ["mov", "mp4", "m4v"];
 		var player;
-		
+
 	</script>
 
 
