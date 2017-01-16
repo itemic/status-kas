@@ -69,7 +69,7 @@
 		var imgsrc = '<img src="$" alt="" class="img-responsive center-block"/>';
 		var vidsrc = '<video autoplay class="embed-responsive-item"><source src="$" type="video/mp4"></source></video>';
 		var ytsrc = '<iframe id="yt" src="$"></iframe>'
-		var gssrc = '<iframe src="$"></iframe>'
+		var gssrc = '<iframe src="$" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>'
 		var current = -1;
 		var regex = /(?:\.([^.]+))?$/;
 		var imgTypes = ["png", "jpg", "jpeg"];

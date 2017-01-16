@@ -1,5 +1,5 @@
 body {
-	background-color: #474747;
+	background-color: #1E1E1E;
 	color: white;
 	font-size: 24px;
 }
@@ -155,3 +155,34 @@ div.canvas > video {
 	margin-left: 2px;
 }
 
+.module-spacing {
+	margin-top: 30px;
+}
+
+
+/*OVERLAYS*/
+.overlay {
+	position: absolute;
+	bottom: 0;
+	padding: 2px 8px 5px 5px ;
+
+	width: 100%;
+	text-align: right;
+	background-color: rgba(30, 30, 30, 0.5);
+	
+
+	-webkit-backdrop-filter: blur(18px) opacity(90%);
+
+	height: 6%;
+/**/
+}
+
+#overlaytime {
+	font-size: 48px;
+	font-weight: 300;
+}
+
+#overlayampm{
+	font-size: 24px;
+	font-weight: 300;
+}

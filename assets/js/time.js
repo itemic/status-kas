@@ -2,7 +2,55 @@ const dayOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "frid
 // const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
+function rawTime() {
+	  var today = new Date();
+    var hh = today.getHours();
+    var mm = today.getMinutes();
+    var ss = today.getSeconds();
+    var ap;
+    var clock;
 
+    var month = months[today.getMonth()];
+    var day = dayOfWeek[today.getDay()];
+    day = day.charAt(0).toUpperCase() + day.slice(1);
+    var date = today.getDate();
+    var year = today.getFullYear();
+
+    var suffix;
+    if (date == 1 || date == 21 || date == 31) 	{ suffix = "st"; } else
+    if (date == 2 || date == 22)				{ suffix = "nd"; } else 
+    if (date == 3 || date == 23)				{ suffix = "rd"; } else
+    											{ suffix = "th"; }
+
+	if (mm < 10) {mm = "0" + mm};
+    if (ss < 10) {ss = "0" + ss};
+
+    // -------- Twelve Hour Code -------- //
+    // Uncomment for 12-hour clock
+    if (hh >= 12) {
+    	hh = hh % 12 || 12
+    	ap = "pm";
+    } else {
+    	ap = "am";
+    }
+    // ------ ------ ------ ------ ------ //
+	clock = hh + ":" + mm; // no seconds
+	// clock = hh + ":" + mm + ":" + ss; //seconds
+
+	var calendar = day +", " + month + " " + date + suffix + ", " + year;
+    if (ap) {
+    	// ap = ":"+ss + " " +ap;
+    	document.getElementById("overlayampm").textContent=ap;
+    }
+    document.getElementById("overlaytime").textContent=clock;
+    // document.getElementById("cal").textContent = calendar;
+
+
+    // only actually change the content on the minute
+    // if (ss == 00) {
+   	//     updateSchedule();
+    // }
+}
 function myTime() {
     var today = new Date();
     var hh = today.getHours();

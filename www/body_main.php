@@ -15,14 +15,14 @@
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="row margin-spacing text-center">
+				<div class="row margin-spacing module-spacing text-center">
 					<div class="col-md-12">
 						<span id="time"></span> <span id="ampm"></span><br>
 						<span id="cal"></span>
 					</div>
 				</div>
 				
-				<div class="row text-center margin-spacing">
+				<div class="row text-center margin-spacing module-spacing">
 					<div class="col-md-6">
 						<div class="text-center">
 							<span class="data-header">MS Block</span><br>
@@ -36,7 +36,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row vertical-align margin-spacing icon-spacing">
+				<div class="row vertical-align margin-spacing icon-spacing module-spacing">
 					<div class="icon col-md-3" id="weathericon">
 						<i class="fa fa-cloud"></i>
 					</div>
@@ -45,7 +45,7 @@
 						<span class="data" id="temp"></span><span class="data-header">°C</span><br>
 					</div>
 				</div>
-				<div class="row margin-spacing icon-spacing text-left" >
+				<div class="row margin-spacing icon-spacing text-left module-spacing" >
 					<div class="icon col-md-3">
 						<i class="fa fa-calendar"></i>
 					</div>
@@ -55,7 +55,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row margin-spacing icon-spacing">
+				<div class="row margin-spacing icon-spacing module-spacing">
 					<div class="icon col-md-3">
 						<i class="fa fa-twitter" aria-hidden="true"></i>
 					</div>
@@ -269,7 +269,6 @@
 		var tickerRefresh = setInterval(startTicker, 1000 * 60 * 10); //10 min update interval *one minute for testing
 		var weatherRefresh = setInterval(getWeather, 1000 * 1200); //20 min update interval
 		
-		// var calendarRefresh = setInterval(getCal, 1000 * 3600 * 4); // unlikely that this needs to be updated frequently
 	});
 
 	// 

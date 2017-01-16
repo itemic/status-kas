@@ -27,9 +27,9 @@
 	$valid_extension = array("png", "jpg", "jpeg", "mov", "mp4", "m4v");
 	$mediaplayer_str = "<script> var content = [";
 
-	// Durations
+
 	$duration_str = "<script>";
-	$duration_str.="var imgDuration=$image_duration;";
+	$duration_str.="var imgDuration=$default_duration;";
 	if ($slides_canvas) {
 		$mediaplayer_str.="'$slides_canvas', ";
 		$total_slide_time = $number_of_slides * $slide_duration;
