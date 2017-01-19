@@ -14,4 +14,10 @@ $cons_secret = "ygX5KtBGwjRoVNFCfJwGPiNOusWzI8ZFl7YneVl3jXmB6Jxnkf";
 $calendar = "kas.kh.edu.tw_iv193c4dfh6prrut4cn5f1k8h4@group.calendar.google.com";
 $cal_apikey = "AIzaSyAhLZQoSUvAJrXgpqNlilhgcxng1tAuj4o";
 
+//////////////////////
+// FORECAST IO KEYS //
+//////////////////////
+$forecastio = "a16af3b757f5e314c507e6fda482d046";
+$lat = "22.675";
+$lon = "120.294";
 ?>

@@ -1,29 +1,25 @@
-<div class="container-fluid" style="height: 100%">
-		<div class="row margin-spacing">
+<div class="container-fluid">
+		<div class="row">
 			<div class="col-md-9">
-				<div class="row" style="height:5%">
-					<img src="../assets/pics/topbanner.png" class="img-responsive center-block" alt="kas logo" style="width:55%"/>
+				<div class="row" id="banner-module">
+					<img src="../assets/pics/topbanner.png" class="img-responsive center-block" alt="kas logo" style="min-height:calc(20%); max-height:calc(20%)"/>
 
 				</div>
-				<div class="row vertical-align">
-					<div class="text-center news-ticker" id="n-ticker">COOL NEWS TICKER</div>
+				<div class="row vertical-align" id="ticker-module">
+					<div class="text-center news-ticker" id="n-ticker" style="min-height:calc(5%); max-height:calc(5%)">Loading ticker...</div>
 				</div>
-				<div class="row vertical-align margin-spacing">
-					<div class="col-md-12 text-center embed-responsive embed-responsive-16by9">
-						<div id="canvas"><!-- VIDEO --></div>
+				<div class="row vertical-align">
+					<div class="col-md-12 text-center embed-responsive embed-responsive-16by9" style="min-height:calc(75%); max-height:calc(75%)">
+						<div id="canvas" style="overflow: hidden;"><!-- VIDEO --></div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="row margin-spacing module-spacing text-center">
+				<div class="row module-spacing text-center" id="time-module" style="min-height:calc(25%); max-height:calc(25%)">
 					<div class="col-md-12">
 						<span id="time"></span> <span id="ampm"></span><br>
 						<span id="cal"></span>
-					</div>
-				</div>
-				
-				<div class="row text-center margin-spacing module-spacing">
-					<div class="col-md-6">
+						<div class="col-md-6">
 						<div class="text-center">
 							<span class="data-header">MS Block</span><br>
 							<span id="ms" class="data"></span>
@@ -35,17 +31,18 @@
 							<span id="hs" class="data"></span>
 						</div>
 					</div>
+					</div>
 				</div>
-				<div class="row vertical-align margin-spacing icon-spacing module-spacing">
+				<div class="row vertical-align icon-spacing module-spacing" id="weather-module" style="min-height:calc(15%); max-height:calc(15%)">
 					<div class="icon col-md-3" id="weathericon">
 						<i class="fa fa-cloud"></i>
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-9" style="line-height: 12px">
 						<span class="data" id="aqi"></span> <span class="data-header">Air Quality</span><br>
-						<span class="data" id="temp"></span><span class="data-header">°C</span><br>
+						<span class="data" id="temp"></span><span class="data-header">°C (</span><span class="data-header" id="weatherconditions"></span><span class="data-header">) </span><span class="data-header" style="font-size: 16px; font-style: italic;"><br>Powered by Dark Sky</span><br>
 					</div>
 				</div>
-				<div class="row margin-spacing icon-spacing text-left module-spacing" >
+				<div class="row icon-spacing text-left module-spacing" id="calendar-module" >
 					<div class="icon col-md-3">
 						<i class="fa fa-calendar"></i>
 					</div>
@@ -55,13 +52,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="row margin-spacing icon-spacing module-spacing">
+				<div class="row icon-spacing module-spacing" id="twitter-module">
 					<div class="icon col-md-3">
 						<i class="fa fa-twitter" aria-hidden="true"></i>
 					</div>
 					<div class="col-md-9">
 						<div class="slider" id="twitter-block">
-							TWITTER
+							Twitter data failed to load.
 						</div>
 					</div>
 
@@ -94,15 +91,15 @@
 	->performRequest();
 
 	$results = json_decode($response, true);
-
 	if (!$case_sensitive_hashtags) {
 		$display_hashtags = array_map('strtolower', $display_hashtags);
 	}
-	$hashtags_to_show = ["KAStw", "KAStech"];
+	// If the results are empty that means there was some error getting Twitter stuff
+
+	if ($results != "") { 
 	$tweet_string = "<script>var tweetArray =[";
 	$user_string = "<script>var userArray =[";
 	foreach ($results as $search) {
-
 		if ($filter_hashtags) {
 			$entityhashtags = $search['entities']['hashtags'];
 			foreach ($entityhashtags as $hashtag) {
@@ -127,11 +124,12 @@
 			$user_string .="'$username', ";
 		}
 
-
-
 	}
-	echo substr($user_string, 0, -2)."];</script>";
-	echo substr($tweet_string, 0, -2)."];</script>";
+		echo substr($user_string, 0, -2)."];</script>";
+		echo substr($tweet_string, 0, -2)."];</script>";
+	} else {
+	}
+	
 	?>  
 
 
@@ -139,8 +137,12 @@
 	<script>
 
 	// twitticker
+
+		
+
+	if (userArray) {
 	var twtext = "<ul>";
-	for (tweet in userArray) {
+		for (tweet in userArray) {
 		// alert("this a thingo");
 		twtext += "<li class='eventitem' style='word-wrap: break-word'>";
 		twtext += "<span class='twuser'>@" + userArray[tweet] + "</span><br>"
@@ -149,6 +151,10 @@
 	}
 	twtext += "</ul>";
 	$('#twitter-block').html(twtext);
+	} else {
+	$('#twitter-block').html("Twitter data failed to load...")
+	}
+	
 
 </script>
 
@@ -203,7 +209,7 @@
 
 		 </script>
 
-
+<?php include("weatherhandler.php"); ?>
 		 <?php
 		 $now = gmdate("Y-m-d\TH:i:s\Z");
 		 $cal_entries = 10;
@@ -234,7 +240,7 @@
 
 		 <script>
 		 	$(document).ready(function() {
-		 		myTime();
+		 		currentTime();
 		 		startTicker();
 		 		getAQI();
 		 		getCal();
@@ -264,7 +270,7 @@
 
 		startTicker();
 		updateSchedule();
-		var timeUpdate = setInterval(myTime, 200);
+		var timeUpdate = setInterval(currentTime, 200);
 		var aqiRefresh = setInterval(getAQI, 1000 * 1800); //update every half hour
 		var tickerRefresh = setInterval(startTicker, 1000 * 60 * 10); //10 min update interval *one minute for testing
 		var weatherRefresh = setInterval(getWeather, 1000 * 1200); //20 min update interval

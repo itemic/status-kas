@@ -48,7 +48,8 @@ function playMedia() {
 					events: {
 						'onReady': onPlayerReady,
 						'onStateChange': onPlayerStateChange
-					}
+					},
+					playerVars: {'autoplay': 1, 'controls': 0}
 				});
 			}
 
@@ -81,7 +82,7 @@ function playMedia() {
 		}
 
 		function onPlayerStateChange(event) {
-			if (event.data == 0) {
+			if (event.data == 0)  {
 				playMedia();
 			}
 		}

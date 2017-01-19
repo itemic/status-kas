@@ -5,12 +5,44 @@ body {
 }
 
 * {
-	font-family: Roboto, sans-serif;
+	font-family: "Source Sans Pro", Roboto, sans-serif;
 	/*overflow: hidden;*/
 }
 
+.row {
+	background-color: #989898;
+}
+
+#banner-module {
+	background-color: #181818;
+}
+
+#ticker-module {
+	background-color: black;
+	/*padding-top: 5px;*/
+	padding-bottom: 1px;
+}
+
+#time-module {
+	background-color: #383838;
+}
+
+#class-module {
+	background-color: #383838;
+}
+#weather-module {
+	background-color: #585858;
+}
+
+#calendar-module {
+	background-color: #787878;
+}
+
+#twitter-module {
+	background-color: #989898;
+}
 .vertical-align {
-    display: flex;
+    /*display: flex;*/
     align-items: center;
 } 
 /*http://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3/25517025#25517025*/
@@ -147,16 +179,14 @@ div.canvas > video {
 }
 
 /*SOME BOOTSTRAP STUFF*/
-.margin-spacing {
-	margin-top: 10px;
-}
 
 .icon-spacing {
-	margin-left: 2px;
+	padding-left: 2px;
 }
 
 .module-spacing {
-	margin-top: 30px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
 
 

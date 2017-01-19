@@ -311,7 +311,8 @@ class TwitterAPIExchange
         if (($error = curl_error($feed)) !== '')
         {
             curl_close($feed);
-
+            //custom error handling (very basic lol)`
+            return "ERROR_TWITTER_TIMEOUT";
             throw new \Exception($error);
         }
 

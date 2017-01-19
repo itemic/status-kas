@@ -14,7 +14,7 @@
 	<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 
-
+	<script src="../assets/js/moment.js" ></script>
 	<script src="../assets/js/time.js" ></script>
 	<script src="../assets/js/weather.js" ></script>
 	<script src="../assets/js/calendar.js" ></script>
@@ -58,6 +58,7 @@
 		include('body_full.php');	
 	} else {
 		include ('body_main.php');
+
 	}
 	 
 	 ?>
@@ -67,13 +68,13 @@
 		// http://stackoverflow.com/questions/13807788/web-based-fullscreen-slideshow-with-video-elements (cc-by-sa 3.0)
 		var canvas = $('#canvas');
 		var imgsrc = '<img src="$" alt="" class="img-responsive center-block"/>';
-		var vidsrc = '<video autoplay class="embed-responsive-item"><source src="$" type="video/mp4"></source></video>';
+		var vidsrc = '<video autoplay class="embed-responsive-item"><source src="$" type="video"></source></video>';
 		var ytsrc = '<iframe id="yt" src="$"></iframe>'
 		var gssrc = '<iframe src="$" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>'
 		var current = -1;
 		var regex = /(?:\.([^.]+))?$/;
 		var imgTypes = ["png", "jpg", "jpeg"];
-		var vidTypes = ["mov", "mp4", "m4v"];
+		var vidTypes = ["mp4", "mov"];
 		var player;
 
 	</script>

@@ -32,25 +32,26 @@ $file_location = "../assets/media/";
 // Supports jpg, png, mp4, and YouTube links
 $media_objects = array(
 	// "https://www.youtube.com/watch?v=GeoUELDgyM4",
+		"upcoming.png",
 	"timetabletest.png",
 	"floormap.png",
-	"upcoming.png",
-	"schedulechange.png"
+	"schedulechange.png",
+	"bantyphoon.png",
 	// "kas.png",
 	//"../pics/topbanner.png"
 	);
 
 
 // Default duration for photo in slideshow
-$default_duration = 4500;
+$default_duration = 3000;
 
 
 // Google Slides embed link goes here. As of now,
 // the plan is to have this slides canvas take place
 // before/after any of the media objects if it exists.
 // This only supports one Google Slides presentation.
-$slides_canvas = "https://docs.google.com/presentation/d/1BXimfuzoYSf-9dRwqtAD8f0SH5uJsmnzHe0lGFKW7WM/embed?start=true&loop=false&delayms=5000";
-// $slides_canvas = "";
+// $slides_canvas = "https://docs.google.com/presentation/d/1BXimfuzoYSf-9dRwqtAD8f0SH5uJsmnzHe0lGFKW7WM/embed?start=true&loop=false&delayms=5000";
+$slides_canvas = "";
 
 // NOTE: Ensure that there are values here even if
 // there is no slideshow necessary. 

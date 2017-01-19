@@ -3,113 +3,78 @@ const dayOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "frid
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
 function rawTime() {
-	  var today = new Date();
-    var hh = today.getHours();
-    var mm = today.getMinutes();
-    var ss = today.getSeconds();
-    var ap;
-    var clock;
-
-    var month = months[today.getMonth()];
-    var day = dayOfWeek[today.getDay()];
-    day = day.charAt(0).toUpperCase() + day.slice(1);
-    var date = today.getDate();
-    var year = today.getFullYear();
-
-    var suffix;
-    if (date == 1 || date == 21 || date == 31) 	{ suffix = "st"; } else
-    if (date == 2 || date == 22)				{ suffix = "nd"; } else 
-    if (date == 3 || date == 23)				{ suffix = "rd"; } else
-    											{ suffix = "th"; }
-
-	if (mm < 10) {mm = "0" + mm};
-    if (ss < 10) {ss = "0" + ss};
-
-    // -------- Twelve Hour Code -------- //
-    // Uncomment for 12-hour clock
-    if (hh >= 12) {
-    	hh = hh % 12 || 12
-    	ap = "pm";
-    } else {
-    	ap = "am";
-    }
-    // ------ ------ ------ ------ ------ //
-	clock = hh + ":" + mm; // no seconds
-	// clock = hh + ":" + mm + ":" + ss; //seconds
-
-	var calendar = day +", " + month + " " + date + suffix + ", " + year;
+	var clock = moment().format("hh:mm:ss");
+    var ap = moment().format("a");
     if (ap) {
-    	// ap = ":"+ss + " " +ap;
     	document.getElementById("overlayampm").textContent=ap;
     }
     document.getElementById("overlaytime").textContent=clock;
-    // document.getElementById("cal").textContent = calendar;
-
-
-    // only actually change the content on the minute
-    // if (ss == 00) {
-   	//     updateSchedule();
-    // }
 }
-function myTime() {
-    var today = new Date();
-    var hh = today.getHours();
-    var mm = today.getMinutes();
-    var ss = today.getSeconds();
-    var ap;
-    var clock;
-
-    var month = months[today.getMonth()];
-    var day = dayOfWeek[today.getDay()];
-    day = day.charAt(0).toUpperCase() + day.slice(1);
-    var date = today.getDate();
-    var year = today.getFullYear();
-
-    var suffix;
-    if (date == 1 || date == 21 || date == 31) 	{ suffix = "st"; } else
-    if (date == 2 || date == 22)				{ suffix = "nd"; } else 
-    if (date == 3 || date == 23)				{ suffix = "rd"; } else
-    											{ suffix = "th"; }
-
-	if (mm < 10) {mm = "0" + mm};
-    if (ss < 10) {ss = "0" + ss};
-
-    // -------- Twelve Hour Code -------- //
-    // Uncomment for 12-hour clock
-    if (hh >= 12) {
-    	hh = hh % 12 || 12
-    	ap = "pm";
-    } else {
-    	ap = "am";
-    }
-    // ------ ------ ------ ------ ------ //
-	clock = hh + ":" + mm; // no seconds
-	// clock = hh + ":" + mm + ":" + ss; //seconds
-
-	var calendar = day +", " + month + " " + date + suffix + ", " + year;
+function currentTime() {
+    var clock = moment().format("hh:mm:ss");
+    var calendar = moment().format("dddd, MMMM Do, Y")
+    var ap = moment().format("a");
     if (ap) {
     	// ap = ":"+ss + " " +ap;
     	document.getElementById("ampm").textContent=ap;
     }
     document.getElementById("time").textContent=clock;
     document.getElementById("cal").textContent = calendar;
-
+    updateSchedule();
 
     // only actually change the content on the minute
-    if (ss == 00) {
-   	    updateSchedule();
-    }
+    // if (moment().format("ss") == 00) {
+   	//     updateSchedule();
+    // }
 }
 
 function updateSchedule() {
-	$.getJSON("./schedule.json", function(data) {
-		// alert(data.mondayHS);
-	document.getElementById("ms").textContent = new Schedule(data).currentBlock("MS");
-    document.getElementById("hs").textContent = new Schedule(data).currentBlock("HS");
+	$.getJSON("../../www/schedule.json", function(data) {
+        document.getElementById("ms").textContent = getSchedule(data, "MS");
+        document.getElementById("ms").textContent = getSchedule(data, "HS");
+	// document.getElementById("ms").textContent = new Schedule(data).currentBlock("MS");
+    // document.getElementById("hs").textContent = new Schedule(data).currentBlock("HS");
 	})
-	// document.getElementById("ms").textContent = new Schedule(schedule).currentBlock("MS");
- //    document.getElementById("hs").textContent = new Schedule(schedule).currentBlock("HS");
 
+}
+
+function getSchedule(data, division) {
+    //FORMAT OF SCHEDULE FILE
+    // XXYYYYMMDD{M|H}S for custom days
+    // ddd{H|M}S for regular days (ddd = Sun, Mon, etc.)
+    var todays_date = moment().format("YYYYMMDD");
+        var todays_day = moment().format("ddd");
+
+    var customSchedule = "XX" + todays_date + division
+    // for (thing in data) {
+    //     alert(thing)
+    // }
+    var dailySchedule = todays_day + division;
+    // First check for custom days
+    if (customSchedule in data) {
+        todays_schedule = data[customSchedule];
+        alert("eh")
+    } else {
+        todays_schedule = data[dailySchedule]; // THIS HAS TO EXIST
+        alert(todays_schedule)
+    }
+    var current_time = moment().format("HH:m");
+    var current_block;
+    for (interval in todays_schedule) {
+        var startTime = moment(todays_schedule[interval][0], "HH:m");
+        var endTime = moment(todays_schedule[interval][1], "HH:m");
+        if (current_time.isSameOrAfter(startTime) && currentTime.isBefore(endTime)) {
+            current_block = interval;
+            alert("OH " + interval)
+            break;
+        }
+
+    }
+    if (!current_block) {
+        current_block = "--";
+    }
+    return current_block
+    //with a bell schedule object, now we want to see what time range it falls between
 }
 
 function Schedule(schedule) {
