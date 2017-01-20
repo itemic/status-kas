@@ -12,7 +12,7 @@ $twitter_owner = "VictorBoulanger";
 // Whether or not to include retweets from the list
 $include_rts = false;
 // Only display tweets with specified hashtags
-$filter_hashtags = false; // 
+$filter_hashtags = true; // 
 // Hashtags to be displayed
 $display_hashtags = array(
 	"KAStw",
@@ -21,6 +21,8 @@ $display_hashtags = array(
 // Match the case of hashtags
 $case_sensitive_hashtags = false;
 
+// Number of 'tweets' pre-filter
+$tweet_count = 75;
 // //////////////////// //
 // MEDIAPLAYER SETTINGS //
 // //////////////////// //
@@ -33,6 +35,8 @@ $file_location = "../assets/media/";
 $media_objects = array(
 	// "https://www.youtube.com/watch?v=GeoUELDgyM4",
 		"upcoming.png",
+		"powerhouse.png",
+		"battle.png",
 	"timetabletest.png",
 	"floormap.png",
 	"schedulechange.png",

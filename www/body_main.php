@@ -2,11 +2,11 @@
 		<div class="row">
 			<div class="col-md-9">
 				<div class="row" id="banner-module">
-					<img src="../assets/pics/topbanner.png" class="img-responsive center-block" alt="kas logo" style="min-height:calc(20%); max-height:calc(20%)"/>
+					<img src="../assets/pics/topbanner.png" class="img-responsive center-block" alt="kas logo" style="min-height:calc(19.5%); max-height:calc(19.5%)"/>
 
 				</div>
 				<div class="row vertical-align" id="ticker-module">
-					<div class="text-center news-ticker" id="n-ticker" style="min-height:calc(5%); max-height:calc(5%)">Loading ticker...</div>
+					<div class="text-center news-ticker" id="n-ticker" style="min-height:calc(5%); max-height:calc(5%);">Loading ticker...</div>
 				</div>
 				<div class="row vertical-align">
 					<div class="col-md-12 text-center embed-responsive embed-responsive-16by9" style="min-height:calc(75%); max-height:calc(75%)">
@@ -17,8 +17,8 @@
 			<div class="col-md-3">
 				<div class="row module-spacing text-center" id="time-module" style="min-height:calc(25%); max-height:calc(25%)">
 					<div class="col-md-12">
-						<span id="time"></span> <span id="ampm"></span><br>
-						<span id="cal"></span>
+						<span id="cal"></span><br>
+						<span id="time"></span> <span id="ampm"></span>
 						<div class="col-md-6">
 						<div class="text-center">
 							<span class="data-header">MS Block</span><br>
@@ -34,29 +34,29 @@
 					</div>
 				</div>
 				<div class="row vertical-align icon-spacing module-spacing" id="weather-module" style="min-height:calc(15%); max-height:calc(15%)">
-					<div class="icon col-md-3" id="weathericon">
+					<div class="icon col-md-2" id="weathericon">
 						<i class="fa fa-cloud"></i>
 					</div>
-					<div class="col-md-9" style="line-height: 12px">
+					<div class="col-md-10" style="line-height: 12px">
 						<span class="data" id="aqi"></span> <span class="data-header">Air Quality</span><br>
-						<span class="data" id="temp"></span><span class="data-header">°C (</span><span class="data-header" id="weatherconditions"></span><span class="data-header">) </span><span class="data-header" style="font-size: 16px; font-style: italic;"><br>Powered by Dark Sky</span><br>
+						<span class="data" id="temp"></span><span class="data-header">°C (</span><span class="data-header" id="weatherconditions"></span><span class="data-header">) </span><span class="data-header" style="font-size: 16px; font-style: italic; text-align: right"><br>Powered by Dark Sky</span><br>
 					</div>
 				</div>
 				<div class="row icon-spacing text-left module-spacing" id="calendar-module" >
-					<div class="icon col-md-3">
+					<div class="icon col-md-2">
 						<i class="fa fa-calendar"></i>
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-10">
 						<div class="slider" id="calendar-block">
-							CALENDAR
+							Unable to load calendar...
 						</div>
 					</div>
 				</div>
 				<div class="row icon-spacing module-spacing" id="twitter-module">
-					<div class="icon col-md-3">
+					<div class="icon col-md-2">
 						<i class="fa fa-twitter" aria-hidden="true"></i>
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-10">
 						<div class="slider" id="twitter-block">
 							Twitter data failed to load.
 						</div>
@@ -82,7 +82,10 @@
 	/** Perform a GET request and echo the response **/
 	/** Note: Set the GET field BEFORE calling buildOauth(); **/
 	$url = 'https://api.twitter.com/1.1/lists/statuses.json';
-	$getfield = "?slug=$twitter_slug&owner_screen_name=$twitter_owner&include_rts=$include_rts";
+	// Don't know what's better: count=100 will show A LOT if you don't restrict hashtags
+	// But if you restrict hashtags you'll need a lot because otherwise it will only show those
+	// in the past day or so.
+	$getfield = "?slug=$twitter_slug&owner_screen_name=$twitter_owner&include_rts=$include_rts&count=$tweet_count&include_entities=true";
 	$requestMethod = 'GET';
 
 	$twitter = new TwitterAPIExchange($settings);
@@ -95,19 +98,40 @@
 		$display_hashtags = array_map('strtolower', $display_hashtags);
 	}
 	// If the results are empty that means there was some error getting Twitter stuff
-
+	// TRAILING COMMAS ARE FINE LOL
 	if ($results != "") { 
-	$tweet_string = "<script>var tweetArray =[";
-	$user_string = "<script>var userArray =[";
+		echo "<script>var tweetArray; var userArray; var imgArray;</script>";
+	$tweet_string = "<script>tweetArray =[";
+	$user_string = "<script>userArray =[";
+	$img_string = "<script>imgArray = [";
 	foreach ($results as $search) {
 		if ($filter_hashtags) {
 			$entityhashtags = $search['entities']['hashtags'];
+			
+			
+			
 			foreach ($entityhashtags as $hashtag) {
 				$hashtag_query = $hashtag['text'];
 				if (!$case_sensitive_hashtags) {
 					$hashtag_query = strtolower($hashtag_query);
 				}
 				if(in_array($hashtag_query, $display_hashtags)) {
+				if (array_key_exists('media', $search['entities'])) {
+				$entitymedia = $search['entities']['media'];
+				$img_string.="[";
+				// echo var_dump($entitymedia);
+				foreach ($entitymedia as $twimg) {
+					// echo $twimg["type"];
+					$image_link = $twimg["media_url_https"];
+					// echo $image_link;
+					$img_string.="'$image_link', ";
+				}
+				$img_string = substr($img_string, 0, -1)."],";
+				// $image_link = $entitymedia["media_url_https"];
+				// echo ($image_link);
+			} else {
+				$img_string.="[],";
+			}
 					$tweet = addslashes($search['text']);
 					$tweet = preg_replace('~[\r\n]+~', ' ', $tweet);
 					$username = addslashes($search['user']['screen_name']);
@@ -125,6 +149,8 @@
 		}
 
 	}
+		$img_string = substr($img_string, 0, -1)."]</script>";
+		echo $img_string;
 		echo substr($user_string, 0, -2)."];</script>";
 		echo substr($tweet_string, 0, -2)."];</script>";
 	} else {
@@ -144,10 +170,20 @@
 	var twtext = "<ul>";
 		for (tweet in userArray) {
 		// alert("this a thingo");
+		if (imgArray[tweet].length != 0) {
+			// alert(imgArray[tweet]);
+			// alert(imgArray[tweet].length)
+			for (img in imgArray[tweet]) {
+				twtext += "<li class='eventitem' style='word-wrap: break-word'>";
+				twtext += "<img src=" + imgArray[tweet][img] + " height=350></img>";
+				twtext += "</li>";
+			}
+		} else {
 		twtext += "<li class='eventitem' style='word-wrap: break-word'>";
 		twtext += "<span class='twuser'>@" + userArray[tweet] + "</span><br>"
 		twtext += "<span class='twtweet'>" + tweetArray[tweet] + "</span>";
 		twtext += "</li>";
+	}
 	}
 	twtext += "</ul>";
 	$('#twitter-block').html(twtext);
@@ -204,12 +240,13 @@
 		 		speed: 75,
 		 		hoverpause: false,
 		 		duplicate: true,
-		 		startEmpty: true,
+		 		startEmpty: false,
 		 	});
 
 		 </script>
 
 <?php include("weatherhandler.php"); ?>
+
 		 <?php
 		 $now = gmdate("Y-m-d\TH:i:s\Z");
 		 $cal_entries = 10;
@@ -240,10 +277,11 @@
 
 		 <script>
 		 	$(document).ready(function() {
-		 		currentTime();
-		 		startTicker();
-		 		getAQI();
-		 		getCal();
+		 	currentTime();
+		 	startTicker();
+		 	updateSchedule();
+		 	getAQI();
+		 	getCal();
 			playMedia(); //need a way to update
 			getWeather();
 		var q = setTimeout(function(){
@@ -251,7 +289,7 @@
 				autoplay: true,
 				infinite: true,
 				arrows: false,
-			// nav: false,
+			nav: false,
 			delay: 4500
 		});
 		}, 500);  // no idea why cant load normally
@@ -261,7 +299,7 @@
 				autoplay: true,
 				infinite: true,
 				arrows: false,
-			// nav: false,
+			nav: false,
 			delay: 8000,
 			animation: 'fade',
 			animateHeight: true

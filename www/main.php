@@ -15,6 +15,7 @@
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 
 	<script src="../assets/js/moment.js" ></script>
+	<script src="../assets/js/skycons.js" ></script>
 	<script src="../assets/js/time.js" ></script>
 	<script src="../assets/js/weather.js" ></script>
 	<script src="../assets/js/calendar.js" ></script>
@@ -55,8 +56,10 @@
 
 	<?php
 	if ($fullscreen_mode) {
+		echo "<script>var fullscreen = true</script>";
 		include('body_full.php');	
 	} else {
+		echo "<script>var fullscreen = false</script>";
 		include ('body_main.php');
 
 	}

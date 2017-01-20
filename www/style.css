@@ -1,16 +1,22 @@
+html {
+	height: 100%;
+}
+
 body {
 	background-color: #1E1E1E;
 	color: white;
 	font-size: 24px;
+	height: 100%;
 }
 
 * {
-	font-family: "Source Sans Pro", Roboto, sans-serif;
+	font-family: "Segoe UI", "Source Sans Pro", Roboto, sans-serif;
 	/*overflow: hidden;*/
 }
 
 .row {
-	background-color: #989898;
+	background-color: #585858;
+
 }
 
 #banner-module {
@@ -19,27 +25,25 @@ body {
 
 #ticker-module {
 	background-color: black;
-	/*padding-top: 5px;*/
-	padding-bottom: 1px;
+	padding-top: 3px;
+	padding-bottom: 6px;
+
 }
 
 #time-module {
-	background-color: #383838;
+	background-color: #282828;
 }
 
-#class-module {
-	background-color: #383838;
-}
 #weather-module {
-	background-color: #585858;
+	background-color: #383838;
 }
 
 #calendar-module {
-	background-color: #787878;
+	background-color: #484848;
 }
 
 #twitter-module {
-	background-color: #989898;
+	background-color: #585858;
 }
 .vertical-align {
     /*display: flex;*/
@@ -54,9 +58,9 @@ body {
 }
 
 #ampm {
-	font-weight: 300;
+	font-weight: bold;
 	font-size: 24px;
-	color: #BBBBBB;
+	/*color: #BBBBBB;*/
 }
 
 #cal {
@@ -68,10 +72,6 @@ body {
 	color: #AAAAAA;
 	font-size: 24px;
 	font-weight: 300;
-}
-
-.small-text {
-
 }
 
 .data {
@@ -86,13 +86,14 @@ body {
 }
 
 #n-ticker li {
-	font-size: 32px;
+	font-size: 28px;
 	line-height: 80%;
 	font-weight: 300;
 }
 
 .icon {
 	font-size: 64px;
+	text-align: center;
 }
 
 /*AQI */
@@ -145,14 +146,13 @@ body {
 /*CALENDAR*/
 .caldate {
 	color: #d3d3d3;
-	font-size: 28px;
-	line-height: 95%;
+	font-size: 24px;
 	font-weight: 300;
 }
 
 .calevent {
-	font-size: 32px;
-	line-height: 90%;
+	font-size: 28px;
+	line-height: 40%;
 }
 
 /*FOR TWITTER*/
@@ -182,6 +182,7 @@ div.canvas > video {
 
 .icon-spacing {
 	padding-left: 2px;
+	padding-right: 2px;
 }
 
 .module-spacing {

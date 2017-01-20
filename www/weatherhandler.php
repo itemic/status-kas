@@ -9,10 +9,14 @@ echo "<script>var now_temp = '$current_temp'; var now_cond = '$current_cond'; va
 ?>
 <script>
 function getWeather() {
-			var iconhtml = '<i class="wi wi-forecast-io-' + now_icon + '"></i>';
-
+			var skycons = new Skycons({"color": "white"});
+			// var iconhtml = '<i class="wi wi-forecast-io-' + now_icon + '"></i>';
+			// skycons matches better but weathericons are kept in case it works better
+			var iconhtml = '<canvas id="skycon" width="64" height="64"></canvas>'
 			document.getElementById('temp').textContent=now_temp;
 			document.getElementById('weathericon').innerHTML=iconhtml;
 			document.getElementById('weatherconditions').innerHTML=now_cond;
+			skycons.set("skycon", now_icon);
+			skycons.play();
 }
 </script>

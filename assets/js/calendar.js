@@ -1,4 +1,21 @@
 
+// USE MOMENTJS FOR THIS
+// FOR PRINTING, SET A MAX LINE SIZE
+// IF EXCEED THAT, MULTILINE EVENT (BUT ONLY SHOW ONE)
+// OTHERWISE YOU CAN SHOW TWO EVENTS
+
+//EXAMPLE
+// FEBRUARY 20
+// Single Line
+// FEBRUARY 21
+// Single Line
+
+// OR
+// MARCH 3
+// This is multiline
+// event only
+
+
 		 	function addDays(date, days) {
 		 		var result = new Date(date);
 		 		result.setDate(result.getDate() + days)
@@ -45,7 +62,7 @@
 			}
 			calText += "<span class='calevent today'>" + eventName[evt] + "</span><br>";
 			if (isBreak) {
-				calText += "<br>";
+				// calText += "<br>";
 				isBreak = false;
 			} else {
 				calText += "</li>";	
@@ -60,7 +77,7 @@
 			
 			calText += "<span class='calevent'>" + eventName[evt] + "</span><br>";
 			if (isBreak) {
-				calText += "<br>";
+				// calText += "<br>";
 				isBreak = false;
 			} else {
 				calText += "</li>";	

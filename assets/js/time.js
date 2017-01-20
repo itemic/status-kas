@@ -3,7 +3,7 @@ const dayOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "frid
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
 function rawTime() {
-	var clock = moment().format("hh:mm:ss");
+	var clock = moment().format("hh:mm");
     var ap = moment().format("a");
     if (ap) {
     	document.getElementById("overlayampm").textContent=ap;
@@ -11,21 +11,20 @@ function rawTime() {
     document.getElementById("overlaytime").textContent=clock;
 }
 function currentTime() {
-    var clock = moment().format("hh:mm:ss");
+    var clock = moment().format("hh:mm");
     var calendar = moment().format("dddd, MMMM Do, Y")
-    var ap = moment().format("a");
+    var ap = moment().format("A");
     if (ap) {
     	// ap = ":"+ss + " " +ap;
     	document.getElementById("ampm").textContent=ap;
     }
     document.getElementById("time").textContent=clock;
     document.getElementById("cal").textContent = calendar;
-    updateSchedule();
 
-    // only actually change the content on the minute
-    // if (moment().format("ss") == 00) {
-   	//     updateSchedule();
-    // }
+    // refresh this 
+    if (moment().second() == 00 || moment().second() == 30) {
+   	    updateSchedule();
+    }
 }
 
 function updateSchedule() {
@@ -34,7 +33,7 @@ function updateSchedule() {
         //     alert(thing)
         // }
         document.getElementById("ms").textContent = getSchedule(data, "MS");
-        document.getElementById("ms").textContent = getSchedule(data, "HS");
+        document.getElementById("hs").textContent = getSchedule(data, "HS");
 	// document.getElementById("ms").textContent = new Schedule(data).currentBlock("MS");
     // document.getElementById("hs").textContent = new Schedule(data).currentBlock("HS");
 	})
@@ -49,35 +48,24 @@ function getSchedule(data, division) {
         var todays_day = moment().format("ddd");
 
     var customSchedule = "XX" + todays_date + division
-    // for (thing in data) {
-    //     alert(thing)
-    // }
     var dailySchedule = todays_day + division;
     // First check for custom days
     if (customSchedule in data) {
         todays_schedule = data[customSchedule];
-        // alert("eh")
     } else {
         todays_schedule = data[dailySchedule]; // THIS HAS TO EXIST
-        // alert(todays_schedule)
     }
-    // for (thing in todays_schedule) {
-    //     alert(thing);
-    // }
-    var current_time = moment().format("H:mm");
+    var current_time = moment();
+    var start_time = moment(current_time);
+    var end_time = moment(current_time);
     var current_block;
     for (interval in todays_schedule) {
-
-        var startTime = moment(todays_schedule[interval][0], "H:mm");
-        var endTime = moment(todays_schedule[interval][1], "H:mm");
-        // alert((current_time));
-        // alert(moment(startTime).format("H:mm") + " until " + moment(endTime).format("H:mm"));
-        alert(moment(current_time).isBetween(startTime, endTime, 'minute'))
-        // alert(startTime + 'until' + endTime + "int: " + interval)
-        // alert(moment(current_time).isSameOrAfter(startTime) + "and " + moment(currentTime).isBefore(endTime))
-        if (moment(current_time).isSameOrAfter(startTime) && moment(currentTime).isBefore(endTime)) {
+        var start = moment(todays_schedule[interval][0], "H:mm");
+        var end = moment(todays_schedule[interval][1], "H:mm");
+        start_time.set({'hour': start.hour(), 'minute': start.minute(), 'second': start.second()})
+        end_time.set({'hour': end.hour(), 'minute': end.minute(), 'second': end.second()})
+        if (current_time.isBetween(start_time, end_time)) {
             current_block = interval;
-            alert("OH " + interval)
             break;
         }
 
