@@ -12,7 +12,7 @@ $twitter_owner = "VictorBoulanger";
 // Whether or not to include retweets from the list
 $include_rts = false;
 // Only display tweets with specified hashtags
-$filter_hashtags = true; // 
+$filter_hashtags = false; // 
 // Hashtags to be displayed
 $display_hashtags = array(
 	"KAStw",
@@ -22,7 +22,7 @@ $display_hashtags = array(
 $case_sensitive_hashtags = false;
 
 // Number of 'tweets' pre-filter
-$tweet_count = 75;
+$tweet_count = 20;
 // //////////////////// //
 // MEDIAPLAYER SETTINGS //
 // //////////////////// //

@@ -141,6 +141,22 @@
 				}
 			}
 		} else {
+			if (array_key_exists('media', $search['entities'])) {
+				$entitymedia = $search['entities']['media'];
+				$img_string.="[";
+				// echo var_dump($entitymedia);
+				foreach ($entitymedia as $twimg) {
+					// echo $twimg["type"];
+					$image_link = $twimg["media_url_https"];
+					// echo $image_link;
+					$img_string.="'$image_link', ";
+				}
+				$img_string = substr($img_string, 0, -1)."],";
+				// $image_link = $entitymedia["media_url_https"];
+				// echo ($image_link);
+			} else {
+				$img_string.="[],";
+			}
 			$tweet = addslashes($search['text']);
 			$tweet = preg_replace('~[\r\n]+~', ' ', $tweet);
 			$username = addslashes($search['user']['screen_name']);
