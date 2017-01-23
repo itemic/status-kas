@@ -10,7 +10,7 @@ body {
 }
 
 * {
-	font-family: "Segoe UI", "Source Sans Pro", Roboto, sans-serif;
+	font-family:  Roboto, sans-serif;
 	/*overflow: hidden;*/
 }
 
@@ -26,20 +26,21 @@ body {
 #ticker-module {
 	background-color: black;
 	padding-top: 3px;
-	padding-bottom: 6px;
+	padding-bottom: 4px;
 
 }
 
 #time-module {
 	background-color: #282828;
+
 }
 
 #weather-module {
-	background-color: #383838;
+	background-color: #484848;
 }
 
 #calendar-module {
-	background-color: #484848;
+	background-color: #383838;
 }
 
 #twitter-module {
@@ -64,8 +65,9 @@ body {
 }
 
 #cal {
-	font-size:28px;
+	font-size:24px;
 	color: #AAAAAA;
+	font-weight: 300;
 }
 
 .data-header {
@@ -163,9 +165,12 @@ body {
 	font-weight: 300;
 }
 
+.imgtweet {
+	line-height: 0px;
+}
+
 .twtweet {
 	font-size: 24px;
-	line-height: 80%;
 }
 
 .today {

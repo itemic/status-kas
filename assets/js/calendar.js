@@ -15,14 +15,14 @@
 // This is multiline
 // event only
 
-var LINE_LENGTH = 16;
+var LINE_LENGTH = 24;
 
 		 	function cmprDate(start, length) {
 		 		var today = moment().format("YYYY-MM-DD");
 		 		var start = moment(start).format("YYYY-MM-DD");
 		 		var end = moment(start).format("YYYY-MM-DD");
 		 		moment(end).add(length, 'days').format("YYYY-MM-DD")
-		 		alert(start + " < " + today + " < " + end)
+		 		// alert(start + " < " + today + " < " + end)
 		 		if (moment(start).isSame(today)) {
 		 			// alert("TRUE sam")
 		 			return true;
@@ -38,55 +38,76 @@ var LINE_LENGTH = 16;
 		 		return false;
 		 	}
 
-		 	function getCal() {
+function getCal() {
 	// RIGHT NOW THIS RELIES ON THE FACT THAT CALENDAR EVENTS ARE 'all day' events!	
 	var calText = "<ul>"
 	var isBreak = true;
+	var filledEntries = false;
 	for (evt in eventName) {
+		
 		var startDate = moment(eventStart[evt]).format("YYYY-MM-DD");
 		var endDate = moment(eventEnd[evt]).format("YYYY-MM-DD");
 		var deltaDays = moment(endDate).diff(startDate, 'days');
 		var isMultiDayEvent = (deltaDays > 1);
 		var lastDate = moment(startDate);
 		lastDate = moment(lastDate).add(deltaDays-1, "days").format("YYYY-MM-DD");
-		
-		if (isBreak) {
-			calText+="<li class='eventitem' style='word-wrap: break-word'>"
-		}
-		
-		if (cmprDate(startDate, deltaDays)) {
-			if (isMultiDayEvent) {
-				calText += "<span class='caldate today'>" + startDate + "</span> <span class='caldate today' style='font-size: 75%'>to " + lastDate + "</span><br>";
-			} else {
-				calText += "<span class='caldate today'>" + startDate + "</span><br>";				
-			}
-			calText += "<span class='calevent today'>" + eventName[evt] + "</span><br>";
-			if (isBreak) {
-				// calText += "<br>";
-				isBreak = false;
-			} else {
-				calText += "</li>";	
-				isBreak = true;
-			}
-		} else {
-			if (isMultiDayEvent) {
-				calText += "<span class='caldate'>" + startDate + " </span> <span  class='caldate' style='font-size: 75%'>to " + lastDate + "</span><br>";
-			} else {
-				calText += "<span class='caldate'>" + startDate + "</span><br>";
-			}
-			
-			calText += "<span class='calevent'>" + eventName[evt] + "</span><br>";
-			if (isBreak) {
-				// calText += "<br>";
-				isBreak = false;
-			} else {
-				calText += "</li>";	
-				isBreak = true;
-			}
-		}
 
+		startFormat = moment(startDate).format("ddd MMM Do")
+		endFormat = moment(lastDate).format("ddd MMM Do")
+
+		var todayDateSelector
+		var todayCalSelector
+		var finalDateSelector
+
+		if (cmprDate(startDate, deltaDays)) {
+			todayDateSelector = "<span class ='caldate today'>"
+			todayEventSelector = "<span class ='calevent today'>"
+			finalDateSelector = "<span  class='caldate today' style='font-size: 75%'>"
+		} else {
+			todayDateSelector = "<span class ='caldate'>"
+			todayEventSelector = "<span class ='calevent'>"
+			finalDateSelector = "<span  class='caldate' style='font-size: 75%'>"
+		}
+		// if (isBreak) {
+		// 	calText+="<li class='eventitem' style='word-wrap: break-word'>"
+		// }
+		// alert(eventName[evt]);
+		if (eventName[evt].length > LINE_LENGTH) {
+			// alert("LONG EVENT");
+			if(filledEntries) {
+				calText += "</li>"
+				filledEntries = false;
+			}
+			calText+="<li class='eventitem' style='word-wrap: break-word'>"
+			if (isMultiDayEvent) {
+				calText += todayDateSelector + startFormat + " </span>" + finalDateSelector + "to " + endFormat + "</span><br>";
+			} else {
+				calText += todayDateSelector + startFormat + "</span><br>";
+			}
+			calText += todayEventSelector + eventName[evt] + "</span></li>";	
+		} else if (!filledEntries) {
+			// alert("meep")
+			calText+="<li class='eventitem' style='word-wrap: break-word'>"
+			if (isMultiDayEvent) {
+				calText += todayDateSelector + startFormat + " </span>" + finalDateSelector + "to " + endFormat + "</span><br>";
+			} else {
+				calText += todayDateSelector + startFormat + "</span><br>";
+			}
+			calText += todayEventSelector + eventName[evt] + "</span><br><br>";
+			filledEntries = true;
+		} else if (filledEntries) {
+			if (isMultiDayEvent) {
+				calText += todayDateSelector + startFormat + " </span>" + finalDateSelector + "to " + endFormat + "</span><br>";
+			} else {
+				calText += todayDateSelector + startFormat + "</span><br>";
+			}
+			calText += todayEventSelector + eventName[evt] + "</span></li>";
+			filledEntries = false;
+		}
+		// TODO: Check if event is ongoing - if it is then do stuff
+		// if (cmprDate(startDate, deltaDays)) 
 	}
-	if (isBreak) {
+	if (filledEntries == 1) {
 		calText += "</li>";
 	}
 	calText += "</ul>"

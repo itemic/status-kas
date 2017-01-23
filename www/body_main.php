@@ -2,7 +2,7 @@
 		<div class="row">
 			<div class="col-md-9">
 				<div class="row" id="banner-module">
-					<img src="../assets/pics/topbanner.png" class="img-responsive center-block" alt="kas logo" style="min-height:calc(19.5%); max-height:calc(19.5%)"/>
+					<img src="../assets/pics/topbanner.png" class="img-responsive center-block" alt="kas logo" style="min-height:calc(19%); max-height:calc(19%)"/>
 
 				</div>
 				<div class="row vertical-align" id="ticker-module">
@@ -33,15 +33,6 @@
 					</div>
 					</div>
 				</div>
-				<div class="row vertical-align icon-spacing module-spacing" id="weather-module" style="min-height:calc(15%); max-height:calc(15%)">
-					<div class="icon col-md-2" id="weathericon">
-						<i class="fa fa-cloud"></i>
-					</div>
-					<div class="col-md-10" style="line-height: 12px">
-						<span class="data" id="aqi"></span> <span class="data-header">Air Quality</span><br>
-						<span class="data" id="temp"></span><span class="data-header">°C (</span><span class="data-header" id="weatherconditions"></span><span class="data-header">) </span><span class="data-header" style="font-size: 16px; font-style: italic; text-align: right"><br>Powered by Dark Sky</span><br>
-					</div>
-				</div>
 				<div class="row icon-spacing text-left module-spacing" id="calendar-module" >
 					<div class="icon col-md-2">
 						<i class="fa fa-calendar"></i>
@@ -52,6 +43,18 @@
 						</div>
 					</div>
 				</div>
+				<div class="row vertical-align icon-spacing module-spacing" id="weather-module" style="min-height:calc(15%); max-height:calc(15%)">
+					<div class="icon col-md-2" id="weathericon">
+						<i class="fa fa-cloud"></i>
+					</div>
+					<div class="col-md-10" style="line-height: 12px">
+						<span class="data" id="temp"></span><span class="data-header" style="color: white">°C (</span><span class="data-header" id="weatherconditions" style="color: white">Loading weather...</span><span class="data-header" style="color:white">) </span><br>
+						<span class="data" id="aqi"></span> <span class="data-header">Air Quality</span>
+						
+						<span class="data-header" style="font-size: 16px; font-style: italic; text-align: right; color: #666666"><br>Powered by Dark Sky</span><br>
+					</div>
+				</div>
+				
 				<div class="row icon-spacing module-spacing" id="twitter-module">
 					<div class="icon col-md-2">
 						<i class="fa fa-twitter" aria-hidden="true"></i>
@@ -100,10 +103,11 @@
 	// If the results are empty that means there was some error getting Twitter stuff
 	// TRAILING COMMAS ARE FINE LOL
 	if ($results != "") { 
-		echo "<script>var tweetArray; var userArray; var imgArray;</script>";
+		echo "<script>var tweetArray; var userArray; var imgArray; var timeArray;</script>";
 	$tweet_string = "<script>tweetArray =[";
 	$user_string = "<script>userArray =[";
 	$img_string = "<script>imgArray = [";
+	$time_string = "<script>timeArray = [";
 	foreach ($results as $search) {
 		if ($filter_hashtags) {
 			$entityhashtags = $search['entities']['hashtags'];
@@ -135,8 +139,10 @@
 					$tweet = addslashes($search['text']);
 					$tweet = preg_replace('~[\r\n]+~', ' ', $tweet);
 					$username = addslashes($search['user']['screen_name']);
+					$time = $search['created_at'];
 					$tweet_string .="'$tweet', ";
 					$user_string .="'$username', ";
+					$time_string .="'$time', ";
 					break;
 				}
 			}
@@ -160,17 +166,19 @@
 			$tweet = addslashes($search['text']);
 			$tweet = preg_replace('~[\r\n]+~', ' ', $tweet);
 			$username = addslashes($search['user']['screen_name']);
+			$time = $search['created_at'];
 			$tweet_string .="'$tweet', ";
 			$user_string .="'$username', ";
+			$time_string .="'$time', ";
 		}
 
 	}
 		$img_string = substr($img_string, 0, -1)."]</script>";
 		echo $img_string;
+		echo substr($time_string, 0, -2)."];</script>";
 		echo substr($user_string, 0, -2)."];</script>";
 		echo substr($tweet_string, 0, -2)."];</script>";
-	} else {
-	}
+	} 
 	
 	?>  
 
@@ -179,24 +187,26 @@
 	<script>
 
 	// twitticker
-
-		
+	
 
 	if (userArray) {
 	var twtext = "<ul>";
 		for (tweet in userArray) {
+		tweet_time = moment(timeArray[tweet]).fromNow();
 		// alert("this a thingo");
 		if (imgArray[tweet].length != 0) {
 			// alert(imgArray[tweet]);
 			// alert(imgArray[tweet].length)
 			for (img in imgArray[tweet]) {
-				twtext += "<li class='eventitem' style='word-wrap: break-word'>";
-				twtext += "<img src=" + imgArray[tweet][img] + " height=350></img>";
+				twtext += "<li class='eventitem e-tweet' style='word-wrap: break-word'>";
+				twtext += "<span class='twuser'>@" + userArray[tweet] + " (" + tweet_time+ ")</span><br>"
+				twtext += "<img src=" + imgArray[tweet][img] + " height=300></img>";
+				twtext += "<span class='twtweet' style='display: inline-block; font-size: 18px; line-height: 1.15'><br>" + tweetArray[tweet] + "</span>";
 				twtext += "</li>";
 			}
 		} else {
-		twtext += "<li class='eventitem' style='word-wrap: break-word'>";
-		twtext += "<span class='twuser'>@" + userArray[tweet] + "</span><br>"
+		twtext += "<li class='eventitem e-tweet' style='word-wrap: break-word'>";
+		twtext += "<span class='twuser'>@" + userArray[tweet] + " (" + tweet_time+ ")</span><br>"
 		twtext += "<span class='twtweet'>" + tweetArray[tweet] + "</span>";
 		twtext += "</li>";
 	}
@@ -209,11 +219,6 @@
 	
 
 </script>
-
-
-
-<!--  -->
-
 
 	<script type="text/javascript">
 
@@ -300,7 +305,7 @@
 		 	getCal();
 			playMedia(); //need a way to update
 			getWeather();
-		var q = setTimeout(function(){
+
 			$("#calendar-block").unslider({
 				autoplay: true,
 				infinite: true,
@@ -308,9 +313,7 @@
 			nav: false,
 			delay: 4500
 		});
-		}, 500);  // no idea why cant load normally
 
-		var q = setTimeout(function(){
 			$("#twitter-block").unslider({
 				autoplay: true,
 				infinite: true,
@@ -320,14 +323,15 @@
 			animation: 'fade',
 			animateHeight: true
 		});
-		}, 500);  
+
+		
 
 		startTicker();
 		updateSchedule();
 		var timeUpdate = setInterval(currentTime, 200);
 		var aqiRefresh = setInterval(getAQI, 1000 * 1800); //update every half hour
 		var tickerRefresh = setInterval(startTicker, 1000 * 60 * 10); //10 min update interval *one minute for testing
-		var weatherRefresh = setInterval(getWeather, 1000 * 1200); //20 min update interval
+		var weatherRefresh = setInterval(getWeather, 1000 * 1800); //20 min update interval
 		
 	});
 

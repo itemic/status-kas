@@ -17,7 +17,7 @@ $cal_apikey = "AIzaSyAhLZQoSUvAJrXgpqNlilhgcxng1tAuj4o";
 //////////////////////
 // FORECAST IO KEYS //
 //////////////////////
-$forecastio = "a16af3b757f5e314c507e6fda482d046";
-$lat = "22.675";
+// $forecastio = "a16af3b757f5e314c507e6fda482d046";
+$lat = "22.676";
 $lon = "120.294";
 ?>
