@@ -1,22 +1,43 @@
-html {
-	height: 100%;
-}
 
-body {
-	background-color: #1E1E1E;
-	color: white;
-	font-size: 24px;
-	height: 100%;
-}
 
 * {
 	font-family:  Roboto, sans-serif;
 	/*overflow: hidden;*/
 }
 
-.row {
-	background-color: #585858;
+@media only screen and (width: 1920px) {
+	body {
+		font-size: 16px;
+	}
+	#banner-module, #banner-image {
+		height: 20vh;
+	}
+	#ticker-module {
+		height: 5vh;
+	}
+	#time-module {
+		height: 25vh;
+	}
+	#calendar-module {
+		height: 17.5vh;
+	}
+	#weather-module {
+		height: 15vh;
+	}
+	#twitter-module {
+		height: 42.5vh;
+	}
 
+}
+
+@media only screen and (max-width: 1080px) {
+	#twitter-module {
+		display: none;
+	}
+}
+
+.joke {
+	font-family: "Comic Sans MS";
 }
 
 #banner-module {
@@ -31,8 +52,10 @@ body {
 }
 
 #time-module {
+	display: flex;
 	background-color: #282828;
-
+	align-items: center;
+	align-self: center;
 }
 
 #weather-module {
@@ -46,75 +69,70 @@ body {
 #twitter-module {
 	background-color: #585858;
 }
-.vertical-align {
-    /*display: flex;*/
-    align-items: center;
-} 
+
+.weathertable {
+	display: flex;
+	align-items: baseline;
+	justify-content: left;
+}
+
 /*http://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3/25517025#25517025*/
 /* TIME/CLOCK */
 #time {
-	font-size: 108px;
+	font-size: 7.5em;
 	font-weight: 500;
 	line-height: 95%;
 }
 
 #ampm {
 	font-weight: bold;
-	font-size: 24px;
+	font-size: 1.75em;
 	/*color: #BBBBBB;*/
 }
 
 #cal {
-	font-size:24px;
+	font-size:1.5em;
 	color: #AAAAAA;
 	font-weight: 300;
 }
 
 .data-header {
 	color: #AAAAAA;
-	font-size: 24px;
-	font-weight: 300;
+	font-size: 1.5em;
+	/*font-weight: 300;*/
+}
+
+.data-header-dark {
+	color: #888888;
+	font-size: 1.25em;
+	/*font-weight: 300;*/
 }
 
 .data {
-	font-size: 48px;
+	font-size: 2.75em;
 	color: white;
-	font-weight: 800;
-	line-height: 95%;
+	/*font-weight: 800;*/
+	line-height: 100%;
 }
 
-.data-air {
-	font-size: 36px;
-}
-
-#n-ticker li {
-	font-size: 28px;
-	line-height: 80%;
+.news-ticker li {
+	font-size: 2.75em;
+	/*line-height: 80%;*/
 	font-weight: 300;
 }
 
 .icon {
-	font-size: 64px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 48px; /*FIXED*/
 	text-align: center;
+	vertical-align: middle;
+	padding-right: 0px;
 }
 
-/*AQI */
-/*PM2.5 Color Code*/
-.pm-low {
-	color: #26A65B;
-}
-
-.pm-med {
-	color: #E87E04;
-}
-
-.pm-high {
-	color: #CF000F;
-}
-
-.pm-vhigh {
-	color: #CF000F;
-	font-weight: bold;
+.tw-icon {
+	align-self: flex-start;
 }
 
 /*AQI Color Code*/
@@ -132,7 +150,8 @@ body {
 }
 
 .air-unhealthy {
-	color: #CF000F;
+	color: #E61717;
+	font-weight: bold;
 }
 
 .air-veryunhealthy {
@@ -148,33 +167,62 @@ body {
 /*CALENDAR*/
 .caldate {
 	color: #d3d3d3;
-	font-size: 24px;
-	font-weight: 300;
+	font-size: 1.15em;
 }
 
 .calevent {
-	font-size: 28px;
-	line-height: 40%;
+	font-size: 1.5em;
+	/*line-height: 90%;*/
+}
+
+.calevent-today {
+	font-weight: 800;
+	font-size: 1.7em;
+
+}
+
+.caldate-today {
+	font-weight: 800;
+	font-size: 1.25em;
+
 }
 
 /*FOR TWITTER*/
 .twuser {
 	color: #d3d3d3;
-	font-size: 18px;
-	line-height: 95%;
-	font-weight: 300;
+	font-size: 1.15em;
+	line-height: 115%;
+	/*font-weight: 300;*/
 }
 
-.imgtweet {
+/*.imgtweet {
 	line-height: 0px;
 }
-
+*/
 .twtweet {
-	font-size: 24px;
+	font-size: 1.35em;
 }
 
-.today {
-	font-weight: 700;
+.twimage {
+	display: inline-block;
+	font-size: 1.15em;
+	line-height: 1.15
+}
+
+
+
+.twitter-image {
+	max-height: 300px;
+	max-width: 350px;
+	height: auto;
+	width: auto;
+}
+
+.credits {
+	display: flex;
+	font-size: 1em;
+	font-style: italic;
+	color: #777777;
 }
 
 /*VID*/
@@ -187,12 +235,13 @@ div.canvas > video {
 
 .icon-spacing {
 	padding-left: 2px;
-	padding-right: 2px;
+	padding-right: 3px;
 }
 
 .module-spacing {
-	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	display: flex;
 }
 
 
@@ -221,4 +270,11 @@ div.canvas > video {
 #overlayampm{
 	font-size: 24px;
 	font-weight: 300;
+}
+
+body {
+	background-color: #585858;
+	color: white;
+	height: 100%;
+	/*font-size: 16px*/
 }

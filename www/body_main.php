@@ -1,41 +1,41 @@
-<div class="container-fluid">
+<div class="container-fluid" id="whole-thing" style="height: 100%">
 		<div class="row">
 			<div class="col-md-9">
-				<div class="row" id="banner-module">
-					<img src="../assets/pics/topbanner.png" class="img-responsive center-block" alt="kas logo" style="min-height:calc(19%); max-height:calc(19%)"/>
+				<div class="row" id="banner-module" style=" height: 20vh">
+					<img id="banner-img" style="height: 20vh"; src="../assets/pics/topbanner.png" class="img-responsive center-block" alt="kas logo"/>
 
 				</div>
-				<div class="row vertical-align" id="ticker-module">
-					<div class="text-center news-ticker" id="n-ticker" style="min-height:calc(5%); max-height:calc(5%);">Loading ticker...</div>
+				<div class="row" id="ticker-module">
+					<div class="text-center news-ticker" id="n-ticker">Loading ticker...</div>
 				</div>
-				<div class="row vertical-align">
-					<div class="col-md-12 text-center embed-responsive embed-responsive-16by9" style="min-height:calc(75%); max-height:calc(75%)">
+				<div class="row">
+					<div class="col-md-12 text-center embed-responsive embed-responsive-16by9" style="height: 810px; min-height:calc(75%); max-height:calc(75%)">
 						<div id="canvas" style="overflow: hidden;"><!-- VIDEO --></div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="row module-spacing text-center" id="time-module" style="min-height:calc(25%); max-height:calc(25%)">
+				<div class="row module-spacing text-center" id="time-module" >
 					<div class="col-md-12">
 						<span id="cal"></span><br>
 						<span id="time"></span> <span id="ampm"></span>
 						<div class="col-md-6">
 						<div class="text-center">
-							<span class="data-header">MS Block</span><br>
+							<span class="data-header">MS BLOCK</span><br>
 							<span id="ms" class="data"></span>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="text-center">
-							<span class="data-header">HS Block</span><br>
+							<span class="data-header">HS BLOCK</span><br>
 							<span id="hs" class="data"></span>
 						</div>
 					</div>
 					</div>
 				</div>
-				<div class="row icon-spacing text-left module-spacing" id="calendar-module" >
+				<div class="row icon-spacing module-spacing outer-icon" id="calendar-module">
 					<div class="icon col-md-2">
-						<i class="fa fa-calendar"></i>
+						<div class="icon"><i class="fa fa-calendar"></i></div>
 					</div>
 					<div class="col-md-10">
 						<div class="slider" id="calendar-block">
@@ -43,20 +43,41 @@
 						</div>
 					</div>
 				</div>
-				<div class="row vertical-align icon-spacing module-spacing" id="weather-module" style="min-height:calc(15%); max-height:calc(15%)">
-					<div class="icon col-md-2" id="weathericon">
+				<div class="row icon-spacing module-spacing" id="weather-module">
+					<div class="col-md-2 icon" id="weathericon">
 						<i class="fa fa-cloud"></i>
 					</div>
 					<div class="col-md-10" style="line-height: 12px">
-						<span class="data" id="temp"></span><span class="data-header" style="color: white">°C (</span><span class="data-header" id="weatherconditions" style="color: white">Loading weather...</span><span class="data-header" style="color:white">) </span><br>
-						<span class="data" id="aqi"></span> <span class="data-header">Air Quality</span>
+					<div class="row weathertable">
+						<div class="col-md-12 weathertable">
+							<span class="data" id="temp"></span>
+						</div>
+						<!-- <div class="col-md-8 weathertable">
+							<span class="data-header" id="weatherconditions"></span>
+						</div> -->
+					</div>
+					<div class="row weathertable">
+						<div class="col-md-4 weathertable">
+							<span class="data" id="aqi"></span>
+						</div>
+						<div class="col-md-8 weathertable">
+							<span class="data-header-dark">AQI</span>
+						</div>
+					</div>
+					<div class="row weathertable">
+						<div class="col-md-12">
+							<span class="data-header credits"><br>Powered by Dark Sky</span>
+						</div>
 						
-						<span class="data-header" style="font-size: 16px; font-style: italic; text-align: right; color: #666666"><br>Powered by Dark Sky</span><br>
+					</div>
+						
+						
+						
 					</div>
 				</div>
 				
 				<div class="row icon-spacing module-spacing" id="twitter-module">
-					<div class="icon col-md-2">
+					<div class="icon col-md-2 tw-icon">
 						<i class="fa fa-twitter" aria-hidden="true"></i>
 					</div>
 					<div class="col-md-10">
@@ -188,34 +209,86 @@
 
 	// twitticker
 	
+	var TWEET_LINE_LENGTH = 140;
+	var tweet_filled_entries = false;
 
 	if (userArray) {
-	var twtext = "<ul>";
+		var twtext = "<ul>";
 		for (tweet in userArray) {
-		tweet_time = moment(timeArray[tweet]).fromNow();
-		// alert("this a thingo");
-		if (imgArray[tweet].length != 0) {
-			// alert(imgArray[tweet]);
-			// alert(imgArray[tweet].length)
-			for (img in imgArray[tweet]) {
-				twtext += "<li class='eventitem e-tweet' style='word-wrap: break-word'>";
-				twtext += "<span class='twuser'>@" + userArray[tweet] + " (" + tweet_time+ ")</span><br>"
-				twtext += "<img src=" + imgArray[tweet][img] + " height=300></img>";
-				twtext += "<span class='twtweet' style='display: inline-block; font-size: 18px; line-height: 1.15'><br>" + tweetArray[tweet] + "</span>";
+			tweet_time = moment(timeArray[tweet]).fromNow();
+			if (imgArray[tweet].length != 0) {
+				if (tweet_filled_entries) {
+					twtext += "</li>"
+					tweet_filled_entries = false;
+				}
+				for (img in imgArray[tweet]) {
+					twtext += "<li class='eventitem' style='word-wrap: break-word'>";
+					twtext += "<span class='twuser'>@" + userArray[tweet].toUpperCase() + " (" + tweet_time.toUpperCase()+ ")</span><br><br>"
+					twtext += "<img class='twitter-image' src=" + imgArray[tweet][img] + " ></img>";
+					twtext += "<span class='twtweet twimage'><br>" + tweetArray[tweet] + "</span>";
+					twtext += "</li>";
+				}
+				tweet_filled_entries = false;
+			} else if (tweetArray[tweet].length > TWEET_LINE_LENGTH) {
+				if (tweet_filled_entries) {
+					twtext += "</li>"
+					tweet_filled_entries = false;
+				}
+				twtext += "<li class='eventitem' style='word-wrap: break-word'>";
+				twtext += "<span class='twuser'>@" + userArray[tweet].toUpperCase() + " (" + tweet_time.toUpperCase()+ ")</span><br>"
+				twtext += "<span class='twtweet'>" + tweetArray[tweet] + "</span>";
+				twtext += "</li>";	
+				tweet_filled_entries = false;			
+			} else if (!tweet_filled_entries) {
+				twtext += "<li class='eventitem' style='word-wrap: break-word'>";
+				twtext += "<span class='twuser'>@" + userArray[tweet].toUpperCase() + " (" + tweet_time.toUpperCase()+ ")</span><br>"
+				twtext += "<span class='twtweet'>" + tweetArray[tweet] + "</span>";
+				twtext += "<br><br>"
+				tweet_filled_entries = true;
+			} else if (tweet_filled_entries) {
+				twtext += "<span class='twuser'>@" + userArray[tweet].toUpperCase() + " (" + tweet_time.toUpperCase()+ ")</span><br>"
+				twtext += "<span class='twtweet'>" + tweetArray[tweet] + "</span>";
 				twtext += "</li>";
+				tweet_filled_entries - false;
 			}
-		} else {
-		twtext += "<li class='eventitem e-tweet' style='word-wrap: break-word'>";
-		twtext += "<span class='twuser'>@" + userArray[tweet] + " (" + tweet_time+ ")</span><br>"
-		twtext += "<span class='twtweet'>" + tweetArray[tweet] + "</span>";
-		twtext += "</li>";
-	}
-	}
-	twtext += "</ul>";
-	$('#twitter-block').html(twtext);
+
+		}
+		if (tweet_filled_entries) {
+			twtext += "</li>"
+		}
+		twtext += "</ul>"
+		$('#twitter-block').html(twtext);
 	} else {
-	$('#twitter-block').html("Twitter data failed to load...")
+		$('#twitter-block').html("Twitter data failed to load...")
 	}
+
+
+
+
+	// if (userArray) {
+	// var twtext = "<ul>";
+	// 	for (tweet in userArray) {
+	// 	tweet_time = moment(timeArray[tweet]).fromNow();
+	// 	if (imgArray[tweet].length != 0) {
+	// 		for (img in imgArray[tweet]) {
+	// 			twtext += "<li class='eventitem' style='word-wrap: break-word'>";
+	// 			twtext += "<span class='twuser'>@" + userArray[tweet].toUpperCase() + " (" + tweet_time.toUpperCase()+ ")</span><br>"
+	// 			twtext += "<img src=" + imgArray[tweet][img] + " height=300></img>";
+	// 			twtext += "<span class='twtweet twimage'><br>" + tweetArray[tweet] + "</span>";
+	// 			twtext += "</li>";
+	// 		}
+	// 	} else {
+	// 	twtext += "<li class='eventitem' style='word-wrap: break-word'>";
+	// 	twtext += "<span class='twuser'>@" + userArray[tweet].toUpperCase() + " (" + tweet_time.toUpperCase()+ ")</span><br>"
+	// 	twtext += "<span class='twtweet'>" + tweetArray[tweet] + "</span>";
+	// 	twtext += "</li>";
+	// }
+	// }
+	// twtext += "</ul>";
+	// $('#twitter-block').html(twtext);
+	// } else {
+	// $('#twitter-block').html("Twitter data failed to load...")
+	// }
 	
 
 </script>

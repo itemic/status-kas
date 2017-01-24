@@ -12,10 +12,11 @@ function getWeather() {
 			var skycons = new Skycons({"color": "white"});
 			// var iconhtml = '<i class="wi wi-forecast-io-' + now_icon + '"></i>';
 			// skycons matches better but weathericons are kept in case it works better
-			var iconhtml = '<canvas id="skycon" width="64" height="64"></canvas>'
-			document.getElementById('temp').textContent=now_temp;
+			var iconhtml = '<canvas id="skycon" width="48" height="48"></canvas>'
+			// now_temp = 40
+			document.getElementById('temp').textContent=now_temp + "°C" ;
 			document.getElementById('weathericon').innerHTML=iconhtml;
-			document.getElementById('weatherconditions').innerHTML=now_cond;
+			// document.getElementById('weatherconditions').innerHTML=now_cond.toUpperCase();
 			skycons.set("skycon", now_icon);
 			skycons.play();
 }

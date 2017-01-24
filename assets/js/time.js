@@ -7,19 +7,31 @@ function rawTime() {
     document.getElementById("overlaytime").textContent=clock;
 }
 function currentTime() {
-    var clock = moment().format("hh:mm");
-    var calendar = moment().format("dddd MMMM Do Y")
+    var now = moment();
+    var clock = now.format("hh:mm")
+    var calendar = now.format("dddd MMMM Do Y")
 
-    var ap = moment().format("A");
+    var ap = now.format("A");
     if (ap) {
     	// ap = ":"+ss + " " +ap;
     	document.getElementById("ampm").textContent=ap;
     }
+
+// This does nothing at all ;)
+    if (now.month() == 03 && now.date() == 01) {
+        $('*').css('font-family', 'Comic Sans MS')
+        document.getElementById("cal").textContent = "HAPPY APRIL FOOLS " + now.year();
+
+    } else {
+        document.getElementById("cal").textContent = calendar.toUpperCase();
+    }
+
     document.getElementById("time").textContent=clock;
-    document.getElementById("cal").textContent = calendar.toUpperCase();
+
+    
 
     // refresh this 
-    if (moment().second() == 00 || moment().second() == 30) {
+    if (now.second() == 00 || now.second() == 30) {
    	    updateSchedule();
     }
 }
