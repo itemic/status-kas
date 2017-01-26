@@ -365,7 +365,7 @@
 				autoplay: true,
 				infinite: true,
 				arrows: false,
-			// nav: false,
+			nav: false,
 			delay: 8000,
 			animation: 'fade',
 			animateHeight: true
