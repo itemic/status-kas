@@ -321,7 +321,7 @@ function getWeather() {
             // var iconhtml = '<i class="wi wi-forecast-io-' + now_icon + '"></i>';
             // skycons matches better but weathericons are kept in case it works better
             var iconhtml = '<canvas id="skycon" width="48" height="48"></canvas>'
-            var weatherRequest = '../../www/weatherhandler.php'
+            var weatherRequest = 'weatherhandler.php'
             $.get(weatherRequest, {}, function(response, status) {
                 if(status === 'success') {
                     var data = response.split(",")
@@ -341,4 +341,16 @@ function getWeather() {
             
             // document.getElementById('weatherconditions').innerHTML=now_cond.toUpperCase();
             
+}
+
+// TWITTER
+function getTwitter() {
+            var twitterRequest = 'twitterhandler.php'
+            $.get(twitterRequest, {}, function(response, status) {
+                if(status === 'success') {
+                    alert(response)
+                }
+                else {
+                }
+            })
 }

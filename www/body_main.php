@@ -352,7 +352,7 @@
 		 	getCal();
 			playMedia(); //need a way to update
 			getWeather();
-
+			getTwitter();
 			$("#calendar-block").unslider({
 				autoplay: true,
 				infinite: true,
