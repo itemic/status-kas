@@ -256,7 +256,7 @@ div.canvas > video {
 	background-color: rgba(30, 30, 30, 0.5);
 	
 
-	-webkit-backdrop-filter: blur(18px) opacity(90%);
+	-webkit-backdrop-filter: blur(8px) opacity(30%);
 
 	height: 6%;
 /**/

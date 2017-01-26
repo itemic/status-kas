@@ -7,27 +7,24 @@
 	
 	<title>KAS Live</title>
 	<link href="../assets/css/bootstrap-theme.css" rel="stylesheet">
-
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-
+	
 	<!-- Jquery -->
 	<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
-
+	<script src="status.js" ></script>
 	<script src="../assets/js/moment.js" ></script>
 	<script src="../assets/js/skycons.js" ></script>
-	<script src="../assets/js/time.js" ></script>
-	<script src="../assets/js/weather.js" ></script>
-	<script src="../assets/js/calendar.js" ></script>
-	<script src="../assets/js/airquality.js" ></script>
-	<script src="../assets/js/mediaplay.js" ></script>
 	<script src="../assets/js/jquery.vticker.min.js"></script>
 	<script src="../assets/js/unslider-master/src/js/unslider.js"></script>
-
+	<script src="../assets/js/tabletop-master/src/tabletop.js"></script>
+	<script src="../assets/js/underscore.js"></script>
+	<script src="../assets/js/jquery.webticker.min.js"></script>
+	<script src="https://use.fontawesome.com/31f4a97978.js"></script>
+	
 	<link rel="stylesheet" href="../assets/js/unslider-master/dist/css/unslider.css">
 	<link rel="stylesheet" href="../assets/css/weather-icons.css">
 	<link rel="stylesheet" href="../assets/js/unslider-master/dist/css/unslider-dots.css">
-
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -40,10 +37,7 @@
 
 	<link rel="stylesheet" type="text/css" href="style.css">
 
-	<script src="../assets/js/tabletop-master/src/tabletop.js"></script>
-	<script src="../assets/js/underscore.js"></script>
-	<script src="../assets/js/jquery.webticker.min.js"></script>
-	<script src="https://use.fontawesome.com/31f4a97978.js"></script>
+
 </head>
 <body>
 
@@ -56,10 +50,10 @@
 
 	<?php
 	if ($fullscreen_mode) {
-		echo "<script>var fullscreen = true</script>";
+		// echo "<script>var fullscreen = true</script>";
 		include('body_full.php');	
 	} else {
-		echo "<script>var fullscreen = false</script>";
+		// echo "<script>var fullscreen = false</script>";
 		include ('body_main.php');
 
 	}

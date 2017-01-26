@@ -210,7 +210,7 @@
 	// twitticker
 	
 	var TWEET_LINE_LENGTH = 140;
-	var tweet_filled_entries = false;
+	var tweet_filled_entries = false; //if there are enough tweets for this "screen"
 
 	if (userArray) {
 		var twtext = "<ul>";
@@ -265,31 +265,7 @@
 
 
 
-	// if (userArray) {
-	// var twtext = "<ul>";
-	// 	for (tweet in userArray) {
-	// 	tweet_time = moment(timeArray[tweet]).fromNow();
-	// 	if (imgArray[tweet].length != 0) {
-	// 		for (img in imgArray[tweet]) {
-	// 			twtext += "<li class='eventitem' style='word-wrap: break-word'>";
-	// 			twtext += "<span class='twuser'>@" + userArray[tweet].toUpperCase() + " (" + tweet_time.toUpperCase()+ ")</span><br>"
-	// 			twtext += "<img src=" + imgArray[tweet][img] + " height=300></img>";
-	// 			twtext += "<span class='twtweet twimage'><br>" + tweetArray[tweet] + "</span>";
-	// 			twtext += "</li>";
-	// 		}
-	// 	} else {
-	// 	twtext += "<li class='eventitem' style='word-wrap: break-word'>";
-	// 	twtext += "<span class='twuser'>@" + userArray[tweet].toUpperCase() + " (" + tweet_time.toUpperCase()+ ")</span><br>"
-	// 	twtext += "<span class='twtweet'>" + tweetArray[tweet] + "</span>";
-	// 	twtext += "</li>";
-	// }
-	// }
-	// twtext += "</ul>";
-	// $('#twitter-block').html(twtext);
-	// } else {
-	// $('#twitter-block').html("Twitter data failed to load...")
-	// }
-	
+
 
 </script>
 
@@ -338,9 +314,7 @@
 		 	});
 
 		 </script>
-
-<?php include("weatherhandler.php"); ?>
-
+		 
 		 <?php
 		 $now = gmdate("Y-m-d\TH:i:s\Z");
 		 $cal_entries = 10;
@@ -391,20 +365,16 @@
 				autoplay: true,
 				infinite: true,
 				arrows: false,
-			nav: false,
+			// nav: false,
 			delay: 8000,
 			animation: 'fade',
 			animateHeight: true
 		});
 
-		
-
-		startTicker();
-		updateSchedule();
 		var timeUpdate = setInterval(currentTime, 200);
 		var aqiRefresh = setInterval(getAQI, 1000 * 1800); //update every half hour
 		var tickerRefresh = setInterval(startTicker, 1000 * 60 * 10); //10 min update interval *one minute for testing
-		var weatherRefresh = setInterval(getWeather, 1000 * 1800); //20 min update interval
+		var weatherRefresh = setInterval(getWeather, 1000 * 60 * 20); //20 min update interval
 		
 	});
 

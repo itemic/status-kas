@@ -14,9 +14,9 @@
 
 <script>
 	$(document).ready(function() {
-		rawTime();
+		currentTime();
 		playMedia();
-		var timeUpdate = setInterval(rawTime, 200);
+		var timeUpdate = setInterval(currentTime, 200);
 
 	})
 </script>
