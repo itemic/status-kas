@@ -111,14 +111,14 @@ function playMedia() {
         if (file.includes("youtube.com")) {
             file = file + "?enablejsapi=1&autoplay=1";
             source = ytsrc.replace('$', file);
-        // alert(file);
+
     }
 
     if (file.includes("docs.google.com")) {
         source = gssrc.replace('$', file);
     }
 
-    // alert(file);
+
 
     if (null !== source) {
         canvas.html(source);
@@ -348,9 +348,95 @@ function getTwitter() {
             var twitterRequest = 'twitterhandler.php'
             $.get(twitterRequest, {}, function(response, status) {
                 if(status === 'success') {
-                    alert(response)
+                    var data = JSON.parse(response);
+                    // console.log(data);
+                    tweetArray = data[0];
+                    userArray = data[1];
+                    imageArray = data[2];
+                    timeArray = data[3];
+                    // console.log(tweetArray);
+                    // console.log(userArray);
+                    // console.log(imageArray)
+                    // console.log(timeArray);
+                    var TWEET_LINE_LENGTH = 140;
+                    var tweetFilled = false;
+
+                    if (userArray) {
+                        var tweetText = "<ul>";
+                        for (tweet in userArray) {
+                            tweetTime = moment(timeArray[tweet]).fromNow();
+                            if (imageArray[tweet].length != 0) {
+                                if (tweetFilled) {
+                                    tweetText += "</li>"
+                                    tweetFilled = false;
+                                }
+                                for (image in imageArray[tweet]) {
+                                    tweetText += "<li class='eventitem' style='word-wrap: break-word'>";
+                                    tweetText += "<span class='twuser'>@"+ userArray[tweet].toUpperCase() + " (" + tweetTime.toUpperCase() + ")</span><br>"
+                                    tweetText += "<img class='twitter-image' src='"+imageArray[tweet][image] + "'</span>";
+                                    tweetText += "<span class='twtweet twimage'><br>" + tweetArray[tweet] + "</span>";
+                                    tweetText += "</li>"
+                                }
+                                tweetFilled = false;
+                            } else if (tweetArray[tweet].length > TWEET_LINE_LENGTH) {
+                                if (tweetFilled) {
+                                    tweetText += "</li>";
+                                    tweetFilled = false;
+                                }
+                                //241+
+                                tweetText += "<li class='event item' style='word-wrap: break-word'>";
+                                tweetText += "<span class='twuser'>@" + userArray[tweet].toUpperCase() + " (" + tweetTime.toUpperCase() + ")</span><br>";
+                                tweetText += "<span class='twtweet'>" + tweetArray[tweet] + "</span>";
+                                tweetText += "</li>";
+                                tweetFilled = false;
+                            } else if (!tweetFilled) {
+                                tweetText += "<li class='event item' style='word-wrap: break-word'>";
+                                tweetText += "<span class='twuser'>@" + userArray[tweet].toUpperCase() + " (" + tweetTime.toUpperCase() + ")</span><br>";
+                                tweetText += "<span class='twtweet'>" + tweetArray[tweet] + "</span>";
+                                tweetText += "<br><br>";
+                                tweetFilled = true;                                
+                            } else if (tweetFilled) {
+                                tweetText += "<span class='twuser'>@" + userArray[tweet].toUpperCase() + " (" + tweetTime.toUpperCase() + ")</span><br>";
+                                tweetText += "<span class='twtweet'>" + tweetArray[tweet] + "</span>";
+                                tweetText += "</li>";
+                                tweetFilled = false;
+                            }
+                        }
+                        if (tweetFilled) {
+                            tweetText += "</li>";
+                        }
+                        tweetText += "</ul>"
+                        $('#twitter-block').html(tweetText);
+                    } else {
+                        $('#twitter-block').html("Twitter failed to load...");
+                    }
+                    beginSlider();
+
+
                 }
                 else {
                 }
             })
+}
+
+var slider;
+
+function beginSlider() {
+        slider = $("#twitter-block").unslider({
+                autoplay: true,
+                // infinite: true,
+                arrows: false,
+            nav: false,
+            delay: 5000,
+            animation: 'fade',
+            animateHeight: true
+        });
+
+      
+}
+
+function updateSlider() {
+    var original = '<div class="slider" id="twitter-block">Updating...</div>'
+    $('#twitter-wrapper').html(original);
+    getTwitter();
 }
