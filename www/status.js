@@ -537,3 +537,9 @@ function beginCalendarSlider () {
     });
 
 }
+
+function updateCalendar() {
+    var original = '<div class="slider" id="calendar-block">Updating calendar...</div>'
+    $('#calendar-wrapper').html(original);
+    getCalendar();
+}

@@ -5,3 +5,9 @@ Things to do:
 
 - Do the same with schedule/config file update
 * 
+
+- API KEYS :)
+* Dark Sky
+* Google Calendar
+* Twitter
+* Google Spreadsheet file (test-news)

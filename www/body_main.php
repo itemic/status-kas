@@ -42,9 +42,12 @@
 						<div class="icon"><i class="fa fa-calendar"></i></div>
 					</div>
 					<div class="col-md-10">
+					<div id="calendar-wrapper">
 						<div class="slider" id="calendar-block">
 							Unable to load calendar...
-						</div>
+						</div>						
+					</div>
+
 					</div>
 				</div>
 				<div class="row icon-spacing module-spacing" id="weather-module">
@@ -161,7 +164,8 @@
 
 		
 		//refresh twitter every two hours (not too important)
-		var twitterUpdate = setInterval(updateSlider, 1000 * 60 * 120); 
+		var twitterUpdate = setInterval(updateSlider, 1000 * 60 * 60 * 2); 
+		var calendarUpdate = setInterval(updateCalendar, 1000 * 60 * 60 * 24)
 		var timeUpdate = setInterval(currentTime, 200);
 		var aqiRefresh = setInterval(getAQI, 1000 * 1800); //update every half hour
 		var tickerRefresh = setInterval(startTicker, 1000 * 60 * 10); //10 min update interval *one minute for testing
