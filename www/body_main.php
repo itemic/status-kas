@@ -105,7 +105,7 @@
 		//new idea brief for next time
 		//we have two arrays and we fetch a new array or something
 
-		var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/11Z_TJTHhb7Ivuq5swt5HYnJTSl9-cGMo3kKQ5768VUM/pubhtml';
+		var public_spreadsheet_url = "<?php echo $spreadsheet_url; ?>";
 		  var array = []; //i need a better name; array for info
 		  function startTicker() {
 		  	Tabletop.init( { key: public_spreadsheet_url,
@@ -146,31 +146,6 @@
 
 		 </script>
 		 
-		 <?php
-		 $now = gmdate("Y-m-d\TH:i:s\Z");
-		 $cal_entries = 10;
-		 $cal_link = "https://www.googleapis.com/calendar/v3/calendars/$calendar/events?key=$cal_apikey&timeMin=$now&maxResults=$cal_entries&singleEvents=true&orderBy=startTime";
-		 $results = json_decode(file_get_contents($cal_link), true);
-
-		 $cal_event = "<script> var eventName = [";
-		 $cal_start = "<script> var eventStart = [";
-		 $cal_end = "<script> var eventEnd = [";
-
-		 foreach ($results["items"] as $cal_item) {
-		 	$evt_name = addslashes($cal_item["summary"]);
-		 	$evt_name = preg_replace('~[\r\n]+~', ' ', $evt_name);
-		 	$evt_start = $cal_item["start"]["date"];
-		 	$evt_end = $cal_item["end"]["date"];
-
-		 	$cal_event .= "'$evt_name',";
-		 	$cal_start .= "'$evt_start',";
-		 	$cal_end .= "'$evt_end',";
-		 }
-		 echo substr($cal_event, 0, -2)."'];</script>";
-		 echo substr($cal_start, 0, -2)."'];</script>";
-		 echo substr($cal_end, 0, -2)."'];</script>";
-
-		 ?>
 
 
 		 <script>
@@ -179,18 +154,10 @@
 		 	startTicker();
 		 	updateSchedule();
 		 	getAQI();
-		 	getCal();
+		 	getCalendar();
 			playMedia(); //need a way to update
 			getWeather();
 			getTwitter();
-
-			$("#calendar-block").unslider({
-				autoplay: true,
-				infinite: true,
-				arrows: false,
-			nav: false,
-			delay: 4500
-		});
 
 		
 		//refresh twitter every two hours (not too important)

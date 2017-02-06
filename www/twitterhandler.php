@@ -59,8 +59,8 @@ ini_set('display_errors', 1);
 						} else {
 							array_push($images, array());
 						}
-
-						$tweet = addslashes($search['text']);
+						$tweet = $search['text'];
+						// $tweet = addslashes($search['text']);
 						$tweet = preg_replace('~[\r\n]+~', ' ', $tweet);
 						$username = addslashes($search['user']['screen_name']);
 						$time = $search['created_at'];
@@ -84,8 +84,8 @@ ini_set('display_errors', 1);
 					array_push($images, array()
 						);
 				}
-
-				$tweet = addslashes($search['text']);
+				$tweet = $search['text'];
+				// $tweet = addslashes($search['text']);
 				$tweet = preg_replace('~[\r\n]+~', ' ', $tweet);
 				$username = addslashes($search['user']['screen_name']);
 				$time = $search['created_at'];

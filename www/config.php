@@ -77,4 +77,10 @@ $slide_duration = 5000;
 
 // Enable to only show the mediaplayer
 $fullscreen_mode = false;
+
+
+// /////////////////////// //
+// TICKER NEWS SPREADSHEET //
+// /////////////////////// //
+$spreadsheet_url = 'https://docs.google.com/spreadsheets/d/11Z_TJTHhb7Ivuq5swt5HYnJTSl9-cGMo3kKQ5768VUM/pubhtml';
 ?>
