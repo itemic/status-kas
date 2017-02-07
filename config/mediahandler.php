@@ -1,4 +1,7 @@
 <?php
+	$config = require_once("../config/config.php");
+
+
 
 	function youtube_id_from_url($url) {
 		$pattern = 
@@ -27,12 +30,17 @@
 	$valid_extension = array("png", "jpg", "jpeg", "mov", "mp4", "m4v");
 	$mediaplayer_str = "<script> var content = [";
 
+	$img_duration = $config['media']['image_duration'];
+	$slides_canvas = $config['media']['slides_canvas'];
+	$slides_count = $config['media']['slides_count'];
+	$slides_duration = $config['media']['slides_duration'];
+
 
 	$duration_str = "<script>";
-	$duration_str.="var imgDuration=$default_duration;";
+	$duration_str.="var imgDuration=$img_duration;";
 	if ($slides_canvas) {
 		$mediaplayer_str.="'$slides_canvas', ";
-		$total_slide_time = $number_of_slides * $slide_duration;
+		$total_slide_time = $slides_count * $slide_duration;
 		$duration_str.="slidesDuration = $total_slide_time;";
 	} else {
 		$duration_str.="slidesDuration = 0;";
@@ -40,13 +48,13 @@
 	$duration_str.= "</script>";
 	echo $duration_str;
 
-	foreach ($media_objects as $media_file) {
+	foreach ($config['media']['media_objects'] as $media_file) {
 		$ext = pathinfo($media_file, PATHINFO_EXTENSION);
 		// echo $ext;
 		if (in_array($ext, $valid_extension)) {
 			// add existence validation
 
-			$media_dir = $file_location.$media_file;
+			$media_dir = $config['media']['file_location'].$media_file;
 			// echo $media_dir;
 			$mediaplayer_str.="'$media_dir', ";
 		}

@@ -327,10 +327,10 @@ function getWeather() {
                     var data = response.split(",")
                     var temp = data[0];
                     var now_icon = data[1];
-                    var icon = '<i class="wi wi-forecast-io-' + now_icon + '"></i>';
+                    // var icon = '<i class="wi wi-forecast-io-' + now_icon + '"></i>';
                     //echoed is text, so then take the text and fill it in eh
                     document.getElementById('temp').textContent=temp + "°C" ;
-                    document.getElementById('weathericon').innerHTML=icon;
+                    document.getElementById('weathericon').innerHTML=iconhtml;
                     skycons.set("skycon", now_icon);
                     skycons.play();
                 }
@@ -339,7 +339,6 @@ function getWeather() {
                 }
             })
             
-            // document.getElementById('weatherconditions').innerHTML=now_cond.toUpperCase();
             
 }
 

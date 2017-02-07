@@ -1,10 +1,13 @@
 <?php
-require("config.php");
-require("keys.php");
+$config = require_once("../config/config.php");
+
+
 
 $now = gmdate("Y-m-d\TH:i:s\Z");
-$cal_entries = 10;
- $cal_link = "https://www.googleapis.com/calendar/v3/calendars/$calendar/events?key=$cal_apikey&timeMin=$now&maxResults=$cal_entries&singleEvents=true&orderBy=startTime";
+$api_key = $config["calendar_api"]["api_key"];
+$calendar_link = $config["calendar_api"]["calendar"];
+$cal_entries = $config["calendar"]["entries"];
+$cal_link = "https://www.googleapis.com/calendar/v3/calendars/$calendar_link/events?key=$api_key&timeMin=$now&maxResults=$cal_entries&singleEvents=true&orderBy=startTime";
 $results = json_decode(file_get_contents($cal_link), true);
 
 $cal_event = array();

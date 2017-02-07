@@ -1,12 +1,9 @@
-<script>
-
-</script>
 
 <div class="container-fluid" id="whole-thing" style="height: 100%">
 		<div class="row">
 			<div class="col-md-9">
 				<div class="row" id="banner-module" style=" height: 20vh">
-					<img id="banner-img" style="height: 20vh"; src="../assets/pics/topbanner.png" class="img-responsive center-block" alt="kas logo"/>
+					<img id="banner-img" style="height: 20vh"; src="../img/topbanner.png" class="img-responsive center-block" alt="kas logo"/>
 
 				</div>
 				<div class="row" id="ticker-module">
@@ -108,7 +105,7 @@
 		//new idea brief for next time
 		//we have two arrays and we fetch a new array or something
 
-		var public_spreadsheet_url = "<?php echo $spreadsheet_url; ?>";
+		var public_spreadsheet_url = "<?php echo $config['news_ticker']['spreadsheet_url']; ?>";
 		  var array = []; //i need a better name; array for info
 		  function startTicker() {
 		  	Tabletop.init( { key: public_spreadsheet_url,

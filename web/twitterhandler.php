@@ -1,15 +1,14 @@
 <?php
 ini_set('display_errors', 1);
 	
-	require_once('keys.php');
-	require_once('TwitterAPIExchange.php');
-	require_once('config.php');
+	require_once('../config/TwitterAPIExchange.php');
+	$config = require_once("../config/config.php");
 	/** Set access tokens here - see: https://dev.twitter.com/apps/ **/
 	$settings = array(
-		'oauth_access_token' => $oauth_token,
-		'oauth_access_token_secret' => $oauth_secret,
-		'consumer_key' => $cons_key,
-		'consumer_secret' => $cons_secret
+		'oauth_access_token' => $config['twitter_api']['oauth_token'],
+		'oauth_access_token_secret' => $config['twitter_api']['oauth_secret'],
+		'consumer_key' => $config['twitter_api']['cons_key'],
+		'consumer_secret' => $config['twitter_api']['cons_secret']
 		); 
 
 	/** Perform a GET request and echo the response **/
@@ -18,7 +17,17 @@ ini_set('display_errors', 1);
 	// Don't know what's better: count=100 will show A LOT if you don't restrict hashtags
 	// But if you restrict hashtags you'll need a lot because otherwise it will only show those
 	// in the past day or so.
-	$getfield = "?slug=$twitter_slug&owner_screen_name=$twitter_owner&include_rts=$include_rts&count=$tweet_count&include_entities=true";
+
+	//fields
+	$slug = $config["twitter"]["slug"];
+	$owner = $config["twitter"]["owner"];
+	$include_rts = $config["twitter"]["include_rts"];
+	$filter_hashtags = $config["twitter"]["filter_hashtags"];
+	$display_hashtags = $config["twitter"]["display_hashtags"];
+	$case_sensitive_hashtags = $config["twitter"]["case_sensitive"];
+	$tweet_count = $config["twitter"]["tweet_count"];
+
+	$getfield = "?slug=$slug&owner_screen_name=$owner&include_rts=$include_rts&count=$tweet_count&include_entities=true";
 	$requestMethod = 'GET';
 
 	$twitter = new TwitterAPIExchange($settings);
