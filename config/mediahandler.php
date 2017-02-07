@@ -27,7 +27,7 @@
 		return false;
 	}
 
-	$valid_extension = array("png", "jpg", "jpeg", "mov", "mp4", "m4v");
+	$valid_extension = array("png", "jpg", "jpeg", "mov", "mp4", "m4v", "webm");
 	$mediaplayer_str = "<script> var content = [";
 
 	$img_duration = $config['media']['image_duration'];

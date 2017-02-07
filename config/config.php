@@ -13,8 +13,7 @@ return [
 	
 	'media' => [
 		'file_location'		=> "/media/",
-		'media_objects'		=> ['upcoming.png',
-								'powerhouse.png',
+		'media_objects'		=> [
 								'battle.png',
 								'timetabletest.png',
 								'floormap.png',

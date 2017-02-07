@@ -69,13 +69,13 @@
 		// http://stackoverflow.com/questions/13807788/web-based-fullscreen-slideshow-with-video-elements (cc-by-sa 3.0)
 		var canvas = $('#canvas');
 		var imgsrc = '<img src="$" alt="" class="img-responsive center-block"/>';
-		var vidsrc = '<video autoplay class="embed-responsive-item"><source src="$" type="video"></source></video>';
+		var vidsrc = '<video autoplay class="embed-responsive-item"><source src="$" type="video/mp4"></source></video>';
 		var ytsrc = '<iframe id="yt" src="$"></iframe>'
 		var gssrc = '<iframe src="$" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>'
 		var current = -1;
 		var regex = /(?:\.([^.]+))?$/;
 		var imgTypes = ["png", "jpg", "jpeg"];
-		var vidTypes = ["mp4", "mov"];
+		var vidTypes = ["mp4", "mov", "m4v", "webm"];
 		var player;
 
 	</script>
