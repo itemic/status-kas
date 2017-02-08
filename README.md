@@ -82,7 +82,9 @@ Manual refreshes are required to update the custom schedule. In some cases, the 
 ### Weather
 The weather block uses Dark Sky APIs to get the current weather conditions and temperature. It also uses the Taiwan Air Quality Monitoring Network (TAQM) to retrieve the current AQI in Zuoying.
 
-**Update frequency:** 20 minutes for weather, 30 minutes for AQI. *There is a limit of 1000 weather calls per day, but 20 minutes/call is well below the limit.*
+Both the weather and AQI are processed together. The AQI takes a bit more time to process, so it takes a bit longer for this component to fully load.
+
+**Update frequency:** 20 minutes.
 ### Calendar
 The calendar shows the next few upcoming events. Events that are currently in progress (i.e. happening today or within the date range) are highlighted.
 
@@ -120,7 +122,7 @@ To set these keys, set the values in `weather_api` in `config.php`. The geograph
 ### Air Quality
 Used in the Weather component.
 
-As of 2017-02-08, the key is hardcoded in `status.js`. This is potentially insecure. A server-side solution is planned.
+To change the key, edit `weather_api[aqi]`.
 
 ### Calendar
 
@@ -136,5 +138,4 @@ This is just a public spreadsheet link as described in **Components**.
 * A copy of `config.php` is included with the keys stripped out. This file is `configx.php`. 
 
 ## Todos
-* Prevent AQI API key from being public.
 * Change array of items to be everything within directory, with additional YouTube array instead.
