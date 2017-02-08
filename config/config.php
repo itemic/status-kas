@@ -12,13 +12,9 @@ return [
 	],
 	
 	'media' => [
-		'file_location'		=> "/media/",
-		'media_objects'		=> [
-								'battle.png',
-								'timetabletest.png',
-								'floormap.png',
-								'schedulechange.png',
-								'bantyphoon.png'],
+		'file_location'		=> "media",
+		'media_objects'		=> ["https://www.youtube.com/watch?v=gUEhQ65FOJ8"
+								],
 		'image_duration'	=> 3000,
 		'slides_canvas'		=> "",
 		'slides_count'		=> 2,

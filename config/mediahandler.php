@@ -47,17 +47,16 @@
 	}
 	$duration_str.= "</script>";
 	echo $duration_str;
-
-	foreach ($config['media']['media_objects'] as $media_file) {
+	foreach (preg_grep('/^([^.])/', scandir($config['media']['file_location'])) as $media_file) {
 		$ext = pathinfo($media_file, PATHINFO_EXTENSION);
-		// echo $ext;
-		if (in_array($ext, $valid_extension)) {
-			// add existence validation
-
-			$media_dir = $config['media']['file_location'].$media_file;
-			// echo $media_dir;
+		if (in_array(strtolower($ext), $valid_extension)) {
+			$media_dir = $config['media']['file_location']."/".$media_file;
 			$mediaplayer_str.="'$media_dir', ";
 		}
+
+	}
+
+	foreach ($config['media']['media_objects'] as $media_file) {
 		$yid = youtube_id_from_url($media_file);
 		// echo $yid;
 		if ($yid) {

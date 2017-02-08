@@ -1,3 +1,13 @@
+
+        var imgsrc = '<img src="$" alt="" class="img-responsive center-block"/>';
+        var vidsrc = '<video autoplay class="embed-responsive-item"><source src="$" type="video/mp4"></source></video>';
+        var ytsrc = '<iframe id="yt" src="$"></iframe>'
+        var gssrc = '<iframe src="$" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>'
+        var current = -1;
+        var imgTypes = ["png", "jpg", "jpeg"];
+        var vidTypes = ["mp4", "mov", "m4v", "webm"];
+        var player;
+
 // TIME/CALENDAR RELATED
 
 function currentTime() {
@@ -91,6 +101,8 @@ function getSchedule(data, division) {
 
 // MEDIA
 function playMedia() {
+    var regex = /(?:\.([^.]+))?$/;
+
     if (content.length != 0) {
         ++current;
         if (content.length == current) {
@@ -99,7 +111,7 @@ function playMedia() {
 
         var source = null;
         var file = content[current];
-        var extension = regex.exec(file)[1];
+        var extension = regex.exec(file)[1].toLowerCase();
         if (imgTypes.includes(extension)) {
             source = imgsrc.replace('$', file);
         }

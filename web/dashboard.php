@@ -164,7 +164,6 @@
 		var twitterUpdate = setInterval(updateSlider, 1000 * 60 * 60 * 2); 
 		var calendarUpdate = setInterval(updateCalendar, 1000 * 60 * 60 * 24)
 		var timeUpdate = setInterval(currentTime, 200);
-		var aqiRefresh = setInterval(getAQI, 1000 * 1800); //update every half hour
 		var tickerRefresh = setInterval(startTicker, 1000 * 60 * 10); //10 min update interval *one minute for testing
 		var weatherRefresh = setInterval(getWeather, 1000 * 60 * 20); //20 min update interval
 		

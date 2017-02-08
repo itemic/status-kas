@@ -34,20 +34,17 @@ To ensure that the videos/pictures take up the full screen, use a 16:9 aspect ra
 **Update frequency**: manual. The Slides canvas updates live.
 
 #### Setting media location
-The default file location is currently `/media/` in the root directory (`web`). To change where files are found, change `media[file_location]` in the configuration file.
+The default file location is currently `media` in the root directory (`web`). To change where files are found, change `media[file_location]` in the configuration file.
 
 #### Setting media files
-The array `media[media_objects]` contains strings of the filenames that will be displayed. The filenames are relative to the media location as discussed above.
+The array `media[media_objects]` contains YouTube URLs to play YouTube videos. 
 
 The order of the media files is the order in the array.
-
-*Changes will be made to this in the future – all the files within the media directory will be displayed and this will be deprecated.*
-
 #### Image duration
 The configuration entry for image duration is `media[image_duration]`. Units in milliseconds.
 
 #### YouTube
-YouTube links are supported as well in `media[media_objects]`. Try to use the standard YouTube URL but the code should able to find the yID.
+YouTube links are supported in `media[media_objects]`. Try to use the standard YouTube URL but the code should able to find the yID.
 
 Recommended format: `https://www.youtube.com/watch?v=ID`.
 
@@ -61,6 +58,10 @@ There is also support for a Google Slides slideshow (referred to as to the Slide
 The Slides canvas is always the first thing that is displayed before anything else. To disable the canvas, replace the embed link in `media[slides_canvas]` with the empty string `""`.
 
 Due to the way this embed link works, there is no way of determining how many slides a slideshow has, so ensure that the right `media` variables are set.
+
+#### Precedence
+
+The Slides canvas is shown first, followed by the files in the `media` folder, followed by YouTube URLs.
 
 #### Fullscreen
 Fullscreen mode turns the focus to only the media slideshow and a small clock overlay. To enable fullscreen mode, set `mode[fullscreen]` to `true`.
