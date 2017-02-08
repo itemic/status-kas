@@ -14,8 +14,8 @@ return [
 	],
 	
 	'media' => [
-		'file_location'		=> "media",
-		'media_objects'		=> [],
+		'file_location'		=> "",
+		'yt_filelist'		=> "",
 		'image_duration'	=> 3000,
 		'slides_canvas'		=> "",
 		'slides_count'		=> 2,
@@ -49,8 +49,8 @@ return [
 
 	'weather_api' => [
 		'api_key'			=> "",
-		'lat'				=> "22.676",
-		'lon'				=> "120.294",
+		'lat'				=> "",
+		'lon'				=> "",
 		'aqi'				=> ""
 
 	]
