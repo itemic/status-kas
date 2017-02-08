@@ -61,7 +61,7 @@
 		// echo $yid;
 		if ($yid) {
 			// it's a youtube link
-			$youtube_link = "http://www.youtube.com/embed/$yid";
+			$youtube_link = "https://www.youtube.com/embed/$yid";
 			// echo $youtube_link;
 			$mediaplayer_str.="'$youtube_link', ";
 		}
