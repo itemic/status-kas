@@ -140,3 +140,4 @@ This is just a public spreadsheet link as described in **Components**.
 * A copy of `config.php` is included with the keys stripped out. This file is `configx.php`. 
 
 ## Todos
+- [ ] Trim shortened URLs if Twitter image exists
