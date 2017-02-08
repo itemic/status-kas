@@ -55,7 +55,7 @@ function getSchedule(data, division) {
     // ddd{H|M}S for regular days (ddd = Sun, Mon, etc.)
     var todays_date = moment().format("YYYYMMDD");
     var todays_day = moment().format("ddd");
-    var customSchedule = "XX" + todays_date + division
+    var customSchedule = division + todays_date
     var dailySchedule = todays_day + division;
     
     // First check for custom days
