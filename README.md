@@ -36,17 +36,18 @@ To ensure that the videos/pictures take up the full screen, use a 16:9 aspect ra
 #### Setting media location
 The default file location is currently `media` in the root directory (`web`). To change where files are found, change `media[file_location]` in the configuration file.
 
-#### Setting media files
-The array `media[media_objects]` contains YouTube URLs to play YouTube videos. 
+#### YouTube support
+YouTube links are supported as well. It is recommended that the basic YouTube URL format is used, although shortened/share/embed links may also work.
+
+Recommended format: `https://www.youtube.com/watch?v=ID`.
+
+These URLs should be placed in a plaintext file. Each line should only have 1 link. By default, it is also in the `media` folder.
+
+The config setting `media[yt_filelist]` specifies the location of this plaintext file.
 
 The order of the media files is the order in the array.
 #### Image duration
 The configuration entry for image duration is `media[image_duration]`. Units in milliseconds.
-
-#### YouTube
-YouTube links are supported in `media[media_objects]`. Try to use the standard YouTube URL but the code should able to find the yID.
-
-Recommended format: `https://www.youtube.com/watch?v=ID`.
 
 #### Google Slides Canvas
 There is also support for a Google Slides slideshow (referred to as to the Slides canvas) for fast/live updates.
@@ -139,4 +140,3 @@ This is just a public spreadsheet link as described in **Components**.
 * A copy of `config.php` is included with the keys stripped out. This file is `configx.php`. 
 
 ## Todos
-* Change array of items to be everything within directory, with additional YouTube array instead.

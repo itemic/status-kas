@@ -15,6 +15,7 @@ return [
 		'file_location'		=> "media",
 		'media_objects'		=> ["https://www.youtube.com/watch?v=gUEhQ65FOJ8"
 								],
+		'yt_filelist'		=> "media/webvideos.txt",
 		'image_duration'	=> 3000,
 		'slides_canvas'		=> "",
 		'slides_count'		=> 2,

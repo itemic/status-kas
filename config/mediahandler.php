@@ -55,9 +55,9 @@
 		}
 
 	}
-
-	foreach ($config['media']['media_objects'] as $media_file) {
-		$yid = youtube_id_from_url($media_file);
+	$weblinks = fopen($config['media']['yt_filelist'], 'r');
+	while ($line = fgets($weblinks)) {
+		$yid = youtube_id_from_url($line);
 		// echo $yid;
 		if ($yid) {
 			// it's a youtube link
@@ -66,6 +66,7 @@
 			$mediaplayer_str.="'$youtube_link', ";
 		}
 	}
+	fclose($weblinks);
 	// $mediaplayer_str = substr($mediaplayer_str, 0, -2);
 	$mediaplayer_str.="];</script>";
 	echo $mediaplayer_str;
