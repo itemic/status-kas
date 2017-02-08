@@ -53,7 +53,8 @@ return [
 	'weather_api' => [
 		'api_key'			=> "a16af3b757f5e314c507e6fda482d046",
 		'lat'				=> "22.676",
-		'lon'				=> "120.294"
+		'lon'				=> "120.294",
+		'aqi'				=>	"+FnNny1OD023y6sJSIyDmA"
 	]
 ];
 ?>

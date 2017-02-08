@@ -153,7 +153,7 @@
 		 	currentTime();
 		 	startTicker();
 		 	updateSchedule();
-		 	getAQI();
+		 	// getAQI();
 		 	getCalendar();
 			playMedia(); //need a way to update
 			getWeather();
