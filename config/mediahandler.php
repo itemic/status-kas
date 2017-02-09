@@ -55,18 +55,26 @@
 		}
 
 	}
-	$weblinks = fopen($config['media']['yt_filelist'], 'r');
-	while ($line = fgets($weblinks)) {
-		$yid = youtube_id_from_url($line);
-		// echo $yid;
-		if ($yid) {
-			// it's a youtube link
-			$youtube_link = "https://www.youtube.com/embed/$yid";
-			// echo $youtube_link;
-			$mediaplayer_str.="'$youtube_link', ";
-		}
+
+	$is_connected = @fsockopen("www.youtube.com", 80);
+	if ($is_connected) {
+		// ONLY get YOUTUBE Links if we're connected to Internet...
+		$weblinks = fopen($config['media']['yt_filelist'], 'r');
+			while ($line = fgets($weblinks)) {
+				$yid = youtube_id_from_url($line);
+				// echo $yid;
+				if ($yid) {
+					// it's a youtube link
+					$youtube_link = "https://www.youtube.com/embed/$yid";
+					// echo $youtube_link;
+					$mediaplayer_str.="'$youtube_link', ";
+				}
+			}
+		fclose($weblinks);
+		fclose($is_connected);
 	}
-	fclose($weblinks);
+
+	
 	// $mediaplayer_str = substr($mediaplayer_str, 0, -2);
 	$mediaplayer_str.="];</script>";
 	echo $mediaplayer_str;

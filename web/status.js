@@ -293,30 +293,24 @@ function getWeather() {
 
                     // AQI PORTION
                     var aqiquality;
-                    if (!aqi) {
-                        aqiquality = "--"
+                    if (aqi==="") {
+                        aqi = "--"
                     } else if (aqi < 51) {
-                        aqiquality = "Good"
                         $('#aqi').addClass("air-good")
                         document.getElementById('aqi').className="air-good";
                     } else if (aqi < 101) {
-                        aqiquality = "Moderate"
                         $('#aqi').addClass("air-moderate")
                         document.getElementById('aqi').className="air-moderate";
                     } else if (aqi < 151) {
-                        aqiquality = "Unhealthy for sensitive groups"
                         $('#aqi').addClass("air-unhealthsensitive")
                         document.getElementById('aqi').className="air-unhealthsensitive";
                     } else if (aqi < 201) {
-                        aqiquality = "Unhealthy"
                         $('#aqi').addClass("air-unhealthy")
                         document.getElementById('aqi').className="air-unhealthy";
                     } else if (aqi < 301) {
-                        aqiquality = "Very unhealthy"
                         $('#aqi').addClass("air-veryunhealthy")
                         document.getElementById('aqi').className="air-veryunhealthy";
                     } else {
-                        aqiquality = "Hazardous"
                         $('#aqi').addClass("air-hazardous")
                         document.getElementById('aqi').className="air-hazardous";
                     }
