@@ -11,7 +11,8 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 text-center embed-responsive embed-responsive-16by9" style="height: 810px; min-height:calc(75%); max-height:calc(75%)">
-						<div id="canvas" style="overflow: hidden;"><!-- VIDEO --></div>
+						
+						<div id="canvas" ><!-- VIDEO --></div>
 					</div>
 				</div>
 			</div>

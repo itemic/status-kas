@@ -54,6 +54,7 @@ There is also support for a Google Slides slideshow (referred to as to the Slide
 
 1. Get a Google Slides embed link from `File > Publish to the web...` and check "Start slideshow as soon as the player loads." Change the length per slide if necessary, and copy the embed link.
 2. Set the config entry `media[slides_canvas]` to the copied embed link.
+3. Check the embed link: does it include `/pub?` somewhere in the URL? If it does, change it to `/embed?`. Alternatively, instead of copying the embed link from the first tab `(Link)` in `Publish to the web...`, go to the second tab `(Embed)`, and copy the URL starting from `src=""` in the iframe embed code.
 3. Set `media[slides_duration]` to the same value as the one in the embed link, and also set `media[slides_count]` to the number of slides in the slideshow.
 
 The Slides canvas is always the first thing that is displayed before anything else. To disable the canvas, replace the embed link in `media[slides_canvas]` with the empty string `""`.
@@ -141,4 +142,4 @@ This is just a public spreadsheet link as described in **Components**.
 
 ## Todos
 - [ ] Trim shortened URLs if Twitter image exists
-- [ ] IFrame and YouTube issue
+- [x] IFrame and YouTube issue

@@ -34,13 +34,21 @@
 	$slides_canvas = $config['media']['slides_canvas'];
 	$slides_count = $config['media']['slides_count'];
 	$slides_duration = $config['media']['slides_duration'];
+	$is_connected = @fsockopen("www.youtube.com", 80);
+	if ($is_connected) {
+		fclose($is_connected);
+		$is_connected = true;
+	} else {
+		$is_connected = false;
+	}
 
 
 	$duration_str = "<script>";
 	$duration_str.="var imgDuration=$img_duration;";
-	if ($slides_canvas) {
+	if ($slides_canvas && $is_connected) {
 		$mediaplayer_str.="'$slides_canvas', ";
-		$total_slide_time = $slides_count * $slide_duration;
+		$total_slide_time = $slides_count * $slides_duration;
+
 		$duration_str.="slidesDuration = $total_slide_time;";
 	} else {
 		$duration_str.="slidesDuration = 0;";
@@ -56,7 +64,6 @@
 
 	}
 
-	$is_connected = @fsockopen("www.youtube.com", 80);
 	if ($is_connected) {
 		// ONLY get YOUTUBE Links if we're connected to Internet...
 		$weblinks = fopen($config['media']['yt_filelist'], 'r');
@@ -71,7 +78,6 @@
 				}
 			}
 		fclose($weblinks);
-		fclose($is_connected);
 	}
 
 	

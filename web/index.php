@@ -1,3 +1,4 @@
+<?php 	header("X-Frame-Options: GOFORIT"); ?>
 <!doctype HTML>
 <html>
 <head>
@@ -38,7 +39,6 @@
 	require_once('../config/mediahandler.php');
 
 	$config = require('../config/config.php');
-
 	?>
 
 
@@ -47,6 +47,7 @@
 		// echo "<script>var fullscreen = true</script>";
 
 		include('fullscreen.php');	
+
 	} else {
 		// echo "<script>var fullscreen = false</script>";
 		include ('dashboard.php');
@@ -54,8 +55,19 @@
 	}
 	 
 	 ?>
+
 	 <script>
         var canvas = $('#canvas');
+        
+        var imgsrc = '<img src="$" alt="" class="img-responsive center-block"/>';
+        var vidsrc = '<video autoplay class="embed-responsive-item"><source src="$" type="video/mp4"></source></video>';
+        var ytsrc = '<iframe id="yt" src="$"></iframe>'
+        var gssrc = '<iframe src="$" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>'
+        // var gssrc = '<iframe src="$" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>'
+        var current = -1;
+        var imgTypes = ["png", "jpg", "jpeg"];
+        var vidTypes = ["mp4", "mov", "m4v", "webm"];
+        var player;
 
 
 

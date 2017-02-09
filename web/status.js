@@ -1,12 +1,4 @@
 
-        var imgsrc = '<img src="$" alt="" class="img-responsive center-block"/>';
-        var vidsrc = '<video autoplay class="embed-responsive-item"><source src="$" type="video/mp4"></source></video>';
-        var ytsrc = '<iframe id="yt" src="$"></iframe>'
-        var gssrc = '<iframe src="$" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>'
-        var current = -1;
-        var imgTypes = ["png", "jpg", "jpeg"];
-        var vidTypes = ["mp4", "mov", "m4v", "webm"];
-        var player;
 
 // TIME/CALENDAR RELATED
 
@@ -124,16 +116,21 @@ function playMedia() {
             file = file + "?enablejsapi=1&autoplay=1";
             source = ytsrc.replace('$', file);
 
-    }
+        }
 
-    if (file.includes("docs.google.com")) {
-        source = gssrc.replace('$', file);
-    }
+        if (file.includes("docs.google.com")) {
+            source = gssrc.replace('$', file);
+
+        }
 
 
 
     if (null !== source) {
+
         canvas.html(source);
+        // alert(source);
+        // alert('<iframe src="https://docs.google.com/presentation/d/1Wrto7IPH_g2snRRy1T-UxChEji7he3ejX0KcJn1mhx8/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>')
+        // canvas.html('<iframe src="https://docs.google.com/presentation/d/1Wrto7IPH_g2snRRy1T-UxChEji7he3ejX0KcJn1mhx8/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>')
         if (imgTypes.includes(extension)) {
             //it's a photo!
             setTimeout(function() {playMedia();}, imgDuration);
