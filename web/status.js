@@ -1,5 +1,5 @@
 
-
+content = "";
 // TIME/CALENDAR RELATED
 
 function currentTime() {
@@ -161,7 +161,7 @@ function playMedia() {
             setTimeout(function() {playMedia();}, slidesDuration);
         }
     }
-}
+} 
 }
 
 // CALENDAR
@@ -524,4 +524,15 @@ function updateCalendar() {
     var original = '<div class="slider" id="calendar-block">Updating calendar...</div>'
     $('#calendar-wrapper').html(original);
     getCalendar();
+}
+
+function updateMedia() {
+    var mediaRequest = 'mediahandler2.php';
+    $.get(mediaRequest, {}, function(response, status) {
+        if (status === 'success') {
+            content = JSON.parse(response);
+            console.log("now it is: "+content);
+            return content;
+        }
+    })
 }
