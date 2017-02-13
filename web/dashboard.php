@@ -49,17 +49,28 @@
 					</div>
 				</div>
 				<div class="row icon-spacing module-spacing" id="weather-module">
+			
 					<div class="col-md-2 icon" id="weathericon">
 						<i class="fa fa-cloud"></i>
 					</div>
-					<div class="col-md-10" style="line-height: 12px">
+					<div class="col-md-4">
+						<span class="data" id="temp"></span>
+					</div>
+
+					<div class="col-md-2 icon" id="aqiicon">
+						<i class="fa fa-industry"></i>
+					</div>
+
+					<div class="col-md-4">
+						<span class="data" id="aqi"></span>
+					</div>
+
+
+					<!-- <div class="col-md-10" style="line-height: 12px">
 					<div class="row weathertable">
 						<div class="col-md-12 weathertable">
 							<span class="data" id="temp"></span>
 						</div>
-						<!-- <div class="col-md-8 weathertable">
-							<span class="data-header" id="weatherconditions"></span>
-						</div> -->
 					</div>
 					<div class="row weathertable">
 						<div class="col-md-4 weathertable">
@@ -78,9 +89,15 @@
 						
 						
 						
+					</div> -->
+				</div>
+				<div class="row icon-spacing " id="weather-credits-module">
+					<div class="col-md-2"></div>
+					<div class="col-md-10">
+					<span class="credits">Powered by Dark Sky</span>
 					</div>
 				</div>
-				
+
 				<div class="row icon-spacing module-spacing" id="twitter-module">
 					<div class="icon col-md-2 tw-icon">
 						<i class="fa fa-twitter" aria-hidden="true"></i>

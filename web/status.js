@@ -166,7 +166,7 @@ function playMedia() {
 
 // CALENDAR
 
-var LINE_LENGTH = 28;
+var LINE_LENGTH = 20;
 
 function getCal() {
     // RIGHT NOW THIS RELIES ON THE FACT THAT CALENDAR EVENTS ARE 'all day' events! 
@@ -208,26 +208,26 @@ function getCal() {
             }
             calText+="<li class='eventitem' style='word-wrap: break-word'>"
             if (isMultiDayEvent) {
-                calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span><br>";
+                calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
             } else {
-                calText += todayDateSelector + startFormat.toUpperCase() + "</span><br>";
+                calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
             }
             calText += todayEventSelector + eventName[evt] + "</span></li>";    
         } else if (!filledEntries) {
             // alert("meep")
             calText+="<li class='eventitem' style='word-wrap: break-word'>"
             if (isMultiDayEvent) {
-                calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span><br>";
+                calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
             } else {
-                calText += todayDateSelector + startFormat.toUpperCase() + "</span><br>";
+                calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
             }
-            calText += todayEventSelector + eventName[evt] + "</span><br><br>";
+            calText += todayEventSelector + eventName[evt] + "</span>";
             filledEntries = true;
         } else if (filledEntries) {
             if (isMultiDayEvent) {
-                calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span><br>";
+                calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
             } else {
-                calText += todayDateSelector + startFormat.toUpperCase() + "</span><br>";
+                calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
             }
             calText += todayEventSelector + eventName[evt] + "</span></li>";
             filledEntries = false;
