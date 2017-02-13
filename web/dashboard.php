@@ -60,7 +60,7 @@
 					</div>
 
 					<div class="col-md-2 icon" id="aqiicon">
-						<i class="fa fa-industry"></i>
+						<i class="fa fa-leaf"></i>
 					</div>
 
 					<div class="col-md-4">

@@ -26,6 +26,8 @@
 	<link rel="stylesheet" href="/js/unslider-master/dist/css/unslider-dots.css">
 
 
+
+
 	<script src="/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -68,8 +70,8 @@
         var imgTypes = ["png", "jpg", "jpeg"];
         var vidTypes = ["mp4", "mov", "m4v", "webm"];
         var player;
-        var bob = processMedia();
-        console.log(bob);
+
+
 
 
 
