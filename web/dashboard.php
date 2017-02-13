@@ -54,7 +54,9 @@
 						<i class="fa fa-cloud"></i>
 					</div>
 					<div class="col-md-4">
-						<span class="data" id="temp"></span>
+						<span class="data" id="temp"></span><br>
+						<span class="micro-weather-text">Powered by Dark Sky</span>
+
 					</div>
 
 					<div class="col-md-2 icon" id="aqiicon">
@@ -62,41 +64,13 @@
 					</div>
 
 					<div class="col-md-4">
-						<span class="data" id="aqi"></span>
+						<span class="data" id="aqi"></span><br>
+						<span class="micro-weather-text">Air Quality Index</span>
 					</div>
 
 
-					<!-- <div class="col-md-10" style="line-height: 12px">
-					<div class="row weathertable">
-						<div class="col-md-12 weathertable">
-							<span class="data" id="temp"></span>
-						</div>
-					</div>
-					<div class="row weathertable">
-						<div class="col-md-4 weathertable">
-							<span class="data" id="aqi"></span>
-						</div>
-						<div class="col-md-8 weathertable">
-							<span class="data-header-dark">AQI</span>
-						</div>
-					</div>
-					<div class="row weathertable">
-						<div class="col-md-12">
-							<span class="data-header credits"><br>Powered by Dark Sky</span>
-						</div>
-						
-					</div>
-						
-						
-						
-					</div> -->
 				</div>
-				<div class="row icon-spacing " id="weather-credits-module">
-					<div class="col-md-2"></div>
-					<div class="col-md-10">
-					<span class="credits">Powered by Dark Sky</span>
-					</div>
-				</div>
+
 
 				<div class="row icon-spacing module-spacing" id="twitter-module">
 					<div class="icon col-md-2 tw-icon">

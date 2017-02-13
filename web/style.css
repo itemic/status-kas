@@ -22,10 +22,7 @@
 		height: 14vh;
 	}
 	#weather-module {
-		height: 8vh;
-	}
-	#weather-credits-module {
-		height: 3vh;
+		height: 9vh;
 	}
 	#twitter-module {
 		height: 42.5vh;
@@ -64,9 +61,7 @@
 #weather-module {
 	background-color: #484848;
 }
-#weather-credits-module{
-	background-color: #484848;
-}
+
 
 #calendar-module {
 	background-color: #383838;
@@ -231,9 +226,9 @@
 	width: auto;
 }
 
-.credits {
+.micro-weather-text {
 	/*display: flex;*/
-	font-size: 1em;
+	font-size: 0.8em;
 	font-style: italic;
 	color: #999999;
 }
@@ -253,7 +248,7 @@ div.canvas > video {
 
 .module-spacing {
 	padding-top: 20px;
-	padding-bottom: 15px;
+	padding-bottom: 20px;
 	display: flex;
 }
 
