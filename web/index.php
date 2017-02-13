@@ -68,6 +68,8 @@
         var imgTypes = ["png", "jpg", "jpeg"];
         var vidTypes = ["mp4", "mov", "m4v", "webm"];
         var player;
+        var bob = processMedia();
+        console.log(bob);
 
 
 

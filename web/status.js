@@ -98,6 +98,7 @@ function playMedia() {
     if (content.length != 0) {
         ++current;
         if (content.length == current) {
+            content = processMedia();
             current = 0;
         }
 
@@ -526,13 +527,19 @@ function updateCalendar() {
     getCalendar();
 }
 
-function updateMedia() {
-    var mediaRequest = 'mediahandler2.php';
-    $.get(mediaRequest, {}, function(response, status) {
-        if (status === 'success') {
-            content = JSON.parse(response);
-            console.log("now it is: "+content);
-            return content;
+function processMedia() {
+    var data;
+    $.ajax({
+        async: false,
+        url: "mediahandler2.php",
+        type: "POST",
+        dataType: "json",
+        success: function(response) {
+            data = response;
         }
     })
+    return data;
 }
+
+
+
