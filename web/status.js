@@ -166,7 +166,7 @@ function playMedia() {
 
 // CALENDAR
 
-var LINE_LENGTH = 20;
+var LINE_LENGTH = 24;
 
 function getCal() {
     // RIGHT NOW THIS RELIES ON THE FACT THAT CALENDAR EVENTS ARE 'all day' events! 
