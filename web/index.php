@@ -71,7 +71,7 @@
         var vidTypes = ["mp4", "mov", "m4v", "webm"];
         var player;
 
-
+   		
 
 
 

@@ -93,6 +93,7 @@ function getSchedule(data, division) {
 
 // MEDIA
 function playMedia() {
+    // console.log(content);
     var regex = /(?:\.([^.]+))?$/;
 
     if (content.length != 0) {
@@ -148,7 +149,8 @@ function playMedia() {
         }
 
         if (file.includes("youtube")) {
-            if (isYTready) {
+            var checkYouTube = setInterval(function () {
+                if (isYTready) {
                 player = new YT.Player('yt', {
                     events: {
                         'onReady': onPlayerReady,
@@ -156,7 +158,22 @@ function playMedia() {
                     },
                     playerVars: {'autoplay': 1, 'controls': 0}
                 });
+                clearInterval(checkYouTube);
             }
+            }, 100);
+
+
+            // if (isYTready) {
+            //     player = new YT.Player('yt', {
+            //         events: {
+            //             'onReady': onPlayerReady,
+            //             'onStateChange': onPlayerStateChange
+            //         },
+            //         playerVars: {'autoplay': 1, 'controls': 0}
+            //     });
+            // } else {
+            //     console.log("not ready")
+            // }
 
         }
 
@@ -273,9 +290,12 @@ function getCal() {
 
         function onPlayerStateChange(event) {
             if (event.data == 0)  {
+                // console.log("end")
                 playMedia();
             }
         }
+
+
 
 
 // WEATHER
