@@ -168,7 +168,7 @@ function playMedia() {
         playMedia();
     }
 } else {
-    setTimeout(function() {content = processMedia(; current = 0; playMedia(); console.log("polling" + content.length)}, 1000 * 10) //poll every 2 sec
+    setTimeout(function() {content = processMedia(); current = 0; playMedia(); console.log("polling" + content.length)}, 1000 * 10) //poll every 10 sec
 }
 }
 
