@@ -93,7 +93,7 @@ function getSchedule(data, division) {
 
 // MEDIA
 function playMedia() {
-    // console.log(content);
+    console.log(content);
     var regex = /(?:\.([^.]+))?$/;
 
     if (content.length != 0) {
@@ -156,7 +156,7 @@ function playMedia() {
                         'onReady': onPlayerReady,
                         'onStateChange': onPlayerStateChange
                     },
-                    playerVars: {'autoplay': 1, 'controls': 0}
+                    playerVars: {'autoplay': 1, 'controls': 1}
                 });
                 clearInterval(checkYouTube);
             }
