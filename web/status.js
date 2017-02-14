@@ -104,24 +104,27 @@ function playMedia() {
 
         var source = null;
         var file = content[current];
-        var extension = regex.exec(file)[1].toLowerCase();
-        if (imgTypes.includes(extension)) {
-            source = imgsrc.replace('$', file);
-        }
+        if (file !== undefined) {
+            //look if the file is undefined we want source to stay null!
+            var extension = regex.exec(file)[1].toLowerCase();
+            if (imgTypes.includes(extension)) {
+                source = imgsrc.replace('$', file);
+            }
 
-        if (vidTypes.includes(extension)) {
-            source = vidsrc.replace('$', file);
-        }
+            if (vidTypes.includes(extension)) {
+                source = vidsrc.replace('$', file);
+            }
 
-        if (file.includes("youtube.com")) {
-            file = file + "?enablejsapi=1&autoplay=1";
-            source = ytsrc.replace('$', file);
+            if (file.includes("youtube.com")) {
+                file = file + "?enablejsapi=1&autoplay=1";
+                source = ytsrc.replace('$', file);
 
-        }
+            }
 
-        if (file.includes("docs.google.com")) {
-            source = gssrc.replace('$', file);
+            if (file.includes("docs.google.com")) {
+                source = gssrc.replace('$', file);
 
+            }
         }
 
 
@@ -161,8 +164,12 @@ function playMedia() {
             //presentation :o
             setTimeout(function() {playMedia();}, slidesDuration);
         }
+    } else {
+        playMedia();
     }
-} 
+} else {
+    setTimeout(function() {content = processMedia(); current = 0; playMedia(); console.log("polling" + content.length)}, 1000 * 2) //poll every 2 sec
+}
 }
 
 // CALENDAR
