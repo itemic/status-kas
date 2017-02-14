@@ -41,20 +41,27 @@
 	require_once('../config/mediahandler.php');
 
 	$config = require('../config/config.php');
+
 	?>
 
 
 	<?php
-	if ($config['mode']['fullscreen']) {
-		// echo "<script>var fullscreen = true</script>";
+	$mode = $_GET["mode"];
 
-		include('fullscreen.php');	
-
+	// $alt = $config['mode']['altmode'];
+	if ($mode == "fullscreen") {
+		include("fullscreen.php");
+	} else if ($mode == "alt1") {
+		include("altmode1.php");
+	} else if ($mode == "alt2") {
+		include("altmode2.php");
 	} else {
-		// echo "<script>var fullscreen = false</script>";
-		include ('dashboard.php');
-
+		include("dashboard.php");
 	}
+
+
+
+	
 	 
 	 ?>
 
@@ -71,7 +78,7 @@
         var vidTypes = ["mp4", "mov", "m4v", "webm"];
         var player;
 
-   		
+
 
 
 
