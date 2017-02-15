@@ -93,9 +93,8 @@ function getSchedule(data, division) {
 
 // MEDIA
 function playMedia() {
-    console.log(content);
+    // console.log(content);
     var regex = /(?:\.([^.]+))?$/;
-
     if (content.length != 0) {
         ++current;
         if (content.length == current) {
@@ -114,6 +113,9 @@ function playMedia() {
 
             if (vidTypes.includes(extension)) {
                 source = vidsrc.replace('$', file);
+                // canvas.getContext('2d').fillText("MEMES");
+                // var context = document.getElementById('canvas');
+                // context.getContext('2d');
             }
 
             if (file.includes("youtube.com")) {
@@ -133,6 +135,8 @@ function playMedia() {
     if (null !== source) {
 
         canvas.html(source);
+
+
         // alert(source);
         // alert('<iframe src="https://docs.google.com/presentation/d/1Wrto7IPH_g2snRRy1T-UxChEji7he3ejX0KcJn1mhx8/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>')
         // canvas.html('<iframe src="https://docs.google.com/presentation/d/1Wrto7IPH_g2snRRy1T-UxChEji7he3ejX0KcJn1mhx8/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>')
@@ -187,9 +191,10 @@ function playMedia() {
 } else {
     source = imgsrc.replace('$', "img/placeholder.png");
     canvas.html(source);
-    setTimeout(function() {content = processMedia(); current = 0; playMedia();}, 1000 * 10) //poll every 10 sec
+    setTimeout(function() {content = processMedia(); current = 0; playMedia();}, 1000 * 2) //poll every 10 sec
 }
 }
+
 
 // CALENDAR
 

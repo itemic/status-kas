@@ -1,5 +1,5 @@
 # KAS Digital Signage
-This document was last updated on Feb 8, 2017.
+This document was last updated on Feb 15, 2017.
 ## Installation and Setup
 TBA.
 ## Overview
@@ -26,15 +26,20 @@ The slideshow supports the following file types:
 - JPG/JPEG
 - MP4
 - M4V
+- MOV
 - YouTube
 - Google Slides (to be discussed)
 
 To ensure that the videos/pictures take up the full screen, use a 16:9 aspect ratio.
 
-**Update frequency**: manual. The Slides canvas updates live.
+**Update frequency**: Custom. The Slides Canvas updates live. The media folder will be checked every time the page plays every video/image from the folder. A manual refresh will work as well.
+
+**Important:** Although there are a few tests to see whether the media is being displayed right now, do not remove (or move) media files while they are being displayed. If something needs to be removed, remove it once it is no longer on the screen. If it absolutely needs to be removed straightaway, a manual refresh may be needed.
 
 #### Setting media location
 The default file location is currently `media` in the root directory (`web`). To change where files are found, change `media[file_location]` in the configuration file.
+
+It is possible to have multiple directories within the media folder.
 
 #### YouTube support
 YouTube links are supported as well. It is recommended that the basic YouTube URL format is used, although shortened/share/embed links may also work.
@@ -65,8 +70,13 @@ Due to the way this embed link works, there is no way of determining how many sl
 
 The Slides canvas is shown first, followed by the files in the `media` folder, followed by YouTube URLs.
 
-#### Fullscreen
-Fullscreen mode turns the focus to only the media slideshow and a small clock overlay. To enable fullscreen mode, set `mode[fullscreen]` to `true`.
+#### Display Modes
+Fullscreen mode turns the focus to only the media slideshow and a small clock overlay. To display fullscreen mode, append `?mode=fullscreen` to the URL.
+
+#### Placeholders
+In the case where there is no media in the folder, a placeholder image (`img/placeholder`) is shown. The display will check for new media every 10 seconds, so do not be alarmed if it does not appear right away.
+
+Larger videos may take some time to load, so the placeholder image may appear in its place. This is especially the case when there are subdirectories within the media folder.
 
 ### Schedule and Clock
 

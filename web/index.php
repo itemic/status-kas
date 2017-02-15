@@ -29,6 +29,7 @@
 
 
 	<script src="/js/bootstrap.min.js"></script>
+
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
@@ -38,7 +39,6 @@
 <body>
 
 	<?php
-	require_once('../config/mediahandler.php');
 
 	$config = require('../config/config.php');
 
@@ -66,8 +66,12 @@
 	 ?>
 
 	 <script>
-        var canvas = $('#canvas');
+        // var canvas = $('#canvas');
         
+
+        canvas = $('#canvas');
+  
+        // var canvas = $('#canvas');
         var imgsrc = '<img src="$" alt="" class="img-responsive center-block"/>';
         var vidsrc = '<video autoplay class="embed-responsive-item"><source src="$" type="video/mp4"></source></video>';
         var ytsrc = '<iframe id="yt" src="$"></iframe>'
@@ -81,9 +85,15 @@
 
 
 
+        //SHARED SCRIPT
+        $(document).ready(function() {
+        	currentTime();
+			content = processMedia();
+			playMedia(); //need a way to update
 
-		// SECTION FOR WORKING ON CANVAS
-		// http://stackoverflow.com/questions/13807788/web-based-fullscreen-slideshow-with-video-elements (cc-by-sa 3.0)
+        	var timeUpdate = setInterval(currentTime, 200);
+        })
+
 
 
 	</script>

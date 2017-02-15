@@ -146,7 +146,6 @@
 		 	startTicker();
 		 	updateSchedule();
 		 	getCalendar();
-			playMedia(); //need a way to update
 			getWeather();
 			getTwitter();
 

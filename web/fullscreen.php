@@ -12,13 +12,3 @@
 	</div>
 
 </div>
-
-
-<script>
-	$(document).ready(function() {
-		currentTime();
-		playMedia();
-		var timeUpdate = setInterval(currentTime, 200);
-
-	})
-</script>
