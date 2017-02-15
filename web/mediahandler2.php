@@ -42,14 +42,17 @@
 		array_push($media_content,$slides_canvas);
 	}
 
-	foreach (preg_grep('/^([^.])/', scandir($config['media']['file_location'])) as $media_file) {
+
+
+
+	$all_files = getDirContents($config['media']['file_location']);
+	foreach ($all_files as $media_file) {
 		$ext = pathinfo($media_file, PATHINFO_EXTENSION);
 		if (in_array(strtolower($ext), $valid_extension)) {
-			$media_dir = $config['media']['file_location']."/".$media_file;
-			array_push($media_content, $media_dir);
+			array_push($media_content,$media_file);
 		}
-
 	}
+
 
 	if ($is_connected) {
 		// ONLY get YOUTUBE Links if we're connected to Internet...
@@ -68,6 +71,35 @@
 	}
 
 	echo json_encode($media_content);
+
+
+
+// FUNCTION CREDITS: http://stackoverflow.com/questions/24783862/list-all-the-files-and-folders-in-a-directory-with-php-recursive-function
+// credits to Hors Sujet for getDirContents();
+	function getDirContents($dir, &$results = array()){
+    $files = scandir($dir);
+    $contents = array();
+    foreach($files as $key => $value){
+        $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
+        if(!is_dir($path)) {
+            $results[] = $path;
+        } else if($value != "." && $value != "..") {
+            getDirContents($path, $results);
+            $results[] = $path;
+        }
+    }
+    foreach($results as $key => $value) {
+    	// echo $value . "         ";
+    	$value = str_replace($_SERVER['DOCUMENT_ROOT'],'',$value);
+    	// echo $value . " ";
+    	array_push($contents, $value);
+    }
+
+    // var_dump($contents);
+    // echo $value . " ";
+    return $contents;
+}
+
 
 
 
