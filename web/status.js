@@ -5,7 +5,7 @@ content = "";
 function currentTime() {
     var now = moment();
     var clock = now.format("hh:mm")
-    var calendar = now.format("dddd MMMM Do Y")
+    var calendar = now.format("ddd MMM Do Y")
 
     var ap = now.format("A");
     if (!!document.getElementById("ampm")) {

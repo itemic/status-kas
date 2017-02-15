@@ -2,40 +2,67 @@
 <div class="container-fluid" id="whole-thing" style="height: 100%">
 		<div class="row">
 			<div class="col-md-9">
-				<div class="row" id="banner-module" style=" height: 20vh">
+
+				<div class="row module-spacing text-center" id="time-module">
+					<div class="col-md-2"></div>
+					<div class="col-md-8">
+						<div class="col-md-3">
+						<div class="text-center">
+							<span class="data-header">MS BLOCK</span><br>
+							<span id="ms" class="data"></span>
+						</div>
+						</div>
+						<div class="col-md-6">
+						<span id="cal"></span><br>
+						<span id="time"></span> <span id="ampm"></span>
+						</div>
+						<div class="col-md-3">
+						<div class="text-center">
+							<span class="data-header">HS BLOCK</span><br>
+							<span id="hs" class="data"></span>
+						</div>
+						</div>
+
+
+
+					</div>
+					<div class="col-md-2"></div>
+	
+				</div>
+
+				<!-- <div class="row" id="banner-module" style=" height: 20vh">
 					<img id="banner-img" style="height: 20vh"; src="../img/topbanner.png" class="img-responsive center-block" alt="kas logo"/>
 
+				</div> -->
+				<div class="row" id="ticker-module">
+					<div class="text-center news-ticker" id="n-ticker"></div>
 				</div>
-				
 				<div class="row">
 					<div class="col-md-12 text-center embed-responsive embed-responsive-16by9" style="height: 810px; min-height:calc(75%); max-height:calc(75%)">
 						
 						<div id="canvas" ><!-- VIDEO --></div>
 					</div>
 				</div>
-				<div class="row" id="ticker-module">
-					<div class="text-center news-ticker" id="n-ticker"></div>
-				</div>
+
+
+				
+
+
 				
 			</div>
+
+
+
+
+
+
+
+
+
 			<div class="col-md-3">
 				<div class="row module-spacing text-center" id="time-module" >
-					<div class="col-md-12">
-						<span id="cal"></span><br>
-						<span id="time"></span> <span id="ampm"></span>
-						<div class="col-md-6">
-						<div class="text-center">
-							<span class="data-header">MS BLOCK</span><br>
-							<span id="ms" class="data"></span>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="text-center">
-							<span class="data-header">HS BLOCK</span><br>
-							<span id="hs" class="data"></span>
-						</div>
-					</div>
-					</div>
+										<img id="banner-img" src="../img/topbanner.png" class="img-responsive center-block" alt="kas logo"/>
+
 				</div>
 				<div class="row icon-spacing module-spacing outer-icon" id="calendar-module">
 					<div class="icon col-md-2">

@@ -94,14 +94,14 @@
 }
 
 #cal {
-	font-size:1.5em;
-	color: #AAAAAA;
+	font-size:1.6em;
+	color: #888888;
 	font-weight: 300;
 }
 
 .data-header {
 	color: #AAAAAA;
-	font-size: 1.5em;
+	font-size: 1.25em;
 	/*font-weight: 300;*/
 }
 
@@ -112,7 +112,7 @@
 }
 
 .data {
-	font-size: 2.75em;
+	font-size: 2.25em;
 	color: white;
 	/*font-weight: 800;*/
 	line-height: 100%;
@@ -170,7 +170,7 @@
 
 /*CALENDAR*/
 .caldate {
-	color: #d3d3d3;
+	color: #888888;
 	font-size: 1.15em;
 	line-height: 100%;
 }
