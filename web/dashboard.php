@@ -152,7 +152,7 @@
 
 		
 		//refresh twitter every two hours (not too important)
-		var twitterUpdate = setInterval(updateSlider, 1000 * 60 * 60 * 2); 
+		var twitterUpdate = setInterval(updateSlider, 1000 * 60 * 20); 
 		var calendarUpdate = setInterval(updateCalendar, 1000 * 60 * 60 * 24)
 		var timeUpdate = setInterval(currentTime, 200);
 		var tickerRefresh = setInterval(startTicker, 1000 * 60 * 10); //10 min update interval *one minute for testing
