@@ -4,7 +4,7 @@ content = "";
 
 function currentTime() {
     var now = moment();
-    var clock = now.format("hh:mm")
+    var clock = now.format("h:mm")
     var calendar = now.format("ddd MMM Do Y")
 
     var ap = now.format("A");
@@ -205,6 +205,8 @@ function getCal() {
     var calText = "<ul>"
     var isBreak = true;
     var filledEntries = false;
+    var numOfEntries = 0;
+    var closingRequired = false;
     var today = moment();
     var todayDate = moment({year: today.year(), month: today.month(), date: today.date()});
     for (evt in eventName) {
@@ -232,42 +234,139 @@ function getCal() {
             todayEventSelector = "<span class ='calevent'>"
             finalDateSelector = "<span  class='caldate'>"
         }
-        if (eventName[evt].length > LINE_LENGTH) {
-            // alert("LONG EVENT");
-            if(filledEntries) {
-                calText += "</li>"
-                filledEntries = false;
-            }
-            calText+="<li class='eventitem' style='word-wrap: break-word'>"
-            if (isMultiDayEvent) {
-                calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+
+            if(eventName[evt].length > LINE_LENGTH) {
+
+                //+2
+                if (numOfEntries == 0) {
+                    //start a new li
+                    calText+="<li class='eventitem' style='word-wrap: break-word'>"
+                    if (isMultiDayEvent) {
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                    } else {
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                    }
+                    calText += todayEventSelector + eventName[evt] + "</span>";
+                    numOfEntries=2;
+                    closingRequired = true;
+                } else if (numOfEntries == 1) {
+                    //don't start a new li or close it
+                    if (isMultiDayEvent) {
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                    } else {
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                    }
+                    calText += todayEventSelector + eventName[evt] + "</span>";
+                    calText +="</li>"
+                    numOfEntries=0;
+                    closingRequired = false;
+                } else {
+                    //close the li, then start a new one
+                    calText +="</li>"
+                    calText+="<li class='eventitem' style='word-wrap: break-word'>"
+                    if (isMultiDayEvent) {
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                    } else {
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                    }
+                    calText += todayEventSelector + eventName[evt] + "</span>";
+                    numOfEntries=2;
+                    closingRequired = true;
+
+                }
+
             } else {
-                calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                //+1
+                if (numOfEntries == 0) {
+                    //start a new one, don't close it
+                    calText+="<li class='eventitem' style='word-wrap: break-word'>"
+                    if (isMultiDayEvent) {
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                    } else {
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                    }
+                    calText += todayEventSelector + eventName[evt] + "</span>";
+                    numOfEntries=1;
+                    closingRequired = true;
+                } else if (numOfEntries == 1) {
+                    // dont start, dont close
+                    if (isMultiDayEvent) {
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                    } else {
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                    }
+                    calText += todayEventSelector + eventName[evt] + "</span>";
+                    numOfEntries++;
+                    closingRequired = true;
+                } else if (numOfEntries == 2) {
+                    if (isMultiDayEvent) {
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                    } else {
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                    }
+                    calText += todayEventSelector + eventName[evt] + "</span>";
+                    calText +="</li>"
+                    numOfEntries=0;
+                    closingRequired = false;
+                } else {
+                    // close, and start a new one
+                    calText +="</li>"
+                    calText+="<li class='eventitem' style='word-wrap: break-word'>"
+                    if (isMultiDayEvent) {
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                    } else {
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                    }
+                    calText += todayEventSelector + eventName[evt] + "</span>";
+                    numOfEntries=1;
+                    closingRequired = true;
+
+                }
+                
             }
-            calText += todayEventSelector + eventName[evt] + "</span></li>";    
-        } else if (!filledEntries) {
-            // alert("meep")
-            calText+="<li class='eventitem' style='word-wrap: break-word'>"
-            if (isMultiDayEvent) {
-                calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
-            } else {
-                calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
-            }
-            calText += todayEventSelector + eventName[evt] + "</span>";
-            filledEntries = true;
-        } else if (filledEntries) {
-            if (isMultiDayEvent) {
-                calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
-            } else {
-                calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
-            }
-            calText += todayEventSelector + eventName[evt] + "</span></li>";
-            filledEntries = false;
-        }
+
+
+
+
+
+
+
+        // if (eventName[evt].length > LINE_LENGTH) {
+        //     // alert("LONG EVENT");
+        //     if(filledEntries) {
+        //         calText += "</li>"
+        //         filledEntries = false;
+        //     }
+        //     calText+="<li class='eventitem' style='word-wrap: break-word'>"
+        //     if (isMultiDayEvent) {
+        //         calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+        //     } else {
+        //         calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+        //     }
+        //     calText += todayEventSelector + eventName[evt] + "</span></li>";    
+        // } else if (!filledEntries) {
+        //     // alert("meep")
+        //     calText+="<li class='eventitem' style='word-wrap: break-word'>"
+        //     if (isMultiDayEvent) {
+        //         calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+        //     } else {
+        //         calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+        //     }
+        //     calText += todayEventSelector + eventName[evt] + "</span>";
+        //     filledEntries = true;
+        // } else if (filledEntries) {
+        //     if (isMultiDayEvent) {
+        //         calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+        //     } else {
+        //         calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+        //     }
+        //     calText += todayEventSelector + eventName[evt] + "</span></li>";
+        //     filledEntries = false;
+        // }
         // TODO: Check if event is ongoing - if it is then do stuff
         // if (cmprDate(startDate, deltaDays)) 
     }
-    if (filledEntries) {
+    if (closingRequired) {
         calText += "</li>";
     }
     calText += "</ul>"
@@ -469,6 +568,8 @@ function getCalendar() {
             var calText = "<ul>"
             var isBreak = true;
             var filledEntries = false;
+            var closingRequired = false
+            var numOfEntries = 0;
             var today = moment();
             var todayDate = moment({year: today.year(), month: today.month(), date: today.date()});
             for (evt in eventName) {
@@ -496,42 +597,99 @@ function getCalendar() {
                     todayEventSelector = "<span class ='calevent'>"
                     finalDateSelector = "<span  class='caldate'>"
                 }
-                if (eventName[evt].length > LINE_LENGTH) {
-                    // alert("LONG EVENT");
-                    if(filledEntries) {
-                        calText += "</li>"
-                        filledEntries = false;
-                    }
+                if(eventName[evt].length > LINE_LENGTH) {
+
+                //+2
+                if (numOfEntries == 0) {
+                    //start a new li
                     calText+="<li class='eventitem' style='word-wrap: break-word'>"
                     if (isMultiDayEvent) {
-                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span><br>";
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
                     } else {
-                        calText += todayDateSelector + startFormat.toUpperCase() + "</span><br>";
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
                     }
-                    calText += todayEventSelector + eventName[evt] + "</span></li>";    
-                } else if (!filledEntries) {
-                    // alert("meep")
+                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                    numOfEntries=2;
+                    closingRequired = true;
+                } else if (numOfEntries == 1) {
+                    //don't start a new li or close it
+                    if (isMultiDayEvent) {
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                    } else {
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                    }
+                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                    calText +="</li>"
+                    numOfEntries=0;
+                    closingRequired = false;
+                } else {
+                    //close the li, then start a new one
+                    calText +="</li>"
                     calText+="<li class='eventitem' style='word-wrap: break-word'>"
                     if (isMultiDayEvent) {
-                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span><br>";
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
                     } else {
-                        calText += todayDateSelector + startFormat.toUpperCase() + "</span><br>";
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
                     }
-                    calText += todayEventSelector + eventName[evt] + "</span><br><br>";
-                    filledEntries = true;
-                } else if (filledEntries) {
-                    if (isMultiDayEvent) {
-                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span><br>";
-                    } else {
-                        calText += todayDateSelector + startFormat.toUpperCase() + "</span><br>";
-                    }
-                    calText += todayEventSelector + eventName[evt] + "</span></li>";
-                    filledEntries = false;
+                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                    numOfEntries=2;
+                    closingRequired = true;
+
                 }
+
+            } else {
+                //+1
+                if (numOfEntries == 0) {
+                    //start a new one, don't close it
+                    calText+="<li class='eventitem' style='word-wrap: break-word'>"
+                    if (isMultiDayEvent) {
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                    } else {
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                    }
+                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                    numOfEntries=1;
+                    closingRequired = true;
+                } else if (numOfEntries == 1) {
+                    // dont start, dont close
+                    if (isMultiDayEvent) {
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                    } else {
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                    }
+                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                    numOfEntries++;
+                    closingRequired = true;
+                } else if (numOfEntries == 2) {
+                    if (isMultiDayEvent) {
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                    } else {
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                    }
+                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                    calText +="</li>"
+                    numOfEntries=0;
+                    closingRequired = false;
+                } else {
+                    // close, and start a new one
+                    calText +="</li>"
+                    calText+="<li class='eventitem' style='word-wrap: break-word'>"
+                    if (isMultiDayEvent) {
+                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                    } else {
+                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                    }
+                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                    numOfEntries=1;
+                    closingRequired = true;
+
+                }
+                
+            }
                 // TODO: Check if event is ongoing - if it is then do stuff
                 // if (cmprDate(startDate, deltaDays)) 
             }
-            if (filledEntries) {
+            if (closingRequired) {
                 calText += "</li>";
             }
             calText += "</ul>"
