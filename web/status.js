@@ -198,7 +198,7 @@ function playMedia() {
 
 // CALENDAR
 
-var LINE_LENGTH = 24;
+var LINE_LENGTH = 48;
 
 
 
@@ -437,21 +437,23 @@ function getCalendar() {
                     } else {
                         calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
                     }
-                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br><br></span><br><br>";
                     numOfEntries=2;
                     closingRequired = true;
-                } else if (numOfEntries == 1) {
-                    //don't start a new li or close it
-                    if (isMultiDayEvent) {
-                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
-                    } else {
-                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
-                    }
-                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
-                    calText +="</li>"
-                    numOfEntries=0;
-                    closingRequired = false;
-                } else {
+                } 
+                // else if (numOfEntries == 1) {
+                //     //don't start a new li or close it
+                //     if (isMultiDayEvent) {
+                //         calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                //     } else {
+                //         calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                //     }
+                //     calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                //     calText +="</li>"
+                //     numOfEntries=0;
+                //     closingRequired = false;
+                // } 
+                else {
                     //close the li, then start a new one
                     calText +="</li>"
                     calText+="<li class='eventitem' style='word-wrap: break-word'>"
@@ -460,7 +462,7 @@ function getCalendar() {
                     } else {
                         calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
                     }
-                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br><br></span><br><br>";
                     numOfEntries=2;
                     closingRequired = true;
 
@@ -476,7 +478,7 @@ function getCalendar() {
                     } else {
                         calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
                     }
-                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br><br></span><br><br>";
                     numOfEntries=1;
                     closingRequired = true;
                 } else if (numOfEntries == 1) {
@@ -486,20 +488,22 @@ function getCalendar() {
                     } else {
                         calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
                     }
-                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br><br></span><br><br>";
                     numOfEntries++;
                     closingRequired = true;
-                } else if (numOfEntries == 2) {
-                    if (isMultiDayEvent) {
-                        calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
-                    } else {
-                        calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
-                    }
-                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
-                    calText +="</li>"
-                    numOfEntries=0;
-                    closingRequired = false;
-                } else {
+                } 
+                // else if (numOfEntries == 2) {
+                //     if (isMultiDayEvent) {
+                //         calText += todayDateSelector + startFormat.toUpperCase() + " </span>" + finalDateSelector + "to " + endFormat.toUpperCase() + "</span>";
+                //     } else {
+                //         calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
+                //     }
+                //     calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                //     calText +="</li>"
+                //     numOfEntries=0;
+                //     closingRequired = false;
+                // } 
+                else {
                     // close, and start a new one
                     calText +="</li>"
                     calText+="<li class='eventitem' style='word-wrap: break-word'>"
@@ -508,7 +512,7 @@ function getCalendar() {
                     } else {
                         calText += todayDateSelector + startFormat.toUpperCase() + "</span>";
                     }
-                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br></span><br>";
+                    calText += "<br>"+todayEventSelector + eventName[evt] + "<br><br></span><br><br>";
                     numOfEntries=1;
                     closingRequired = true;
 
