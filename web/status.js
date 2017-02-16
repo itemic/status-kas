@@ -331,7 +331,7 @@ function getTwitter() {
                                 }
                                 for (image in imageArray[tweet]) {
                                     tweetText += "<li class='eventitem' style='word-wrap: break-word'>";
-                                    tweetText += "<span class='twuser'>@"+ userArray[tweet].toUpperCase() + " (" + tweetTime.toUpperCase() + ")</span><br>"
+                                    tweetText += "<span class='twuser'>@"+ userArray[tweet].toUpperCase() + " (" + tweetTime.toUpperCase() + ")</span><br><br>"
                                     tweetText += "<img class='twitter-image' src='"+imageArray[tweet][image] + "'</span>";
                                     tweetText += "<span class='twtweet twimage'><br>" + tweetArray[tweet] + "</span>";
                                     tweetText += "</li>"
@@ -384,7 +384,7 @@ function beginTwitterSlider() {
                 // infinite: true,
                 arrows: false,
             nav: false,
-            delay: 5000,
+            delay: 7000,
             animation: 'fade',
             animateHeight: true
         });
@@ -555,7 +555,7 @@ function beginCalendarSlider () {
         infinite: true,
         arrows: false,
         nav: false,
-        delay: 4500
+        delay: 6000
     });
 
 }
