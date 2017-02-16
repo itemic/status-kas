@@ -97,18 +97,20 @@ The weather block uses Dark Sky APIs to get the current weather conditions and t
 
 Both the weather and AQI are processed together. The AQI takes a bit more time to process, so it takes a bit longer for this component to fully load.
 
-**Update frequency:** 20 minutes.
+Be advised that Dark Sky only allows 1000 free calls a day (hard cap can be set; default: 1000), so this would be (without any refreshes), 288 calls. If this were to be opened up to the public additional calls may need to be purchased.
+
+**Update frequency:** 5 minutes.
 ### Calendar
 The calendar shows the next few upcoming events. Events that are currently in progress (i.e. happening today or within the date range) are highlighted.
 
 The maximum number of entries shown can be changed with the config setting `calendar[entries]`.
 
-**Update frequency:** 24 hours, or manual.
+**Update frequency:** 2 hours
 
 ### Twitter
 This component displays tweets from a public Twitter list. Tweets can be filtered if wanted.
 
-**Update frequency:** 2 hours.
+**Update frequency:** 20 minutes
 
 #### Setting up a Twitter list
 1. Set `twitter[slug]` to the name of the Twitter list[^This is not actually the name, but the last part of the URL when visiting the list on the web. It is usually the name of the list with spaces replaced with dashes (-).]. 
@@ -149,7 +151,3 @@ This is just a public spreadsheet link as described in **Components**.
 
 ## Additional Notes
 * A copy of `config.php` is included with the keys stripped out. This file is `configx.php`. 
-
-## Todos
-- [ ] Trim shortened URLs if Twitter image exists
-- [x] IFrame and YouTube issue
