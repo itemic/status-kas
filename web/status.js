@@ -93,7 +93,7 @@ function getSchedule(data, division) {
 
 // MEDIA
 function playMedia() {
-    // console.log(content);
+    console.log(content);
     var regex = /(?:\.([^.]+))?$/;
     if (content.length != 0) {
         ++current;
@@ -137,6 +137,7 @@ function playMedia() {
         canvas.html(source);
 
 
+
         // alert(source);
         // alert('<iframe src="https://docs.google.com/presentation/d/1Wrto7IPH_g2snRRy1T-UxChEji7he3ejX0KcJn1mhx8/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>')
         // canvas.html('<iframe src="https://docs.google.com/presentation/d/1Wrto7IPH_g2snRRy1T-UxChEji7he3ejX0KcJn1mhx8/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>')
@@ -146,7 +147,20 @@ function playMedia() {
         }
 
         if (vidTypes.includes(extension)) {
-            //it's a video!
+            var videoElement = document.getElementById("videosource");
+
+            setTimeout(function() {
+                console.log(videoElement.readyState);
+                if (videoElement.readyState < 3) {
+                    playMedia();
+                }
+            }, 5000)
+
+            videoElement.addEventListener("waiting", function() {
+                playMedia();
+            }, false)
+
+
             canvas.find('video').bind("ended", function() {
                 playMedia();
             });
@@ -191,7 +205,7 @@ function playMedia() {
 } else {
     source = imgsrc.replace('$', "img/placeholder.png");
     canvas.html(source);
-    setTimeout(function() {content = processMedia(); current = 0; playMedia();}, 1000 * 2) //poll every 10 sec
+    setTimeout(function() {content = processMedia(); current = 0; playMedia();}, 1000 * 8) //poll every 8 sec
 }
 }
 
