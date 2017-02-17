@@ -51,10 +51,6 @@
 	// $alt = $config['mode']['altmode'];
 	if ($mode == "fullscreen") {
 		include("fullscreen.php");
-	} else if ($mode == "alt1") {
-		include("altmode1.php");
-	} else if ($mode == "alt2") {
-		include("altmode2.php");
 	} else {
 		include("dashboard.php");
 	}
