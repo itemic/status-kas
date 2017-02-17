@@ -42,7 +42,7 @@ function currentTime() {
 }
 
 function updateSchedule() {
-	$.getJSON("schedule.json", function(data) {
+	$.getJSON("scheduletest.json", function(data) {
         if (!!document.getElementById("hs") && !!document.getElementById("ms")) {
         document.getElementById("ms").textContent = getSchedule(data, "MS");
         document.getElementById("hs").textContent = getSchedule(data, "HS");

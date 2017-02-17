@@ -17,8 +17,18 @@ $cal_end = array();
 foreach ($results["items"] as $cal_item) {
  	$evt_name = addslashes($cal_item["summary"]);
  	$evt_name = preg_replace('~[\r\n]+~', ' ', $evt_name);
- 	$evt_start = $cal_item["start"]["date"];
- 	$evt_end = $cal_item["end"]["date"];
+ 	if (array_key_exists("date", $cal_item["start"])) {
+ 		$evt_start = $cal_item["start"]["date"];
+ 	} else {
+ 		$evt_start = $cal_item["start"]["dateTime"];
+ 	}
+
+ 	if (array_key_exists("date", $cal_item["end"])) {
+ 		$evt_end = $cal_item["end"]["date"];
+ 	} else {
+ 		$evt_end = $cal_item["end"]["dateTime"];
+ 	}
+ 	
 
  	array_push($cal_event, $evt_name);
  	array_push($cal_start, $evt_start);
