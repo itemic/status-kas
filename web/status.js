@@ -42,7 +42,7 @@ function currentTime() {
 }
 
 function updateSchedule() {
-	$.getJSON("scheduletest.json", function(data) {
+	$.getJSON("scheduledisplay.json", function(data) {
         if (!!document.getElementById("hs") && !!document.getElementById("ms")) {
         document.getElementById("ms").textContent = getSchedule(data, "MS");
         document.getElementById("hs").textContent = getSchedule(data, "HS");
@@ -570,7 +570,7 @@ function processMedia() {
     var data;
     $.ajax({
         async: false,
-        url: "mediahandler2.php",
+        url: "mediahandler.php",
         type: "POST",
         dataType: "json",
         success: function(response) {

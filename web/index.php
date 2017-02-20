@@ -41,12 +41,13 @@
 	<?php
 
 	$config = require('../config/config.php');
-
-	?>
-
-
-	<?php
+	$imgduration = $config['media']['image_duration'];
+	$slidesduration = $config['media']['slides_duration'];
+	
+	
 	$mode = $_GET["mode"];
+	echo "<script>imgDuration = $imgduration; slidesDuration = $slidesduration</script>";
+
 
 	// $alt = $config['mode']['altmode'];
 	if ($mode == "fullscreen") {

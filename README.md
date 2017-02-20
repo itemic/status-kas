@@ -82,12 +82,20 @@ Larger videos may take some time to load, so the placeholder image may appear in
 
 The clock shows the date and time. The schedule section shows the current block for MS and HS students.
 
-The schedule data comes from `schedule.json` which contains the blocks and time intervals for each block.
+The schedule data comes from `scheduledisplay.json` which contains the blocks and time intervals for each block.
 
 **Update frequency:** varies. Clock updates five times a second and the schedule updates twice a minute to ensure it is updated on time.
+#### Schedule Editor
+There is a very basic schedule editor included for quick changes to the current schedule (mainly names). This can be accessed at `/scheduler.php`.
+
+It does not support adding custom schedules. Its primary task is to change block names or times if necessary. However, as of 2/20/2017, there is no input validation.
+
+It also does not support adding of schedules.
+
+If anything is messed up (i.e. if something is deleted), there is a Reset Schedule to Defaults button that updates `scheduledisplay.json` with the defaults file, `schedule.json`.
 
 #### Custom Schedules
-The `schedule.json` file also supports custom schedules should it be necessary. Add to the array a new entry with key `XSYYYYMMDD`, where `XS` is either `MS` for middle school or `HS` for high school, and `YYYYMMDD` is the date for the schedule change.
+The `scheduledisplay.json` file also supports custom schedules should it be necessary. Add to the array a new entry with key `XSYYYYMMDD`, where `XS` is either `MS` for middle school or `HS` for high school, and `YYYYMMDD` is the date for the schedule change.
 
 The value should be an array of arrays of the different blocks. Each block should have a `start`, `end`, and `block` key. The `start` and `end` keys should have values that are `HH:mm`, and the `block` key needs the name of the block.
 
