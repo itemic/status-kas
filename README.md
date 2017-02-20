@@ -1,5 +1,5 @@
 # KAS Digital Signage
-This document was last updated on Feb 15, 2017.
+This document was last updated on Feb 20, 2017.
 ## Installation and Setup
 TBA.
 ## Overview
