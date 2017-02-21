@@ -17,9 +17,7 @@ return [
 		'file_location'		=> "",
 		'yt_filelist'		=> "",
 		'image_duration'	=> 3000,
-		'slides_canvas'		=> "",
-		'slides_count'		=> 2,
-		'slides_duration'	=> 5000
+		'slides_filelist'		=> "",
 	
 	],
 

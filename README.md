@@ -65,9 +65,9 @@ There is also support for a Google Slides slideshow (referred to as to the Slide
 
 1. Get a Google Slides embed link from `File > Publish to the web...` and check "Start slideshow as soon as the player loads." Change the length per slide if necessary, and copy the embed link.
 2. Paste the embed link as a new line in `webslides.txt`. Before the link, add the number of slides in that presentation and delimit it with a space.
-	3. EXAMPLE: `3 https://docs.google.com......`
+	3. EXAMPLE: `3 https://docs.google.com......&delayms=3000`
 
-If you want more, just make sure that each entry is on a new line.
+If you want more, just make sure that each entry is on a new line. The file location can be changed with the config entry `media[slides_filelist]`.
 
 #### Precedence
 
@@ -77,7 +77,7 @@ The Slides canvas is shown first, followed by the files in the `media` folder, f
 Fullscreen mode turns the focus to only the media slideshow and a small clock overlay. To display fullscreen mode, append `?mode=fullscreen` to the URL.
 
 #### Placeholders
-In the case where there is no media in the folder, a placeholder image (`img/placeholder`) is shown. The display will check for new media every 10 seconds, so do not be alarmed if it does not appear right away.
+In the case where there is no media in the folder, a placeholder image (`img/placeholder`) is shown. The display will check for new media every 8 seconds, so do not be alarmed if it does not appear right away.
 
 Larger videos may take some time to load, so the placeholder image may appear in its place. This is especially the case when there are subdirectories within the media folder.
 
