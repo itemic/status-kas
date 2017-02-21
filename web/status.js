@@ -124,8 +124,8 @@ function playMedia() {
 
             }
 
-            if (file.includes("docs.google.com")) {
-                source = gssrc.replace('$', file);
+            if (Array.isArray(file)) { //We only use Arrays for Slideshows!
+                source = gssrc.replace('$', file[2]); //time, length, url
 
             }
         }
@@ -138,9 +138,7 @@ function playMedia() {
 
 
 
-        // alert(source);
-        // alert('<iframe src="https://docs.google.com/presentation/d/1Wrto7IPH_g2snRRy1T-UxChEji7he3ejX0KcJn1mhx8/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>')
-        // canvas.html('<iframe src="https://docs.google.com/presentation/d/1Wrto7IPH_g2snRRy1T-UxChEji7he3ejX0KcJn1mhx8/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>')
+
         if (imgTypes.includes(extension)) {
             //it's a photo!
             setTimeout(function() {playMedia();}, imgDuration);
@@ -195,12 +193,14 @@ function playMedia() {
 
         }
 
-        if (file.includes("docs.google.com")) {
+        if (Array.isArray(file)) {
             //presentation :o
-            setTimeout(function() {playMedia();}, slidesDuration);
+            setTimeout(function() {playMedia();}, file[0] * file[1]);
         }
     } else {
-        playMedia();
+        source = imgsrc.replace('$', "img/placeholder.png");
+    canvas.html(source);
+    setTimeout(function() {content = processMedia(); current = 0; playMedia();}, 1000 * 8) //poll every 8 sec
     }
 } else {
     source = imgsrc.replace('$', "img/placeholder.png");

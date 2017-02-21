@@ -48,7 +48,7 @@
 	
 	
 	$mode = $_GET["mode"];
-	echo "<script>imgDuration = $imgduration; slidesDuration = $totalduration</script>";
+	// echo "<script>imgDuration = $imgduration; slidesDuration = $totalduration</script>";
 
 
 	// $alt = $config['mode']['altmode'];
@@ -69,6 +69,7 @@
         
 
         canvas = $('#canvas');
+        var imgDuration = <?php echo $imgduration ?>;
   
         // var canvas = $('#canvas');
         var imgsrc = '<img src="$" alt="" class="img-responsive center-block"/>';

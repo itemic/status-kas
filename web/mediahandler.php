@@ -26,6 +26,7 @@
 		return false;
 	}
 
+
 	$valid_extension = array("png", "jpg", "jpeg", "mov", "mp4", "m4v", "webm");
 	$media_content = array();
 	$slides_canvas = $config['media']['slides_canvas'];
@@ -38,10 +39,28 @@
 		$is_connected = false;
 	}
 
-	if ($slides_canvas && $is_connected) {
-		array_push($media_content,$slides_canvas);
-	}
+	if ($is_connected) {
+		$slidelinks = fopen($config['media']['slides_filelist'], r);
+		// $line = fgets($slidelinks); // just the first one ok
+		while ($line = fgets($slidelinks)) {
+			if ($line) {
+			$querystring = array();
+			$slides_data_array = explode(" ", trim($line));
+			//FORMAT: num of slides, length of slides, slide link
+			$numOfSlides = $slides_data_array[0];
+			$urlOfSlides = $slides_data_array[1];
+			parse_str($urlOfSlides, $querystring);
+			$lenOfSlides = $querystring["delayms"];
 
+			$slides_values = array($numOfSlides, $lenOfSlides, $urlOfSlides);
+
+
+			array_push($media_content,$slides_values);
+		}
+		}
+
+
+	}
 
 
 
