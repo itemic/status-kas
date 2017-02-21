@@ -1,7 +1,12 @@
 # KAS Digital Signage
-This document was last updated on Feb 20, 2017.
+This document was last updated on Feb 21, 2017.
+
+#### 02 21 2017
+* Basic installation info.
+
 ## Installation and Setup
-TBA.
+Set the `web` folder as the root. The `config` file should be on the same level as the root. As it is not the root, there will be no access to it besides through the server-side PHP code.
+
 ## Overview
 The digital signage system consists of several major components, each described in their respective sub-section in the **Components** section below. The data is customizable from a `config.php` file.
 ## Components

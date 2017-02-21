@@ -43,10 +43,12 @@
 	$config = require('../config/config.php');
 	$imgduration = $config['media']['image_duration'];
 	$slidesduration = $config['media']['slides_duration'];
+	$numOfSlides = $config['media']['slides_count'];
+	$totalduration = $slidesduration * $numOfSlides
 	
 	
 	$mode = $_GET["mode"];
-	echo "<script>imgDuration = $imgduration; slidesDuration = $slidesduration</script>";
+	echo "<script>imgDuration = $imgduration; slidesDuration = $totalduration</script>";
 
 
 	// $alt = $config['mode']['altmode'];
