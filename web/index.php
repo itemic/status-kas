@@ -44,7 +44,7 @@
 	$imgduration = $config['media']['image_duration'];
 	$slidesduration = $config['media']['slides_duration'];
 	$numOfSlides = $config['media']['slides_count'];
-	$totalduration = $slidesduration * $numOfSlides
+	$totalduration = $slidesduration * $numOfSlides;
 	
 	
 	$mode = $_GET["mode"];
