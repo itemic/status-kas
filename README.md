@@ -3,6 +3,7 @@ This document was last updated on Feb 21, 2017.
 
 #### 02 21 2017
 * Basic installation info.
+* Advanced slideshow handling
 
 ## Installation and Setup
 Set the `web` folder as the root. The `config` file should be on the same level as the root. As it is not the root, there will be no access to it besides through the server-side PHP code.
@@ -63,13 +64,10 @@ The configuration entry for image duration is `media[image_duration]`. Units in 
 There is also support for a Google Slides slideshow (referred to as to the Slides canvas) for fast/live updates.
 
 1. Get a Google Slides embed link from `File > Publish to the web...` and check "Start slideshow as soon as the player loads." Change the length per slide if necessary, and copy the embed link.
-2. Set the config entry `media[slides_canvas]` to the copied embed link.
-3. Check the embed link: does it include `/pub?` somewhere in the URL? If it does, change it to `/embed?`. Alternatively, instead of copying the embed link from the first tab `(Link)` in `Publish to the web...`, go to the second tab `(Embed)`, and copy the URL starting from `src=""` in the iframe embed code.
-3. Set `media[slides_duration]` to the same value as the one in the embed link, and also set `media[slides_count]` to the number of slides in the slideshow.
+2. Paste the embed link as a new line in `webslides.txt`. Before the link, add the number of slides in that presentation and delimit it with a space.
+	3. EXAMPLE: `3 https://docs.google.com......`
 
-The Slides canvas is always the first thing that is displayed before anything else. To disable the canvas, replace the embed link in `media[slides_canvas]` with the empty string `""`.
-
-Due to the way this embed link works, there is no way of determining how many slides a slideshow has, so ensure that the right `media` variables are set.
+If you want more, just make sure that each entry is on a new line.
 
 #### Precedence
 

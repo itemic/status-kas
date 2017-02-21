@@ -54,8 +54,9 @@
 
 			$slides_values = array($numOfSlides, $lenOfSlides, $urlOfSlides);
 
-
+			if (sizeof($slides_data_array) == 2) {
 			array_push($media_content,$slides_values);
+		}
 		}
 		}
 
