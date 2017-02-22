@@ -1,6 +1,8 @@
 # KAS Digital Signage
-This document was last updated on Feb 21, 2017.
-
+This document was last updated on Feb 22, 2017.
+#### 02 22 2017
+* Minor text fixes
+* Discuss password authentication
 #### 02 21 2017
 * Basic installation info.
 * Advanced slideshow handling
