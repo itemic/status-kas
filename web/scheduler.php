@@ -1,3 +1,4 @@
+
 <!doctype HTML> 
 <html>
 
@@ -104,12 +105,13 @@
   <input class='form-control' id='focusedInput1' type='text' value='$start_time' name='startform'>
   <label class='control-label' for='focusedInput1 '>End time</label>
   <input class='form-control' id='focusedInput1' type='text' value='$end_time' name='endform'>
-
+<label class='control-label' for='focusedInput1 '>Password</label>
+  <input class='form-control' id='focusedInput1' type='password' value='' name='password'>
 </div>
       </div>
       <div class='modal-footer'>
         <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-		<button type='submit' name='deleteBlock' class='btn btn-danger' >Delete</button>
+		<button type='button' name='deleteBlock' class='btn btn-danger' >Delete</button>
         <button type='submit' name='submitBlock' class='btn btn-primary' >Confirm</button>
       </div>
     </div>
@@ -158,11 +160,14 @@
       </div>
       <div class='modal-body'>
       <input type='hidden' value='$day' name='dayheader'>
-        Are you sure you want to delete this schedule? ($day)
+        Are you sure you want to delete this schedule? ($day)<br>
+        <label class='control-label' for='focusedInput1 '>Password</label>
+  <input class='form-control' id='focusedInput1' type='password' value='' name='password'>
+
       </div>
       <div class='modal-footer'>
-        <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-        <button type='submit' name='delete' class='btn btn-warning' >Delete</button>
+        <button type='submit' class='btn btn-default' data-dismiss='modal'>Cancel</button>
+        <button type='button' name='delete' class='btn btn-warning' >Delete</button>
       </div>
     </div>
   </div>
@@ -191,6 +196,8 @@
 
 <?php 
 
+$config = require('../config/config.php');
+$password = $config['schedule']['pword'];
 
 
 
@@ -207,30 +214,40 @@ if(isset($_POST['submitBlock'])) {
 	$block  = cleanup($_POST['blockform']);
 	$start = cleanup($_POST['startform']);
 	$end = cleanup($_POST['endform']);
+	$pword = cleanup($_POST['password']);
 
 	$schedule[$_POST['day']][$_POST['itr']]["block"] = $block;
 	$schedule[$_POST['day']][$_POST['itr']]["start"] = $start;
 	$schedule[$_POST['day']][$_POST['itr']]["end"] = $end;
+
+	if ($pword == $password) {
 	$new = json_encode($schedule);
 	file_put_contents('scheduledisplay.json', $new);
 	echo "<meta http-equiv='refresh' content='0'>";
+}
 
 
 }
 
 
 if(isset($_POST['deleteBlock'])) {
+	$pword = cleanup($_POST['password']);
+	if ($pword == $password) {
 	unset($schedule[$_POST['day']][$_POST['itr']]);
 	$new = json_encode($schedule);
 	file_put_contents('scheduledisplay.json', $new);
 	echo "<meta http-equiv='refresh' content='0'>";
 }
+}
 
 if(isset($_POST['delete'])) {
+	$pword = cleanup($_POST['password']);
+	if ($pword == $password) {
 	unset($schedule[$_POST['dayheader']]);
 	$new = json_encode($schedule);
 	file_put_contents('scheduledisplay.json', $new);
 	echo "<meta http-equiv='refresh' content='0'>";
+}
 
 }
 

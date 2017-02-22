@@ -25,9 +25,6 @@ return [
 		'entries' 			=> 10
 	],
 
-	'mode' => [
-		'fullscreen'		=> false
-	],
 
 	'news_ticker' => [
 		'spreadsheet_url' 	=> ""
@@ -51,6 +48,9 @@ return [
 		'lon'				=> "",
 		'aqi'				=> ""
 
+	],
+	'schedule' => [
+		'pword'			=> ""
 	]
 ];
 ?>

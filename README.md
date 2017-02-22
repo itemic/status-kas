@@ -12,11 +12,11 @@ Set the `web` folder as the root. The `config` file should be on the same level 
 The digital signage system consists of several major components, each described in their respective sub-section in the **Components** section below. The data is customizable from a `config.php` file.
 ## Components
 ### Banner
-The banner is always displayed at the top of the page and usually contains the school logo. It is expected to be invariant and not change from time to time.
+The banner is always displayed at the top of the page and usually contains the school logo. It is expected to be invariant.
 ### News Ticker
 The news ticker displays information in a scrolling text manner.  It can be updated easily and thus can be used to display announcements.
 
-The ticker data entries come from a Google Sheets spreadsheet. To add or remove entries, edit the cells in the first column. (The first cell in each column will not be displayed, so in this case, only edit cells from A2 onwards.)
+The ticker data entries come from a Google Sheets spreadsheet. To add or remove entries, edit the cells in the first column. (A1 will not be displayed, so in this case, only edit cells from A2 onwards. The other cells (i.e. not A), aren't involved with this as well.
 
 The spreadsheet needs to be a public, published spreadsheet so it can be accessed by the page. You can publish a Google Sheets spreadsheet in `File > Publish to the web...`. 
 
@@ -43,7 +43,7 @@ To ensure that the videos/pictures take up the full screen, use a 16:9 aspect ra
 **Important:** Although there are a few tests to see whether the media is being displayed right now, do not remove (or move) media files while they are being displayed. If something needs to be removed, remove it once it is no longer on the screen. If it absolutely needs to be removed straightaway, a manual refresh may be needed.
 
 #### Setting media location
-The default file location is currently `media` in the root directory (`web`). To change where files are found, change `media[file_location]` in the configuration file.
+The default file location is currently `media` in the root directory `web`. To change where files are found, change `media[file_location]` in the configuration file.
 
 It is possible to have multiple directories within the media folder.
 
@@ -65,7 +65,7 @@ There is also support for a Google Slides slideshow (referred to as to the Slide
 
 1. Get a Google Slides embed link from `File > Publish to the web...` and check "Start slideshow as soon as the player loads." Change the length per slide if necessary, and copy the embed link.
 2. Paste the embed link as a new line in `webslides.txt`. Before the link, add the number of slides in that presentation and delimit it with a space.
-	3. EXAMPLE: `3 https://docs.google.com......&delayms=3000`
+3. EXAMPLE: `3 https://docs.google.com......&delayms=3000`
 
 If you want more, just make sure that each entry is on a new line. The file location can be changed with the config entry `media[slides_filelist]`.
 
@@ -94,6 +94,8 @@ There is a very basic schedule editor included for quick changes to the current 
 It does not support adding custom schedules. Its primary task is to change block names or times if necessary. However, as of 2/20/2017, there is no input validation.
 
 It also does not support adding of schedules.
+
+You need to enter a password to change anything (except resetting to defaults). This password is in the config file, at `schedule[pword]`
 
 If anything is messed up (i.e. if something is deleted), there is a Reset Schedule to Defaults button that updates `scheduledisplay.json` with the defaults file, `schedule.json`.
 
