@@ -62,16 +62,37 @@
 
 
 	}
+	$file_root = $config['media']['file_location'];
+	$all_files = array_slice(scandir($file_root), 2);
 
-
-
-	$all_files = getDirContents($config['media']['file_location']);
 	foreach ($all_files as $media_file) {
-		$ext = pathinfo($media_file, PATHINFO_EXTENSION);
-		if (in_array(strtolower($ext), $valid_extension)) {
+		// echo "Is $media_file a directory? ";
+		// echo is_dir($file_root."/".$media_file);
+		if (is_dir($file_root."/".$media_file)) {
+			// echo "$media_file is a directory.";
+			$sub = array_slice(scandir($file_root."/".$media_file), 2);
+			foreach ($sub as $sub_file) {
+				// echo $sub_file;
+				$ext = pathinfo($sub_file, PATHINFO_EXTENSION);
+				if (in_array(strtolower($ext), $valid_extension)) {
+				array_push($media_content,$file_root."/".$media_file."/".$sub_file);
+				}
+			}
+		} else {
+			$ext = pathinfo($media_file, PATHINFO_EXTENSION);
+			if (in_array(strtolower($ext), $valid_extension)) {
 			array_push($media_content,$media_file);
+			}
 		}
 	}
+
+	// $all_files = getDirContents($config['media']['file_location']);
+	// foreach ($all_files as $media_file) {
+	// 	$ext = pathinfo($media_file, PATHINFO_EXTENSION);
+	// 	if (in_array(strtolower($ext), $valid_extension)) {
+	// 		array_push($media_content,$media_file);
+	// 	}
+	// }
 
 
 	if ($is_connected) {
@@ -119,7 +140,6 @@
     // echo $value . " ";
     return $contents;
 }
-
 
 
 
