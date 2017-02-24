@@ -111,8 +111,8 @@
       </div>
       <div class='modal-footer'>
         <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-		<button type='button' name='deleteBlock' class='btn btn-danger' >Delete</button>
-        <button type='submit' name='submitBlock' class='btn btn-primary' >Confirm</button>
+		<button type='submit' name='submitBlock' class='btn btn-primary' >Confirm</button>
+		<button type='submit' name='deleteBlock' class='btn btn-danger' >Delete</button>
       </div>
     </div>
   </div>
@@ -167,7 +167,7 @@
       </div>
       <div class='modal-footer'>
         <button type='submit' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-        <button type='button' name='delete' class='btn btn-warning' >Delete</button>
+        <button type='submit' name='delete' class='btn btn-warning' >Delete</button>
       </div>
     </div>
   </div>
