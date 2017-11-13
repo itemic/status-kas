@@ -10,10 +10,11 @@ $weatherURL = "https://api.darksky.net/forecast/$api/$lat,$lon?units=si";
 $weatherresults = json_decode(file_get_contents($weatherURL), true);
 $current_temp = ($weatherresults["currently"]["temperature"]);
 //aqi
-$aqiURL = "http://opendata.epa.gov.tw/ws/Data/REWIQA/?\$filter=SiteName%20eq%20'%E5%B7%A6%E7%87%9F'&format=json&token=$aqikey";
+$aqiURL = "https://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000259?filters=SiteName%20eq%20'%E5%B7%A6%E7%87%9F'&format=json&token=$aqikey";
+//https://opendata.epa.gov.tw/Data/Contents/ATM00679/ AQI Source
 
 $aqi_results = json_decode(file_get_contents($aqiURL), true);
-$current_aqi = $aqi_results[0]["AQI"];
+$current_aqi = $aqi_results["result"]["records"][0]["AQI"];
 
 
 if (!$current_temp) {

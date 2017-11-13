@@ -1,0 +1,15 @@
+Release Notes Digital Signage (DS)
+https://github.com/itemic/status-kas
+
+v4.2
+11/9/2017
+Update weatherhandler.php with new OpenData API URL
+
+v4.1
+11/8/2017
+Fix AQI widget after OpenData API update. Change array from 0 to 53 in weatherhandler.php
+
+v4.0
+2/21/2017
+Final working version designed by Terran Kroft @itemic
+Awesome job
